@@ -1,0 +1,346 @@
+<!-- ============================================================
+     HerBloom homepage — SINGLE-FILE EMBED for GemPages
+     Paste this ENTIRE block into a GemPages "HTML / Liquid" (Custom Code) element.
+     All CSS is scoped under .hb so it will not affect the rest of your theme.
+     ============================================================ -->
+<div class="hb">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap');
+
+    .hb {
+      --cream:#f7f1ea; --cream-2:#f1e9dd; --cream-3:#faf6f0; --white:#fff;
+      --green:#234c3b; --green-dark:#1a3a2d; --terra:#c26a43; --terra-soft:#f3ddce;
+      --ink:#1b1a18; --muted:#7b756c; --line:rgba(27,26,24,.12);
+      --font-serif:'Playfair Display',Georgia,serif; --font-sans:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --radius:16px; --radius-lg:26px; --shadow:0 24px 60px -28px rgba(27,26,24,.4);
+      font-family:var(--font-sans); color:var(--ink); background:var(--cream);
+      line-height:1.6; -webkit-font-smoothing:antialiased;
+    }
+    .hb, .hb *, .hb *::before, .hb *::after { box-sizing:border-box; }
+    .hb [hidden] { display:none !important; }
+    .hb img { max-width:100%; display:block; }
+    .hb a { color:inherit; text-decoration:none; }
+    .hb p, .hb h1, .hb h2, .hb h3, .hb h4, .hb ul, .hb ol, .hb blockquote, .hb figure { margin:0; }
+    .hb ul, .hb ol { padding:0; list-style:none; }
+
+    .hb .container { width:100%; max-width:1240px; margin-inline:auto; padding-inline:clamp(20px,5vw,56px); }
+    .hb .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .hb .tag { display:inline-block; background:var(--terra-soft); color:var(--terra); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; font-weight:500; padding:.45rem .95rem; border-radius:100px; }
+    .hb .stars { color:var(--terra); letter-spacing:.12em; }
+    .hb .stars--lg { font-size:1.3rem; display:inline-block; margin-bottom:.4rem; }
+    .hb .muted { color:var(--muted); }
+
+    .hb .btn { display:inline-flex; align-items:center; justify-content:center; gap:.55rem; padding:.9rem 1.7rem; border-radius:100px; font-family:var(--font-sans); font-size:.95rem; font-weight:500; letter-spacing:.02em; cursor:pointer; border:1.5px solid transparent; transition:transform .2s,background .2s,color .2s,box-shadow .2s; }
+    .hb .btn:hover { transform:translateY(-2px); }
+    .hb .btn--primary { background:var(--green); color:var(--cream); }
+    .hb .btn--primary:hover { background:var(--green-dark); box-shadow:var(--shadow); }
+    .hb .btn--lg { padding:1.05rem 2.1rem; font-size:1rem; }
+    .hb .btn .arrow { transition:transform .2s; }
+    .hb .btn:hover .arrow { transform:translateX(4px); }
+    .hb .btn--add { padding:.5rem 1.15rem; background:transparent; color:var(--green); border:1.5px solid var(--green); font-size:.85rem; border-radius:100px; }
+    .hb .btn--add:hover { background:var(--green); color:var(--cream); }
+
+    .hb .announce { background:var(--cream-2); color:var(--ink); text-align:center; font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; padding:.55rem 1rem; border-bottom:1px solid var(--line); }
+
+    .hb .header { position:relative; z-index:5; background:var(--cream); border-bottom:1px solid var(--line); }
+    .hb .header__inner { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:1rem; padding-block:1rem; }
+    .hb .nav { display:flex; gap:1.7rem; font-size:.95rem; }
+    .hb .nav--left { justify-content:flex-start; }
+    .hb .nav a { position:relative; display:inline-flex; align-items:center; gap:.3rem; color:var(--ink); transition:color .2s; }
+    .hb .nav a.has-caret::after { content:"⌄"; font-size:.9em; position:relative; top:-2px; opacity:.7; }
+    .hb .nav a:hover { color:var(--terra); }
+    .hb .logo { display:inline-flex; align-items:baseline; justify-self:center; font-family:var(--font-serif); font-weight:600; font-size:1.7rem; letter-spacing:.06em; color:var(--ink); }
+    .hb .logo__b { font-style:italic; color:var(--terra); font-weight:500; margin:0 -.02em; transform:translateY(2px); font-size:1.15em; }
+    .hb .header__actions { display:flex; align-items:center; gap:.5rem; justify-self:end; }
+    .hb .pill-select { display:inline-flex; align-items:center; gap:.35rem; background:transparent; border:none; cursor:pointer; font-family:var(--font-sans); font-size:.9rem; color:var(--ink); padding:.4rem .5rem; }
+    .hb .pill-select .flag { font-size:1rem; }
+    .hb .icon-btn { position:relative; display:inline-grid; place-items:center; width:40px; height:40px; border:none; background:transparent; color:var(--ink); cursor:pointer; border-radius:50%; transition:background .2s; }
+    .hb .icon-btn:hover { background:var(--cream-2); }
+    .hb .icon-btn--cart .cart-count { position:absolute; bottom:5px; right:3px; background:var(--green); color:var(--cream); font-size:.6rem; min-width:15px; height:15px; border-radius:10px; display:grid; place-items:center; padding:0 4px; }
+    .hb .header__menu { display:none; grid-column:1; justify-self:start; }
+    .hb .mobile-menu { display:flex; flex-direction:column; padding:.4rem clamp(20px,5vw,56px) 1rem; border-top:1px solid var(--line); }
+    .hb .mobile-menu a { padding:.65rem 0; font-size:1.05rem; border-bottom:1px solid var(--line); }
+
+    .hb .subhero { text-align:center; padding:1.4rem 1rem .4rem; }
+    .hb .subhero__join { font-size:1.05rem; margin:0 0 .7rem; }
+    .hb .subhero__join strong { color:var(--terra); }
+    .hb .subhero__bar { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:.7rem 1.1rem; font-size:.86rem; color:var(--muted); border-block:1px solid var(--line); padding:.75rem 0; max-width:760px; margin:.4rem auto 0; }
+    .hb .subhero__bar strong { color:var(--ink); }
+    .hb .divider { width:1px; height:14px; background:var(--line); }
+
+    .hb .hero { padding-block:clamp(2rem,5vw,3.5rem) clamp(3rem,7vw,5rem); }
+    .hb .hero__inner { display:grid; grid-template-columns:1fr 1.05fr; align-items:center; gap:clamp(2rem,5vw,4rem); }
+    .hb .hero__title { font-family:var(--font-serif); font-weight:500; font-size:clamp(3rem,7vw,5.4rem); line-height:.98; letter-spacing:-.01em; color:var(--ink); margin:1.1rem 0 1.3rem; }
+    .hb .hero__title em { font-style:italic; color:var(--terra); font-weight:500; }
+    .hb .hero__lede { font-size:1.12rem; max-width:30rem; color:var(--muted); margin:0 0 1.6rem; }
+    .hb .feature-pills { display:flex; flex-wrap:wrap; gap:.7rem; margin:0 0 1.8rem; }
+    .hb .feature-pills li { display:inline-flex; align-items:center; gap:.5rem; background:var(--cream-3); border:1px solid var(--line); padding:.5rem 1rem; border-radius:100px; font-size:.88rem; }
+    .hb .feature-pills .dot { width:7px; height:7px; border-radius:50%; background:var(--terra); }
+    .hb .guarantee { color:var(--green); font-size:.88rem; margin:1rem 0 0; font-weight:500; }
+
+    .hb .hero__visual { position:relative; }
+    .hb .hero__photo { aspect-ratio:4/3.4; border-radius:var(--radius-lg); background:radial-gradient(120% 120% at 70% 20%,#efe3d4 0%,#e4d3bf 60%,#d8c4ab 100%); position:relative; overflow:hidden; }
+    .hb .hero__photo::after { content:""; position:absolute; inset:0; background:radial-gradient(60% 50% at 30% 80%,rgba(255,255,255,.35),transparent 70%); }
+    .hb .hero__card { position:absolute; right:-4%; bottom:-8%; width:62%; background:var(--cream-3); border-radius:22px; box-shadow:var(--shadow); padding:1.1rem 1.1rem 1rem; border:1px solid var(--line); }
+    .hb .hero__badge { position:absolute; top:-22px; right:-14px; width:74px; height:74px; border-radius:50%; background:var(--cream-3); box-shadow:var(--shadow); display:grid; place-content:center; text-align:center; font-family:var(--font-serif); font-weight:600; font-size:1.15rem; color:var(--ink); border:1px solid var(--line); }
+    .hb .hero__badge small { display:block; font-family:var(--font-sans); font-weight:500; font-size:.42rem; letter-spacing:.12em; color:var(--muted); margin-top:2px; }
+    .hb .legging-fan { display:flex; justify-content:center; gap:6px; height:150px; align-items:flex-end; padding:.4rem 0 .8rem; }
+    .hb .leg { width:15%; height:100%; border-radius:40px 40px 8px 8px; box-shadow:inset -6px 0 12px rgba(0,0,0,.08); }
+    .hb .leg--gray { background:linear-gradient(180deg,#b9bcbd,#9aa0a1); }
+    .hb .leg--lav { background:linear-gradient(180deg,#cfcbe4,#b7b2d6); }
+    .hb .leg--black { background:linear-gradient(180deg,#3a3a3e,#1f1f22); }
+    .hb .leg--beige { background:linear-gradient(180deg,#e2d3bd,#cdb99c); }
+    .hb .leg--mauve { background:linear-gradient(180deg,#c69ba0,#ac7d84); }
+    .hb .hero__quote { display:flex; gap:.6rem; align-items:center; background:var(--white); border-radius:14px; padding:.6rem .7rem; border:1px solid var(--line); }
+    .hb .hero__avatar { font-size:1.2rem; }
+    .hb .hero__quote p { font-style:italic; font-size:.82rem; color:var(--ink); }
+    .hb .hero__quote small { font-size:.62rem; letter-spacing:.08em; color:var(--muted); }
+
+    .hb .section { padding-block:clamp(3.5rem,8vw,6rem); }
+    .hb .section--cream { background:var(--cream-2); }
+    .hb .section__head { margin-bottom:2.6rem; }
+    .hb .section__head--center { text-align:center; max-width:42rem; margin-inline:auto; }
+    .hb .section__head--center .tag { margin-bottom:.9rem; }
+    .hb .section__title { font-family:var(--font-serif); font-weight:500; font-size:clamp(2rem,4.5vw,3.1rem); color:var(--ink); margin:.3rem 0 .5rem; letter-spacing:-.01em; }
+    .hb .section__sub { color:var(--muted); }
+
+    .hb .bestsellers__head { display:flex; align-items:center; justify-content:space-between; margin-bottom:2rem; }
+    .hb .carousel-nav { display:flex; gap:.6rem; }
+    .hb .round-btn { width:46px; height:46px; border-radius:50%; cursor:pointer; border:1.5px solid var(--terra); background:transparent; color:var(--terra); font-size:1.3rem; line-height:1; display:grid; place-items:center; transition:all .2s; }
+    .hb .round-btn:hover { background:var(--terra); color:var(--cream); }
+    .hb .round-btn--dark { border-color:var(--green); color:var(--green); }
+    .hb .round-btn--dark:hover { background:var(--green); color:var(--cream); }
+    .hb .products { display:grid; grid-template-columns:repeat(4,1fr); gap:1.4rem; }
+    .hb .card { background:var(--white); border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--line); display:flex; flex-direction:column; transition:transform .25s,box-shadow .25s; }
+    .hb .card:hover { transform:translateY(-6px); box-shadow:var(--shadow); }
+    .hb .card__media { position:relative; aspect-ratio:3/3.4; }
+    .hb .card__media--stone { background:linear-gradient(165deg,#dcd6cc,#c3bbac); }
+    .hb .card__media--sand { background:linear-gradient(165deg,#e9ddc8,#d8c7a9); }
+    .hb .card__media--mist { background:linear-gradient(165deg,#d9dcd9,#c1c7c2); }
+    .hb .badges { position:absolute; top:.8rem; left:.8rem; display:flex; flex-direction:column; gap:.4rem; }
+    .hb .gold { width:40px; height:40px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#e7cd82,#b98f38); color:#4a3612; font-size:.55rem; font-weight:600; letter-spacing:.02em; display:grid; place-items:center; box-shadow:0 3px 8px rgba(0,0,0,.2); border:1.5px solid #d9b968; }
+    .hb .card__tag { position:absolute; bottom:.8rem; right:.8rem; background:rgba(255,255,255,.85); color:var(--terra); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; padding:.3rem .6rem; border-radius:100px; font-weight:500; }
+    .hb .card__tag--left { left:.8rem; right:auto; top:.8rem; bottom:auto; }
+    .hb .card__body { padding:1.1rem 1.2rem 1.3rem; display:flex; flex-direction:column; gap:.4rem; flex:1; }
+    .hb .card__title { font-family:var(--font-serif); font-weight:600; font-size:1.25rem; color:var(--ink); }
+    .hb .card__rating { font-size:.85rem; }
+    .hb .card__foot { display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:.5rem; }
+    .hb .card__price { font-family:var(--font-serif); font-size:1.2rem; color:var(--ink); }
+
+    .hb .problem { padding-block:clamp(3.5rem,8vw,6rem); background:var(--cream-3); }
+    .hb .problem__inner { display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(2rem,5vw,4rem); align-items:center; }
+    .hb .problem__title { font-family:var(--font-serif); font-weight:600; font-size:clamp(1.9rem,4vw,2.9rem); line-height:1.08; color:var(--ink); margin:0 0 1.2rem; }
+    .hb .problem__title em { font-style:italic; color:var(--terra); }
+    .hb .problem__lead { font-family:var(--font-serif); font-size:1.35rem; color:var(--ink); margin:0 0 1rem; }
+    .hb .problem__copy p { color:var(--muted); margin:0 0 1rem; max-width:34rem; }
+    .hb .problem__copy strong { color:var(--ink); }
+    .hb .problem__copy .btn { margin-top:.8rem; }
+    .hb .problem__media { aspect-ratio:4/4.4; border-radius:var(--radius-lg); position:relative; background:linear-gradient(165deg,#e7ded1,#d6c8b3); display:grid; place-items:center; overflow:hidden; }
+    .hb .problem__glow { position:absolute; width:70%; aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,rgba(194,106,67,.28),transparent 70%); filter:blur(20px); }
+
+    .hb .steps3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
+    .hb .step { background:var(--white); border-radius:var(--radius); padding:2rem 1.6rem; border:1px solid var(--line); text-align:center; transition:transform .25s; }
+    .hb .step:hover { transform:translateY(-5px); }
+    .hb .step__num { font-family:var(--font-serif); font-size:1.4rem; color:var(--terra); }
+    .hb .step h3 { font-family:var(--font-serif); font-weight:600; color:var(--ink); font-size:1.3rem; margin:.5rem 0; }
+    .hb .step p { color:var(--muted); font-size:.92rem; }
+
+    .hb .reviews { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
+    .hb .review { background:var(--white); border-radius:var(--radius); padding:1.9rem; border:1px solid var(--line); }
+    .hb .review .stars { display:block; margin-bottom:.8rem; }
+    .hb .review p { color:var(--ink); }
+    .hb .review footer { margin-top:1rem; font-size:.85rem; color:var(--terra); }
+
+    .hb .cta-band { background:var(--green); color:var(--cream); text-align:center; padding-block:clamp(3.5rem,8vw,5.5rem); }
+    .hb .cta-band h2 { font-family:var(--font-serif); font-weight:500; font-size:clamp(2rem,4.5vw,3rem); margin:0 0 .7rem; }
+    .hb .cta-band p { color:rgba(247,241,234,.82); max-width:34rem; margin:0 auto 1.8rem; }
+    .hb .cta-band .btn--primary { background:var(--cream); color:var(--green-dark); }
+    .hb .cta-band .btn--primary:hover { background:var(--white); }
+
+    .hb .footer { background:var(--cream-2); color:var(--ink); padding-top:3.5rem; border-top:1px solid var(--line); }
+    .hb .footer__grid { display:grid; grid-template-columns:1.3fr 1fr 1.2fr; gap:2.5rem; padding-bottom:2.5rem; }
+    .hb .logo--footer { font-size:1.5rem; justify-self:start; }
+    .hb .footer__brand p { color:var(--muted); max-width:22rem; margin-top:1rem; }
+    .hb .footer__col h4, .hb .footer__signup h4 { font-family:var(--font-serif); font-weight:600; font-size:1.2rem; margin:0 0 1rem; }
+    .hb .footer__col a { display:block; color:var(--muted); padding:.32rem 0; font-size:.92rem; transition:color .2s; }
+    .hb .footer__col a:hover { color:var(--terra); }
+    .hb .footer__signup-sub { color:var(--muted); font-size:.92rem; margin:0 0 1.1rem; }
+    .hb .footer__form { display:flex; align-items:center; border:1.5px solid var(--ink); border-radius:100px; overflow:hidden; max-width:340px; background:var(--cream-3); }
+    .hb .footer__form input { flex:1; border:none; background:transparent; padding:.85rem 1.2rem; font-family:var(--font-sans); font-size:.95rem; color:var(--ink); }
+    .hb .footer__form input:focus { outline:none; }
+    .hb .footer__send { width:46px; align-self:stretch; border:none; background:transparent; color:var(--ink); font-size:1.1rem; cursor:pointer; }
+    .hb .footer__send:hover { color:var(--terra); }
+    .hb .footer__note { color:var(--green); font-weight:500; margin-top:.8rem; }
+    .hb .footer__bottom { display:flex; justify-content:space-between; align-items:center; padding-block:1.6rem; flex-wrap:wrap; gap:.8rem; font-size:.85rem; color:var(--muted); border-top:1px solid var(--line); }
+    .hb .pay { display:flex; gap:.5rem; flex-wrap:wrap; }
+    .hb .pay span { background:var(--white); border:1px solid var(--line); border-radius:5px; padding:.2rem .5rem; font-size:.68rem; letter-spacing:.03em; color:var(--muted); }
+
+    @media (max-width:980px){
+      .hb .hero__inner, .hb .problem__inner { grid-template-columns:1fr; }
+      .hb .hero__visual { max-width:520px; margin-inline:auto; width:100%; }
+      .hb .products { grid-template-columns:repeat(2,1fr); }
+      .hb .steps3, .hb .reviews { grid-template-columns:1fr; }
+      .hb .footer__grid { grid-template-columns:1fr 1fr; }
+      .hb .footer__brand { grid-column:1/-1; }
+    }
+    @media (max-width:760px){
+      .hb .nav { display:none; }
+      .hb .header__menu { display:inline-grid; }
+      .hb .header__inner { grid-template-columns:auto 1fr auto; }
+      .hb .logo { justify-self:center; }
+      .hb .header__actions .pill-select { display:none; }
+      .hb .steps3 { grid-template-columns:1fr; }
+    }
+    @media (max-width:520px){
+      .hb .products, .hb .footer__grid { grid-template-columns:1fr; }
+      .hb .hero__card { position:static; width:100%; margin-top:1rem; }
+      .hb .hero__badge { display:none; }
+      .hb .subhero__bar .divider { display:none; }
+    }
+  </style>
+
+  <!-- Announcement bar -->
+  <div class="announce"><span>30-DAY BLOOM GUARANTEE OR <strong>YOUR MONEY BACK</strong></span></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header__inner">
+      <button class="icon-btn header__menu" aria-label="Open menu" data-hb-menu>
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <nav class="nav nav--left" aria-label="Primary">
+        <a href="#">Home</a><a href="#" class="has-caret">Shop</a><a href="#">Our Story</a><a href="#" class="has-caret">About Us</a>
+      </nav>
+      <a href="#" class="logo" aria-label="HerBloom home"><span>HER</span><span class="logo__b">b</span><span>LOOM</span></a>
+      <div class="header__actions">
+        <button class="pill-select" type="button" aria-label="Currency"><span class="flag">🇨🇦</span> USD
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></button>
+        <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+        <button class="icon-btn" aria-label="Account"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+        <button class="icon-btn icon-btn--cart" aria-label="Cart"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.6"/></svg><span class="cart-count">0</span></button>
+      </div>
+    </div>
+    <div class="mobile-menu" data-hb-mobile hidden>
+      <a href="#">Home</a><a href="#">Shop</a><a href="#">Our Story</a><a href="#">About Us</a>
+    </div>
+  </header>
+
+  <!-- Sub-hero -->
+  <div class="subhero">
+    <p class="subhero__join">Join <strong>20,800+</strong> women who chose to bloom</p>
+    <div class="subhero__bar"><span class="stars">★★★★★</span><strong>4.8/5</strong><span class="divider"></span><span>Trusted by 20,800+ women</span><span class="divider"></span><span>30-Day Bloom Guarantee</span></div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <span class="tag">LYMPH3D™ TECHNOLOGY</span>
+        <h1 class="hero__title">Stop hiding<br/><em>your legs.</em></h1>
+        <p class="hero__lede">The only legging engineered to treat cellulite at the root — automatically, while you live your life. Not shapewear. A treatment.</p>
+        <ul class="feature-pills"><li><span class="dot"></span>Confidence from Day 1</li><li><span class="dot"></span>Works while you walk</li><li><span class="dot"></span>Zero effort</li></ul>
+        <a href="#" class="btn btn--primary btn--lg">Shop The Bloom Legging <span class="arrow">→</span></a>
+        <p class="guarantee">✓ Bloom. Or It's Free. — 30-Day Guarantee</p>
+      </div>
+      <div class="hero__visual">
+        <div class="hero__photo" role="img" aria-label="Woman relaxing while wearing HerBloom leggings"></div>
+        <div class="hero__card">
+          <span class="hero__badge">20K+<small>WOMEN<br/>BLOOMING</small></span>
+          <div class="legging-fan" aria-hidden="true"><span class="leg leg--gray"></span><span class="leg leg--lav"></span><span class="leg leg--black"></span><span class="leg leg--beige"></span><span class="leg leg--mauve"></span></div>
+          <div class="hero__quote"><span class="hero__avatar">🌸</span><div><p>"First time in shorts in 8 years."</p><small>JESSICA M. · TEXAS</small></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bestsellers -->
+  <section class="section">
+    <div class="container">
+      <div class="bestsellers__head">
+        <h2 class="section__title">Our Bestsellers</h2>
+        <div class="carousel-nav"><button class="round-btn" aria-label="Previous">‹</button><button class="round-btn round-btn--dark" aria-label="Next">›</button></div>
+      </div>
+      <div class="products">
+        <article class="card"><div class="card__media card__media--stone"><div class="badges"><span class="gold">#1</span><span class="gold">DERM</span><span class="gold">20K+</span></div><span class="card__tag">LYMPH3D™ TECHNOLOGY</span></div><div class="card__body"><h3 class="card__title">Bloom Short</h3><p class="card__rating"><span class="stars">★★★★★</span> 4/5 <span class="muted">(2 reviews)</span></p><div class="card__foot"><span class="card__price">$58.00</span><button class="btn btn--add">Add</button></div></div></article>
+        <article class="card"><div class="card__media card__media--sand"><span class="card__tag card__tag--left">WAIST-SCULPT™</span></div><div class="card__body"><h3 class="card__title">Bloom Sculpt Tee</h3><p class="card__rating"><span class="stars">★★★★★</span> 4.87/5 <span class="muted">(439 reviews)</span></p><div class="card__foot"><span class="card__price">$52.00</span><button class="btn btn--add">Add</button></div></div></article>
+        <article class="card"><div class="card__media card__media--mist"></div><div class="card__body"><h3 class="card__title">Bloom Sport Bra</h3><p class="card__rating"><span class="stars">★★★★★</span> 4.87/5 <span class="muted">(639 reviews)</span></p><div class="card__foot"><span class="card__price">$48.00</span><button class="btn btn--add">Add</button></div></div></article>
+        <article class="card"><div class="card__media card__media--stone"><div class="badges"><span class="gold">#1</span><span class="gold">DERM</span><span class="gold">20K+</span></div><span class="card__tag">LYMPH3D™ TECHNOLOGY</span></div><div class="card__body"><h3 class="card__title">Bloom Leggings</h3><p class="card__rating"><span class="stars">★★★★★</span> 4.73/5 <span class="muted">(683 reviews)</span></p><div class="card__foot"><span class="card__price">$74.00</span><button class="btn btn--add">Add</button></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem / Solution -->
+  <section class="problem">
+    <div class="container problem__inner">
+      <div class="problem__copy">
+        <h2 class="problem__title">You Didn't Fail.<br/>You Were Treating the <em>Wrong Problem.</em></h2>
+        <p class="problem__lead">Cellulite has nothing to do with fat. Never did.</p>
+        <p>Dermatologists have known it for years: cellulite isn't a fat problem. It's a <strong>circulation</strong> problem. When lymphatic flow slows, fluid and toxins pool beneath the skin — creating the dimpled texture no diet or workout can fix.</p>
+        <p>HerBloom's <strong>LYMPH3D™</strong> fabric weaves 47+ micro-pressure points directly into every legging. Each step you take activates a different lymphatic pathway — draining, smoothing, and firming from the inside out. No creams. No routines. Just wear them and live.</p>
+        <a href="#" class="btn btn--primary">Treat the real problem</a>
+      </div>
+      <div class="problem__media" aria-hidden="true"><span class="problem__glow"></span></div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section section--cream">
+    <div class="container">
+      <div class="section__head section__head--center"><span class="tag">HOW IT WORKS</span><h2 class="section__title">The treatment that wears itself</h2><p class="section__sub">Three ways HerBloom works while you simply live your life.</p></div>
+      <div class="steps3">
+        <div class="step"><span class="step__num">01</span><h3>Wear</h3><p>Slip into your Bloom leggings like any other pair. The LYMPH3D™ knit does the rest.</p></div>
+        <div class="step"><span class="step__num">02</span><h3>Move</h3><p>Every step activates 47+ micro-pressure points that stimulate lymphatic drainage.</p></div>
+        <div class="step"><span class="step__num">03</span><h3>Bloom</h3><p>Smoother, firmer, more confident skin — automatically, with zero effort.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="section">
+    <div class="section__head section__head--center"><span class="stars stars--lg">★★★★★</span><h2 class="section__title">20,800+ women blooming</h2></div>
+    <div class="container reviews">
+      <blockquote class="review"><p class="stars">★★★★★</p><p>"First time in shorts in 8 years. I stopped hiding and I'm never going back."</p><footer>— Jessica M. · Texas</footer></blockquote>
+      <blockquote class="review"><p class="stars">★★★★★</p><p>"I wore them on walks for three weeks and the difference is unreal. Zero effort, real results."</p><footer>— Andrea R. · verified buyer</footer></blockquote>
+      <blockquote class="review"><p class="stars">★★★★★</p><p>"Not shapewear — a treatment is exactly right. Comfortable enough to sleep in, and my skin looks smoother."</p><footer>— Priya S. · verified buyer</footer></blockquote>
+    </div>
+  </section>
+
+  <!-- Guarantee CTA -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Bloom. Or it's free.</h2>
+      <p>Try HerBloom risk-free for 30 days. If you don't love the way you feel, we'll refund every cent.</p>
+      <a href="#" class="btn btn--primary btn--lg">Shop The Bloom Legging <span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand"><a href="#" class="logo logo--footer"><span>HER</span><span class="logo__b">b</span><span>LOOM</span></a><p>Herbloom is a women's wellness brand built around one belief: you don't need to fix yourself. You just need the right tools to bloom.</p></div>
+      <div class="footer__col"><h4>Quick Links</h4><a href="#">Terms and conditions of sale</a><a href="#">Privacy Policy</a><a href="#">Shipping policy</a><a href="#">Refund &amp; Return Policy</a><a href="#">Legal Notice</a><a href="#">Blog</a><a href="#">3D leggings</a><a href="#">Anti Cellulite Leggings</a></div>
+      <div class="footer__signup"><h4>Get 10% off your first order.</h4><p class="footer__signup-sub"><em>Plus: weekly skin tips, real results, and exclusive offers.</em></p>
+        <form class="footer__form" data-hb-form><label class="sr-only" for="hb-email">Email address</label><input id="hb-email" name="email" type="email" placeholder="email" required/><button class="footer__send" type="submit" aria-label="Subscribe">→</button></form>
+        <p class="footer__note" data-hb-note hidden>Welcome to the bloom ✿</p>
+      </div>
+    </div>
+    <div class="container footer__bottom"><p>© <span data-hb-year></span> HerBloom</p><div class="pay"><span>VISA</span><span>MC</span><span>Apple Pay</span><span>G Pay</span><span>PayPal</span><span>Shop</span></div></div>
+  </footer>
+
+  <script>
+  (function () {
+    var root = document.currentScript ? document.currentScript.closest('.hb') : document.querySelector('.hb');
+    if (!root) return;
+    var y = root.querySelector('[data-hb-year]'); if (y) y.textContent = new Date().getFullYear();
+    var t = root.querySelector('[data-hb-menu]'), m = root.querySelector('[data-hb-mobile]');
+    if (t && m) { t.addEventListener('click', function () { m.hidden = !m.hidden; });
+      m.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { m.hidden = true; }); }); }
+    var n = 0, badge = root.querySelector('.cart-count');
+    root.querySelectorAll('.btn--add').forEach(function (b) {
+      b.addEventListener('click', function () { n++; if (badge) badge.textContent = n; var o = b.textContent; b.textContent = 'Added ✓'; b.disabled = true; setTimeout(function () { b.textContent = o; b.disabled = false; }, 1200); });
+    });
+    var f = root.querySelector('[data-hb-form]'), note = root.querySelector('[data-hb-note]');
+    if (f) f.addEventListener('submit', function (e) { e.preventDefault(); if (note) note.hidden = false; f.reset(); });
+  })();
+  </script>
+</div>

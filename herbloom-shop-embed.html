@@ -1,0 +1,485 @@
+<!-- ============================================================
+     HerBloom — SHOP / ALL PRODUCTS page — SINGLE-FILE EMBED for GemPages
+     Paste this ENTIRE block into a GemPages "HTML / Liquid" (Custom Code) element.
+     All CSS/JS scoped under .hb-shop so nothing leaks into your theme.
+     Working: color choosers, size choosers, qty, Add to cart -> slide-in cart
+     drawer with live totals + remove, category filters, and sort.
+     NOTE: product images are intentionally placeholders (no photos) — drop your
+     own images into the .card__media blocks later.
+     ============================================================ -->
+<div class="hb-shop">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap');
+
+    .hb-shop {
+      --cream:#f7f1ea; --cream-2:#f1e9dd; --cream-3:#faf6f0; --white:#fff;
+      --green:#234c3b; --green-dark:#1a3a2d; --terra:#c26a43; --terra-soft:#f3ddce;
+      --ink:#1b1a18; --muted:#7b756c; --line:rgba(27,26,24,.12);
+      --font-serif:'Playfair Display',Georgia,serif; --font-sans:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --radius:16px; --radius-lg:26px; --shadow:0 24px 60px -28px rgba(27,26,24,.4);
+      font-family:var(--font-sans); color:var(--ink); background:var(--cream);
+      line-height:1.6; -webkit-font-smoothing:antialiased;
+    }
+    .hb-shop, .hb-shop *, .hb-shop *::before, .hb-shop *::after { box-sizing:border-box; }
+    .hb-shop [hidden] { display:none !important; }
+    .hb-shop a { color:inherit; text-decoration:none; }
+    .hb-shop p, .hb-shop h1, .hb-shop h2, .hb-shop h3, .hb-shop h4, .hb-shop ul, .hb-shop li { margin:0; }
+    .hb-shop ul { padding:0; list-style:none; }
+    .hb-shop button { font-family:inherit; }
+
+    .hb-shop .container { width:100%; max-width:1240px; margin-inline:auto; padding-inline:clamp(20px,5vw,56px); }
+    .hb-shop .stars { color:var(--terra); letter-spacing:.1em; }
+    .hb-shop .muted { color:var(--muted); }
+    .hb-shop .tag { display:inline-block; background:var(--terra-soft); color:var(--terra); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; font-weight:500; padding:.3rem .6rem; border-radius:100px; }
+
+    .hb-shop .btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; padding:.85rem 1.5rem; border-radius:100px; font-size:.95rem; font-weight:500; letter-spacing:.02em; cursor:pointer; border:1.5px solid transparent; transition:transform .2s,background .2s,color .2s,box-shadow .2s; }
+    .hb-shop .btn:hover { transform:translateY(-2px); }
+    .hb-shop .btn--primary { background:var(--green); color:var(--cream); width:100%; }
+    .hb-shop .btn--primary:hover { background:var(--green-dark); box-shadow:var(--shadow); }
+    .hb-shop .btn--ghost { background:transparent; color:var(--green); border-color:var(--green); }
+    .hb-shop .btn--ghost:hover { background:var(--green); color:var(--cream); }
+
+    /* Header */
+    .hb-shop .announce { background:var(--cream-2); text-align:center; font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; padding:.55rem 1rem; border-bottom:1px solid var(--line); }
+    .hb-shop .header { background:var(--cream); border-bottom:1px solid var(--line); }
+    .hb-shop .header__inner { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:1rem; padding-block:1rem; }
+    .hb-shop .nav { display:flex; gap:1.7rem; font-size:.95rem; }
+    .hb-shop .nav a { display:inline-flex; align-items:center; gap:.3rem; transition:color .2s; }
+    .hb-shop .nav a.has-caret::after { content:"⌄"; font-size:.9em; position:relative; top:-2px; opacity:.7; }
+    .hb-shop .nav a:hover { color:var(--terra); }
+    .hb-shop .logo { display:inline-flex; align-items:baseline; justify-self:center; font-family:var(--font-serif); font-weight:600; font-size:1.7rem; letter-spacing:.06em; }
+    .hb-shop .logo__b { font-style:italic; color:var(--terra); font-weight:500; margin:0 -.02em; transform:translateY(2px); font-size:1.15em; }
+    .hb-shop .header__actions { display:flex; align-items:center; gap:.5rem; justify-self:end; }
+    .hb-shop .pill-select { display:inline-flex; align-items:center; gap:.35rem; background:transparent; border:none; cursor:pointer; font-size:.9rem; padding:.4rem .5rem; }
+    .hb-shop .icon-btn { position:relative; display:inline-grid; place-items:center; width:40px; height:40px; border:none; background:transparent; color:var(--ink); cursor:pointer; border-radius:50%; transition:background .2s; }
+    .hb-shop .icon-btn:hover { background:var(--cream-2); }
+    .hb-shop .icon-btn--cart .cart-count { position:absolute; bottom:5px; right:3px; background:var(--green); color:var(--cream); font-size:.6rem; min-width:15px; height:15px; border-radius:10px; display:grid; place-items:center; padding:0 4px; }
+    .hb-shop .header__menu { display:none; }
+
+    /* Collection head + toolbar */
+    .hb-shop .collection { padding-block:clamp(2rem,5vw,3.5rem) 1rem; }
+    .hb-shop .collection__title { font-family:var(--font-serif); font-weight:500; font-size:clamp(2.4rem,6vw,4rem); letter-spacing:-.01em; }
+    .hb-shop .collection__sub { color:var(--muted); margin-top:.4rem; max-width:40rem; }
+    .hb-shop .toolbar { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; padding:1.2rem 0 1.6rem; border-bottom:1px solid var(--line); }
+    .hb-shop .filters { display:flex; gap:.5rem; flex-wrap:wrap; }
+    .hb-shop .filter { background:transparent; border:1.5px solid var(--line); color:var(--ink); padding:.5rem 1.1rem; border-radius:100px; font-size:.88rem; cursor:pointer; transition:all .2s; }
+    .hb-shop .filter:hover { border-color:var(--terra); color:var(--terra); }
+    .hb-shop .filter.is-active { background:var(--ink); border-color:var(--ink); color:var(--cream); }
+    .hb-shop .sort { display:flex; align-items:center; gap:.5rem; font-size:.88rem; color:var(--muted); }
+    .hb-shop .sort select { font-family:inherit; font-size:.88rem; border:1.5px solid var(--line); background:var(--cream-3); color:var(--ink); border-radius:100px; padding:.5rem 1rem; cursor:pointer; }
+
+    /* Grid + cards */
+    .hb-shop .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; padding:2rem 0 3rem; }
+    .hb-shop .card { background:var(--white); border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--line); display:flex; flex-direction:column; }
+    .hb-shop .card__media { position:relative; aspect-ratio:1/1; display:grid; place-items:center; }
+    .hb-shop .card__media > .ph { font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(27,26,24,.35); }
+    .hb-shop .m1{background:linear-gradient(165deg,#dcd6cc,#c3bbac);} .hb-shop .m2{background:linear-gradient(165deg,#e2ddd3,#cfc7b6);}
+    .hb-shop .m3{background:linear-gradient(165deg,#e9ddc8,#d8c7a9);} .hb-shop .m4{background:linear-gradient(165deg,#d9dcd9,#c1c7c2);}
+    .hb-shop .m5{background:linear-gradient(165deg,#e7d9cf,#d6c2b1);}
+    .hb-shop .card__flag { position:absolute; top:.9rem; left:.9rem; }
+    .hb-shop .card__body { padding:1.3rem 1.3rem 1.5rem; display:flex; flex-direction:column; gap:.55rem; flex:1; }
+    .hb-shop .card__title { font-family:var(--font-serif); font-weight:600; font-size:1.35rem; }
+    .hb-shop .card__rating { font-size:.82rem; display:flex; align-items:center; gap:.4rem; }
+    .hb-shop .card__price { font-family:var(--font-serif); font-size:1.25rem; }
+    .hb-shop .card__price .was { font-family:var(--font-sans); font-size:.85rem; color:var(--muted); text-decoration:line-through; margin-left:.4rem; }
+    .hb-shop .card__desc { font-size:.9rem; color:var(--muted); }
+    .hb-shop .card__feats { display:flex; flex-direction:column; gap:.3rem; margin:.1rem 0 .2rem; }
+    .hb-shop .card__feats li { position:relative; padding-left:1.1rem; font-size:.84rem; color:var(--ink); }
+    .hb-shop .card__feats li::before { content:"✓"; position:absolute; left:0; color:var(--green); font-size:.8rem; }
+
+    .hb-shop .opt-label { font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:.35rem; display:flex; gap:.4rem; }
+    .hb-shop .opt-label .chosen { color:var(--ink); text-transform:none; letter-spacing:0; }
+    .hb-shop .swatches { display:flex; gap:.45rem; flex-wrap:wrap; }
+    .hb-shop .sw { width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(0,0,0,.15); cursor:pointer; padding:0; position:relative; background:var(--c); transition:transform .15s; }
+    .hb-shop .sw:hover { transform:scale(1.12); }
+    .hb-shop .sw.is-active::after { content:""; position:absolute; inset:-5px; border:1.5px solid var(--ink); border-radius:50%; }
+    .hb-shop .sizes { display:flex; gap:.4rem; flex-wrap:wrap; }
+    .hb-shop .size { min-width:38px; padding:.4rem .5rem; border:1.5px solid var(--line); background:var(--cream-3); border-radius:8px; font-size:.82rem; cursor:pointer; transition:all .15s; }
+    .hb-shop .size:hover { border-color:var(--ink); }
+    .hb-shop .size.is-active { background:var(--ink); color:var(--cream); border-color:var(--ink); }
+    .hb-shop .card__actions { margin-top:auto; display:flex; gap:.6rem; align-items:center; padding-top:.4rem; }
+    .hb-shop .qty { display:inline-flex; align-items:center; border:1.5px solid var(--line); border-radius:100px; overflow:hidden; }
+    .hb-shop .qty button { width:34px; height:40px; border:none; background:transparent; font-size:1.1rem; cursor:pointer; color:var(--ink); }
+    .hb-shop .qty span { min-width:22px; text-align:center; font-size:.9rem; }
+
+    /* Cart drawer */
+    .hb-shop .cart-overlay { position:fixed; inset:0; background:rgba(27,26,24,.45); z-index:9998; opacity:0; pointer-events:none; transition:opacity .3s; }
+    .hb-shop .cart-overlay.is-open { opacity:1; pointer-events:auto; }
+    .hb-shop .cart { position:fixed; top:0; right:0; height:100%; width:min(420px,92vw); background:var(--cream); z-index:9999; box-shadow:-20px 0 60px -20px rgba(0,0,0,.4); transform:translateX(100%); transition:transform .32s cubic-bezier(.4,0,.2,1); display:flex; flex-direction:column; }
+    .hb-shop .cart.is-open { transform:translateX(0); }
+    .hb-shop .cart__head { display:flex; align-items:center; justify-content:space-between; padding:1.3rem 1.4rem; border-bottom:1px solid var(--line); }
+    .hb-shop .cart__head h3 { font-family:var(--font-serif); font-weight:600; font-size:1.3rem; }
+    .hb-shop .cart__close { border:none; background:transparent; font-size:1.5rem; cursor:pointer; line-height:1; color:var(--ink); }
+    .hb-shop .cart__items { flex:1; overflow-y:auto; padding:1rem 1.4rem; display:flex; flex-direction:column; gap:1rem; }
+    .hb-shop .cart__empty { color:var(--muted); text-align:center; margin-top:3rem; }
+    .hb-shop .ci { display:flex; gap:.9rem; }
+    .hb-shop .ci__thumb { width:58px; height:58px; border-radius:10px; flex-shrink:0; }
+    .hb-shop .ci__main { flex:1; }
+    .hb-shop .ci__name { font-family:var(--font-serif); font-weight:600; font-size:1rem; }
+    .hb-shop .ci__var { font-size:.76rem; color:var(--muted); }
+    .hb-shop .ci__row { display:flex; align-items:center; justify-content:space-between; margin-top:.35rem; }
+    .hb-shop .ci__qty { display:inline-flex; align-items:center; gap:.5rem; border:1px solid var(--line); border-radius:100px; padding:.1rem .3rem; }
+    .hb-shop .ci__qty button { border:none; background:transparent; cursor:pointer; font-size:1rem; width:22px; }
+    .hb-shop .ci__price { font-family:var(--font-serif); font-size:1rem; }
+    .hb-shop .ci__remove { border:none; background:transparent; color:var(--muted); font-size:.74rem; cursor:pointer; text-decoration:underline; padding:0; margin-top:.2rem; }
+    .hb-shop .cart__foot { border-top:1px solid var(--line); padding:1.2rem 1.4rem 1.4rem; }
+    .hb-shop .cart__sub { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:.9rem; }
+    .hb-shop .cart__sub .lbl { font-size:.9rem; color:var(--muted); }
+    .hb-shop .cart__sub .amt { font-family:var(--font-serif); font-size:1.5rem; }
+    .hb-shop .cart__note { text-align:center; font-size:.76rem; color:var(--muted); margin-top:.7rem; }
+
+    .hb-shop .toast { position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px); background:var(--green); color:var(--cream); padding:.8rem 1.4rem; border-radius:100px; font-size:.9rem; box-shadow:var(--shadow); z-index:10000; opacity:0; pointer-events:none; transition:all .3s; }
+    .hb-shop .toast.is-show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+    @media (max-width:980px){ .hb-shop .grid { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:760px){
+      .hb-shop .nav { display:none; }
+      .hb-shop .header__inner { grid-template-columns:1fr auto 1fr; }
+      .hb-shop .header__actions .pill-select { display:none; }
+      .hb-shop .toolbar { flex-direction:column; align-items:flex-start; }
+    }
+    @media (max-width:520px){ .hb-shop .grid { grid-template-columns:1fr; } }
+  </style>
+
+  <!-- Header -->
+  <div class="announce"><span>30-DAY BLOOM GUARANTEE OR <strong>YOUR MONEY BACK</strong></span></div>
+  <header class="header">
+    <div class="container header__inner">
+      <nav class="nav" aria-label="Primary"><a href="#">Home</a><a href="#" class="has-caret">Shop</a><a href="#">Our Story</a><a href="#" class="has-caret">About Us</a></nav>
+      <a href="#" class="logo"><span>HER</span><span class="logo__b">b</span><span>LOOM</span></a>
+      <div class="header__actions">
+        <button class="pill-select" type="button">🇨🇦 USD</button>
+        <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24" width="20" height="20"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+        <button class="icon-btn icon-btn--cart" data-cart-open aria-label="Cart"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9 8a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.6" fill="none"/></svg><span class="cart-count">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Collection header -->
+  <section class="collection">
+    <div class="container">
+      <h1 class="collection__title">Shop All</h1>
+      <p class="collection__sub">Every Bloom piece is engineered with LYMPH3D™ technology — the treatment that wears itself. Not shapewear. A treatment.</p>
+      <div class="toolbar">
+        <div class="filters" data-filters>
+          <button class="filter is-active" data-filter="all">All</button>
+          <button class="filter" data-filter="leggings">Leggings &amp; Shorts</button>
+          <button class="filter" data-filter="tops">Tops &amp; Bras</button>
+          <button class="filter" data-filter="ritual">The Bloom Ritual</button>
+        </div>
+        <div class="sort">
+          <label for="hb-sort">Sort</label>
+          <select id="hb-sort" data-sort>
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product grid -->
+  <section class="container">
+    <div class="grid" data-grid>
+
+      <!-- Bloom Leggings -->
+      <article class="card" data-cat="leggings" data-price="79.99" data-rating="4.8" data-name="Bloom Leggings">
+        <div class="card__media m1"><span class="card__flag tag">LYMPH3D™</span><span class="ph">Your photo here</span></div>
+        <div class="card__body">
+          <h3 class="card__title">Bloom Leggings</h3>
+          <p class="card__rating"><span class="stars">★★★★★</span> 4.8/5 <span class="muted">(683 reviews)</span></p>
+          <p class="card__price">$79.99</p>
+          <p class="card__desc">The last legging you'll ever wish you'd found sooner. 47+ micro-pressure points treat cellulite while you live your life.</p>
+          <ul class="card__feats"><li>Treats cellulite at the root</li><li>Squat-proof &amp; fully opaque</li><li>Buttery second-skin feel</li></ul>
+          <div><div class="opt-label">Color: <span class="chosen">Charcoal</span></div>
+            <div class="swatches" data-swatches>
+              <button class="sw is-active" style="--c:#6f7275" data-name="Charcoal" aria-label="Charcoal"></button>
+              <button class="sw" style="--c:#b7b2d6" data-name="Lavender" aria-label="Lavender"></button>
+              <button class="sw" style="--c:#1f1f22" data-name="Black" aria-label="Black"></button>
+              <button class="sw" style="--c:#cdb99c" data-name="Beige" aria-label="Beige"></button>
+              <button class="sw" style="--c:#ac7d84" data-name="Mauve" aria-label="Mauve"></button>
+            </div>
+          </div>
+          <div><div class="opt-label">Size: <span class="chosen">M</span></div>
+            <div class="sizes" data-sizes><button class="size">XS</button><button class="size">S</button><button class="size is-active">M</button><button class="size">L</button><button class="size">XL</button></div>
+          </div>
+          <div class="card__actions">
+            <div class="qty" data-qty><button data-dec aria-label="Decrease">−</button><span>1</span><button data-inc aria-label="Increase">+</button></div>
+            <button class="btn btn--primary" data-add>Add to cart</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Bloom Short -->
+      <article class="card" data-cat="leggings" data-price="59.99" data-rating="4.0" data-name="Bloom Short">
+        <div class="card__media m2"><span class="card__flag tag">LYMPH3D™</span><span class="ph">Your photo here</span></div>
+        <div class="card__body">
+          <h3 class="card__title">Bloom Short</h3>
+          <p class="card__rating"><span class="stars">★★★★★</span> 4.0/5 <span class="muted">(2 reviews)</span></p>
+          <p class="card__price">$59.99</p>
+          <p class="card__desc">The confidence of the Bloom Legging in a warm-weather cut. Wear the shorts you stopped believing in.</p>
+          <ul class="card__feats"><li>8&quot; sculpting inseam</li><li>High-rise waist band</li><li>No ride-up grip</li></ul>
+          <div><div class="opt-label">Color: <span class="chosen">Grey</span></div>
+            <div class="swatches" data-swatches>
+              <button class="sw is-active" style="--c:#9aa0a1" data-name="Grey" aria-label="Grey"></button>
+              <button class="sw" style="--c:#1f1f22" data-name="Black" aria-label="Black"></button>
+              <button class="sw" style="--c:#cdb99c" data-name="Sand" aria-label="Sand"></button>
+            </div>
+          </div>
+          <div><div class="opt-label">Size: <span class="chosen">M</span></div>
+            <div class="sizes" data-sizes><button class="size">XS</button><button class="size">S</button><button class="size is-active">M</button><button class="size">L</button><button class="size">XL</button></div>
+          </div>
+          <div class="card__actions">
+            <div class="qty" data-qty><button data-dec>−</button><span>1</span><button data-inc>+</button></div>
+            <button class="btn btn--primary" data-add>Add to cart</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Bloom Sculpt Tee -->
+      <article class="card" data-cat="tops" data-price="39.00" data-rating="4.87" data-name="Bloom Sculpt Tee">
+        <div class="card__media m3"><span class="card__flag tag">WAIST-SCULPT™</span><span class="ph">Your photo here</span></div>
+        <div class="card__body">
+          <h3 class="card__title">Bloom Sculpt Tee</h3>
+          <p class="card__rating"><span class="stars">★★★★★</span> 4.87/5 <span class="muted">(439 reviews)</span></p>
+          <p class="card__price">$39.00</p>
+          <p class="card__desc">A second-skin tee with a WAIST-SCULPT™ panel that smooths and lifts. Dresses up or down.</p>
+          <ul class="card__feats"><li>WAIST-SCULPT™ core panel</li><li>Breathable seamless knit</li><li>Tagless flat seams</li></ul>
+          <div><div class="opt-label">Color: <span class="chosen">Black</span></div>
+            <div class="swatches" data-swatches>
+              <button class="sw is-active" style="--c:#1f1f22" data-name="Black" aria-label="Black"></button>
+              <button class="sw" style="--c:#f3efe8" data-name="White" aria-label="White"></button>
+              <button class="sw" style="--c:#223a5e" data-name="Navy" aria-label="Navy"></button>
+              <button class="sw" style="--c:#9aa0a1" data-name="Grey" aria-label="Grey"></button>
+              <button class="sw" style="--c:#e6bcc6" data-name="Pink" aria-label="Pink"></button>
+              <button class="sw" style="--c:#6b4a2f" data-name="Brown" aria-label="Brown"></button>
+              <button class="sw" style="--c:#7a2230" data-name="Burgundy" aria-label="Burgundy"></button>
+            </div>
+          </div>
+          <div><div class="opt-label">Size: <span class="chosen">M</span></div>
+            <div class="sizes" data-sizes><button class="size">XS</button><button class="size">S</button><button class="size is-active">M</button><button class="size">L</button><button class="size">XL</button></div>
+          </div>
+          <div class="card__actions">
+            <div class="qty" data-qty><button data-dec>−</button><span>1</span><button data-inc>+</button></div>
+            <button class="btn btn--primary" data-add>Add to cart</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Bloom Sport Bra -->
+      <article class="card" data-cat="tops" data-price="69.99" data-rating="4.87" data-name="Bloom Sport Bra">
+        <div class="card__media m4"><span class="ph">Your photo here</span></div>
+        <div class="card__body">
+          <h3 class="card__title">Bloom Sport Bra</h3>
+          <p class="card__rating"><span class="stars">★★★★★</span> 4.87/5 <span class="muted">(639 reviews)</span></p>
+          <p class="card__price">$69.99</p>
+          <p class="card__desc">Zip-front support that holds you through anything — engineered for medium-to-high impact.</p>
+          <ul class="card__feats"><li>Zip-front easy entry</li><li>Adjustable support band</li><li>Removable pads</li></ul>
+          <div><div class="opt-label">Color: <span class="chosen">Black</span></div>
+            <div class="swatches" data-swatches>
+              <button class="sw is-active" style="--c:#1f1f22" data-name="Black" aria-label="Black"></button>
+              <button class="sw" style="--c:#bcd0e0" data-name="Powder Blue" aria-label="Powder Blue"></button>
+              <button class="sw" style="--c:#cfc7e4" data-name="Lilac" aria-label="Lilac"></button>
+              <button class="sw" style="--c:#b4c2ac" data-name="Sage" aria-label="Sage"></button>
+              <button class="sw" style="--c:#c58a6f" data-name="Terracotta" aria-label="Terracotta"></button>
+              <button class="sw" style="--c:#cdb99c" data-name="Sand" aria-label="Sand"></button>
+            </div>
+          </div>
+          <div><div class="opt-label">Size: <span class="chosen">M</span></div>
+            <div class="sizes" data-sizes><button class="size">XS</button><button class="size">S</button><button class="size is-active">M</button><button class="size">L</button><button class="size">XL</button></div>
+          </div>
+          <div class="card__actions">
+            <div class="qty" data-qty><button data-dec>−</button><span>1</span><button data-inc>+</button></div>
+            <button class="btn btn--primary" data-add>Add to cart</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- The Bloom Bundle -->
+      <article class="card" data-cat="ritual" data-price="99.99" data-rating="4.9" data-name="The Bloom Bundle">
+        <div class="card__media m5"><span class="card__flag tag">Save 20%</span><span class="ph">Your photo here</span></div>
+        <div class="card__body">
+          <h3 class="card__title">The Bloom Bundle</h3>
+          <p class="card__rating"><span class="stars">★★★★★</span> 4.9/5 <span class="muted">(128 reviews)</span></p>
+          <p class="card__price">$99.99 <span class="was">$124.98</span></p>
+          <p class="card__desc">The full ritual: Bloom Leggings + Sculpt Tee at your best price. Everything you need to bloom.</p>
+          <ul class="card__feats"><li>Bloom Legging + Sculpt Tee</li><li>Mix any two colors</li><li>Free shipping included</li></ul>
+          <div><div class="opt-label">Legging color: <span class="chosen">Charcoal</span></div>
+            <div class="swatches" data-swatches>
+              <button class="sw is-active" style="--c:#6f7275" data-name="Charcoal" aria-label="Charcoal"></button>
+              <button class="sw" style="--c:#1f1f22" data-name="Black" aria-label="Black"></button>
+              <button class="sw" style="--c:#ac7d84" data-name="Mauve" aria-label="Mauve"></button>
+            </div>
+          </div>
+          <div><div class="opt-label">Size: <span class="chosen">M</span></div>
+            <div class="sizes" data-sizes><button class="size">XS</button><button class="size">S</button><button class="size is-active">M</button><button class="size">L</button><button class="size">XL</button></div>
+          </div>
+          <div class="card__actions">
+            <div class="qty" data-qty><button data-dec>−</button><span>1</span><button data-inc>+</button></div>
+            <button class="btn btn--primary" data-add>Add to cart</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <p class="muted" data-empty style="text-align:center;padding:2rem 0 4rem" hidden>No products in this collection yet.</p>
+  </section>
+
+  <!-- Cart drawer -->
+  <div class="cart-overlay" data-cart-overlay></div>
+  <aside class="cart" data-cart aria-label="Cart">
+    <div class="cart__head"><h3>Your Cart</h3><button class="cart__close" data-cart-close aria-label="Close">×</button></div>
+    <div class="cart__items" data-cart-items><p class="cart__empty">Your cart is empty.</p></div>
+    <div class="cart__foot">
+      <div class="cart__sub"><span class="lbl">Subtotal</span><span class="amt" data-cart-subtotal>$0.00</span></div>
+      <button class="btn btn--primary" data-checkout>Checkout</button>
+      <p class="cart__note">✓ 30-Day Bloom Guarantee · Free shipping over $60</p>
+    </div>
+  </aside>
+
+  <div class="toast" data-toast>Added to cart ✓</div>
+
+  <script>
+  (function () {
+    var root = document.currentScript ? document.currentScript.closest('.hb-shop') : document.querySelector('.hb-shop');
+    if (!root) return;
+    var money = function (n) { return '$' + n.toFixed(2); };
+    var cart = [];
+
+    /* ---- per-card option pickers ---- */
+    root.querySelectorAll('.card').forEach(function (card) {
+      // color swatches
+      card.querySelectorAll('[data-swatches] .sw').forEach(function (sw) {
+        sw.addEventListener('click', function () {
+          card.querySelectorAll('[data-swatches] .sw').forEach(function (s) { s.classList.remove('is-active'); });
+          sw.classList.add('is-active');
+          var lbl = card.querySelector('.opt-label .chosen');
+          if (lbl) lbl.textContent = sw.getAttribute('data-name');
+        });
+      });
+      // sizes
+      card.querySelectorAll('[data-sizes] .size').forEach(function (sz) {
+        sz.addEventListener('click', function () {
+          card.querySelectorAll('[data-sizes] .size').forEach(function (s) { s.classList.remove('is-active'); });
+          sz.classList.add('is-active');
+          var labels = card.querySelectorAll('.opt-label .chosen');
+          if (labels[1]) labels[1].textContent = sz.textContent;
+        });
+      });
+      // qty stepper
+      var q = card.querySelector('[data-qty]');
+      if (q) {
+        var span = q.querySelector('span');
+        q.querySelector('[data-inc]').addEventListener('click', function () { span.textContent = (+span.textContent + 1); });
+        q.querySelector('[data-dec]').addEventListener('click', function () { span.textContent = Math.max(1, +span.textContent - 1); });
+      }
+      // add to cart
+      card.querySelector('[data-add]').addEventListener('click', function (btn) {
+        var name = card.getAttribute('data-name');
+        var price = parseFloat(card.getAttribute('data-price'));
+        var color = card.querySelector('[data-swatches] .sw.is-active');
+        color = color ? color.getAttribute('data-name') : '';
+        var size = card.querySelector('[data-sizes] .size.is-active');
+        size = size ? size.textContent : '';
+        var swatch = card.querySelector('[data-swatches] .sw.is-active');
+        var hex = swatch ? getComputedStyle(swatch).getPropertyValue('--c').trim() : '#ccc';
+        var qty = +card.querySelector('[data-qty] span').textContent;
+        addToCart({ name: name, price: price, color: color, size: size, hex: hex, qty: qty });
+        showToast(name + ' added ✓');
+        openCart();
+      });
+    });
+
+    function addToCart(item) {
+      var key = item.name + '|' + item.color + '|' + item.size;
+      var found = cart.filter(function (c) { return c.key === key; })[0];
+      if (found) { found.qty += item.qty; } else { item.key = key; cart.push(item); }
+      renderCart();
+    }
+    function removeFromCart(key) { cart = cart.filter(function (c) { return c.key !== key; }); renderCart(); }
+    function setQty(key, d) {
+      var it = cart.filter(function (c) { return c.key === key; })[0];
+      if (!it) return; it.qty += d; if (it.qty < 1) { removeFromCart(key); return; } renderCart();
+    }
+
+    var itemsEl = root.querySelector('[data-cart-items]');
+    var subEl = root.querySelector('[data-cart-subtotal]');
+    var countEls = root.querySelectorAll('.cart-count');
+
+    function renderCart() {
+      var count = 0, sub = 0;
+      cart.forEach(function (c) { count += c.qty; sub += c.qty * c.price; });
+      countEls.forEach(function (e) { e.textContent = count; });
+      subEl.textContent = money(sub);
+      if (!cart.length) { itemsEl.innerHTML = '<p class="cart__empty">Your cart is empty.</p>'; return; }
+      itemsEl.innerHTML = cart.map(function (c) {
+        var variant = [c.color, c.size].filter(Boolean).join(' · ');
+        return '<div class="ci">'
+          + '<div class="ci__thumb" style="background:' + c.hex + '"></div>'
+          + '<div class="ci__main"><div class="ci__name">' + c.name + '</div>'
+          + '<div class="ci__var">' + variant + '</div>'
+          + '<div class="ci__row"><span class="ci__qty"><button data-cq="' + c.key + '" data-d="-1">−</button><span>' + c.qty + '</span><button data-cq="' + c.key + '" data-d="1">+</button></span>'
+          + '<span class="ci__price">' + money(c.qty * c.price) + '</span></div>'
+          + '<button class="ci__remove" data-cr="' + c.key + '">Remove</button></div></div>';
+      }).join('');
+      itemsEl.querySelectorAll('[data-cq]').forEach(function (b) {
+        b.addEventListener('click', function () { setQty(b.getAttribute('data-cq'), parseInt(b.getAttribute('data-d'), 10)); });
+      });
+      itemsEl.querySelectorAll('[data-cr]').forEach(function (b) {
+        b.addEventListener('click', function () { removeFromCart(b.getAttribute('data-cr')); });
+      });
+    }
+
+    /* ---- cart drawer open/close ---- */
+    var overlay = root.querySelector('[data-cart-overlay]');
+    var drawer = root.querySelector('[data-cart]');
+    function openCart() { overlay.classList.add('is-open'); drawer.classList.add('is-open'); }
+    function closeCart() { overlay.classList.remove('is-open'); drawer.classList.remove('is-open'); }
+    root.querySelector('[data-cart-open]').addEventListener('click', openCart);
+    root.querySelector('[data-cart-close]').addEventListener('click', closeCart);
+    overlay.addEventListener('click', closeCart);
+    root.querySelector('[data-checkout]').addEventListener('click', function () {
+      if (!cart.length) { showToast('Your cart is empty'); return; }
+      showToast('Proceeding to checkout…');
+    });
+
+    /* ---- toast ---- */
+    var toast = root.querySelector('[data-toast]'), toastTimer;
+    function showToast(msg) { toast.textContent = msg; toast.classList.add('is-show'); clearTimeout(toastTimer); toastTimer = setTimeout(function () { toast.classList.remove('is-show'); }, 1800); }
+
+    /* ---- filters + sort ---- */
+    var grid = root.querySelector('[data-grid]');
+    var emptyMsg = root.querySelector('[data-empty]');
+    var currentFilter = 'all';
+    function applyFilter() {
+      var shown = 0;
+      grid.querySelectorAll('.card').forEach(function (card) {
+        var ok = currentFilter === 'all' || card.getAttribute('data-cat') === currentFilter;
+        card.hidden = !ok; if (ok) shown++;
+      });
+      emptyMsg.hidden = shown > 0;
+    }
+    root.querySelectorAll('[data-filters] .filter').forEach(function (f) {
+      f.addEventListener('click', function () {
+        root.querySelectorAll('[data-filters] .filter').forEach(function (x) { x.classList.remove('is-active'); });
+        f.classList.add('is-active'); currentFilter = f.getAttribute('data-filter'); applyFilter();
+      });
+    });
+    root.querySelector('[data-sort]').addEventListener('change', function (e) {
+      var v = e.target.value;
+      var cards = Array.prototype.slice.call(grid.querySelectorAll('.card'));
+      cards.sort(function (a, b) {
+        if (v === 'price-asc') return a.dataset.price - b.dataset.price;
+        if (v === 'price-desc') return b.dataset.price - a.dataset.price;
+        if (v === 'rating') return b.dataset.rating - a.dataset.rating;
+        return 0;
+      });
+      cards.forEach(function (c) { grid.appendChild(c); });
+    });
+
+    renderCart();
+  })();
+  </script>
+</div>
