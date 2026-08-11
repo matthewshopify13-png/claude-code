@@ -1,0 +1,183 @@
+<!-- ============================================================
+     FORMA. — ORDER TRACKING page — SINGLE-FILE EMBED for GemPages
+     Paste this ENTIRE block into a GemPages "HTML / Liquid" (Custom Code) element.
+     Scoped under .fx. Tabs switch, and "Track Your Order" shows a demo status.
+     (Swap the demo status for your real tracking app/API when ready.)
+     ============================================================ -->
+<div class="fx fx-track">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Jost:wght@300;400;500;600&display=swap');
+    .fx{--cream:#f6f1e8;--cream-2:#efe7d8;--cream-3:#faf6ee;--white:#fff;--espresso:#3c2c22;--brown:#5b4231;--ink:#1e1b17;--muted:#7d7366;--sale:#cf3b2e;--line:rgba(30,27,23,.12);--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--maxw:1280px;--shadow:0 24px 60px -28px rgba(30,27,23,.45);font-family:var(--font-sans);color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;}
+    .fx,.fx *,.fx *::before,.fx *::after{box-sizing:border-box;}
+    .fx [hidden]{display:none !important;}
+    .fx a{color:inherit;text-decoration:none;}
+    .fx p,.fx h1,.fx h2,.fx h3,.fx h4,.fx ul,.fx li{margin:0;}
+    .fx ul{padding:0;list-style:none;}
+    .fx button{font-family:inherit;}
+    .fx .container{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,5vw,56px);}
+
+    .fx .announce{background:var(--espresso);color:var(--cream);text-align:center;padding:.6rem 1rem;font-family:var(--font-serif);font-size:.95rem;position:relative;height:2.2rem;overflow:hidden;}
+    .fx .announce span{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .5s;}
+    .fx .announce span.is-on{opacity:1;}
+    .fx .header{background:var(--cream);border-bottom:1px solid var(--line);}
+    .fx .header__inner{display:flex;align-items:center;gap:1.5rem;padding-block:1.1rem;}
+    .fx .logo{font-family:var(--font-serif);font-weight:800;font-size:1.8rem;color:var(--espresso);}
+    .fx .logo .dot{color:var(--sale);}
+    .fx .nav{display:flex;gap:1.5rem;font-family:var(--font-serif);font-size:1.02rem;margin-inline:auto;}
+    .fx .nav a:hover{color:var(--sale);}
+    .fx .header__actions{display:flex;align-items:center;gap:.9rem;}
+    .fx .cur{font-size:.92rem;}
+    .fx .icon-btn{border:none;background:transparent;cursor:pointer;color:var(--ink);display:grid;place-items:center;}
+    .fx .header__menu{display:none;border:none;background:transparent;cursor:pointer;}
+
+    /* Tracker */
+    .fx .track{padding:clamp(3rem,7vw,5.5rem) 0;}
+    .fx .track__head{text-align:center;max-width:40rem;margin:0 auto 2.4rem;}
+    .fx .track__head .eyebrow{font-size:.8rem;letter-spacing:.24em;text-transform:uppercase;color:var(--sale);}
+    .fx .track__head h1{font-family:var(--font-serif);font-weight:600;font-size:clamp(2rem,4.5vw,3rem);margin-top:.4rem;}
+    .fx .track__head p{color:var(--muted);margin-top:.5rem;}
+    .fx .track__card{max-width:760px;margin:0 auto;background:var(--white);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:clamp(1.6rem,4vw,2.6rem);}
+    .fx .tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:1.6rem;}
+    .fx .tab{flex:1;background:transparent;border:none;padding:.9rem 0;font-size:1rem;color:var(--muted);cursor:pointer;position:relative;transition:color .2s;}
+    .fx .tab.is-active{color:var(--ink);font-weight:500;}
+    .fx .tab.is-active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--ink);}
+    .fx .field label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:.5rem;}
+    .fx .field input{width:100%;padding:1rem 1.1rem;border:1.5px solid var(--line);border-radius:10px;font-family:inherit;font-size:1rem;color:var(--ink);background:var(--cream-3);}
+    .fx .field input:focus{outline:none;border-color:var(--espresso);}
+    .fx .track__btn{width:100%;margin-top:1.3rem;padding:1.1rem;background:#111;color:#fff;border:none;border-radius:12px;font-size:1.05rem;font-weight:500;cursor:pointer;transition:background .2s,transform .2s;}
+    .fx .track__btn:hover{background:#000;transform:translateY(-2px);}
+    .fx .track__powered{text-align:center;color:var(--muted);font-style:italic;font-size:.85rem;margin-top:1.6rem;}
+
+    /* Result */
+    .fx .result{margin-top:1.6rem;border-top:1px solid var(--line);padding-top:1.6rem;}
+    .fx .result__top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem;margin-bottom:1.4rem;}
+    .fx .result__id{font-family:var(--font-serif);font-size:1.15rem;}
+    .fx .badge{background:#e5f2e8;color:#1f7a44;font-size:.78rem;font-weight:500;padding:.35rem .8rem;border-radius:100px;letter-spacing:.04em;}
+    .fx .steps{display:flex;gap:0;}
+    .fx .stepp{flex:1;text-align:center;position:relative;font-size:.78rem;color:var(--muted);}
+    .fx .stepp .dot{width:26px;height:26px;border-radius:50%;background:var(--cream-2);border:2px solid var(--line);margin:0 auto .5rem;display:grid;place-items:center;font-size:.8rem;color:var(--muted);position:relative;z-index:2;}
+    .fx .stepp::before{content:"";position:absolute;top:13px;left:-50%;width:100%;height:2px;background:var(--line);z-index:1;}
+    .fx .stepp:first-child::before{display:none;}
+    .fx .stepp.done .dot{background:var(--espresso);border-color:var(--espresso);color:#fff;}
+    .fx .stepp.done::before{background:var(--espresso);}
+    .fx .stepp.done{color:var(--ink);}
+
+    /* Footer */
+    .fx .footer{background:var(--espresso);color:#e8ddcd;padding-top:3.5rem;margin-top:2rem;}
+    .fx .footer__grid{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:2.5rem;padding-bottom:2.5rem;}
+    .fx .footer h4{font-family:var(--font-serif);font-weight:600;font-size:1.15rem;color:#fff;margin-bottom:1rem;}
+    .fx .footer a{display:block;color:rgba(232,221,205,.78);padding:.3rem 0;font-size:.92rem;}
+    .fx .footer a:hover{color:#fff;}
+    .fx .footer__mid p{color:rgba(232,221,205,.78);max-width:26rem;margin-bottom:1rem;}
+    .fx .foot-form{display:flex;max-width:400px;background:#f6f1e8;border-radius:6px;overflow:hidden;}
+    .fx .foot-form input{flex:1;border:none;background:transparent;padding:.8rem 1rem;font-family:inherit;color:var(--ink);}
+    .fx .foot-form input:focus{outline:none;}
+    .fx .foot-form button{border:none;background:var(--espresso);color:var(--cream);padding:0 1.4rem;font-family:var(--font-serif);cursor:pointer;}
+    .fx .social{display:flex;gap:1rem;margin-top:.6rem;}
+    .fx .social a{width:38px;height:38px;border:1px solid rgba(232,221,205,.4);border-radius:50%;display:grid;place-items:center;}
+    .fx .footer__bottom{border-top:1px solid rgba(232,221,205,.18);padding:1.4rem 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;font-size:.82rem;color:rgba(232,221,205,.7);}
+    .fx .pay span{background:rgba(246,241,232,.1);border-radius:4px;padding:.15rem .45rem;font-size:.62rem;margin-left:.3rem;}
+
+    @media (max-width:940px){ .fx .nav{display:none;} .fx .header__menu{display:grid;} .fx .footer__grid{grid-template-columns:1fr;} }
+  </style>
+
+  <div class="announce" data-announce>
+    <span class="is-on">Free Shipping Worldwide Over $49</span><span>30-Day Guarantee</span><span>Trusted by 100,000+ Women Worldwide</span>
+  </div>
+  <header class="header">
+    <div class="container header__inner">
+      <button class="header__menu" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <a href="#" class="logo">FORMA<span class="dot">.</span></a>
+      <nav class="nav"><a href="#">Best Seller</a><a href="#">New Arrivals</a><a href="#">Leggings</a><a href="#">Tops</a><a href="#">Bra</a><a href="#">Accessories</a><a href="#">Blog</a><a href="#">About US</a><a href="#">Order Tracking</a></nav>
+      <div class="header__actions">
+        <span class="cur">🇺🇸 USD $ ▾</span>
+        <button class="icon-btn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+        <button class="icon-btn" aria-label="Cart"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9 8a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="track">
+    <div class="container">
+      <div class="track__head">
+        <span class="eyebrow">Order Tracking</span>
+        <h1>Track your order</h1>
+        <p>Enter your tracking number or order number below to see where your FORMA is.</p>
+      </div>
+      <div class="track__card">
+        <div class="tabs" data-tabs>
+          <button class="tab is-active" data-tab="tracking">Tracking Number</button>
+          <button class="tab" data-tab="order">Order Number</button>
+        </div>
+        <div class="field" data-panel="tracking">
+          <label for="fx-trk">Tracking Number</label>
+          <input id="fx-trk" type="text" placeholder="e.g. FRM123456789" />
+        </div>
+        <div class="field" data-panel="order" hidden>
+          <label for="fx-ord">Order Number &amp; Email</label>
+          <input id="fx-ord" type="text" placeholder="e.g. #10234" />
+        </div>
+        <button class="track__btn" data-track>Track Your Order</button>
+
+        <div class="result" data-result hidden>
+          <div class="result__top">
+            <span class="result__id" data-result-id>Order #FRM123456789</span>
+            <span class="badge">In Transit</span>
+          </div>
+          <div class="steps">
+            <div class="stepp done"><span class="dot">✓</span>Ordered</div>
+            <div class="stepp done"><span class="dot">✓</span>Packed</div>
+            <div class="stepp done"><span class="dot">✓</span>Shipped</div>
+            <div class="stepp"><span class="dot">4</span>Out for delivery</div>
+            <div class="stepp"><span class="dot">5</span>Delivered</div>
+          </div>
+          <p style="text-align:center;color:var(--muted);margin-top:1.4rem;font-size:.9rem;">Estimated delivery in 3–5 business days. A detailed tracking link has been emailed to you.</p>
+        </div>
+
+        <p class="track__powered">Powered by FORMA Track</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div><h4>Information</h4><a href="#">About Us</a><a href="#">Contact Us</a><a href="#">Refund Policy</a><a href="#">Privacy Policy</a><a href="#">Order Tracking</a><a href="#">Terms &amp; Conditions</a><a href="#">Shipping Policy</a></div>
+      <div class="footer__mid"><h4>Keep In Touch</h4><p>Second-skin performance wear engineered to sculpt, smooth, and elevate your everyday confidence.</p>
+        <form class="foot-form" data-foot-form><input type="email" placeholder="Enter your email" required/><button type="submit">JOIN</button></form>
+        <p data-foot-note hidden style="color:#f0d9a8;margin-top:.6rem;">Welcome to FORMA ✦ 10% off is on its way.</p>
+      </div>
+      <div><h4>Our Store</h4><a href="mailto:service@formawear.com">service@formawear.com</a><div class="social"><a href="#">f</a><a href="#">◎</a><a href="#">♪</a></div></div>
+    </div>
+    <div class="container footer__bottom"><p>© <span data-year></span> FORMA. All Rights Reserved.</p><p class="pay">We accept<span>VISA</span><span>MC</span><span>AMEX</span><span>PayPal</span><span>Shop</span></p></div>
+  </footer>
+
+  <script>
+  (function(){
+    var root=document.currentScript?document.currentScript.closest('.fx'):document.querySelector('.fx-track');
+    if(!root)return;
+    var y=root.querySelector('[data-year]');if(y)y.textContent=new Date().getFullYear();
+    var msgs=root.querySelectorAll('[data-announce] span'),i=0;
+    if(msgs.length>1)setInterval(function(){msgs[i].classList.remove('is-on');i=(i+1)%msgs.length;msgs[i].classList.add('is-on');},3000);
+    // tabs
+    root.querySelectorAll('[data-tabs] .tab').forEach(function(t){
+      t.addEventListener('click',function(){
+        root.querySelectorAll('[data-tabs] .tab').forEach(function(x){x.classList.remove('is-active');});
+        t.classList.add('is-active');
+        var which=t.getAttribute('data-tab');
+        root.querySelectorAll('[data-panel]').forEach(function(p){p.hidden=p.getAttribute('data-panel')!==which;});
+      });
+    });
+    // track
+    var res=root.querySelector('[data-result]'),resId=root.querySelector('[data-result-id]');
+    root.querySelector('[data-track]').addEventListener('click',function(){
+      var active=root.querySelector('[data-panel]:not([hidden]) input');
+      var val=active&&active.value.trim()?active.value.trim():'FRM123456789';
+      resId.textContent='Order #'+val.replace(/^#/,'');
+      res.hidden=false;
+      res.scrollIntoView({behavior:'smooth',block:'nearest'});
+    });
+    var f=root.querySelector('[data-foot-form]'),n=root.querySelector('[data-foot-note]');
+    if(f)f.addEventListener('submit',function(e){e.preventDefault();if(n)n.hidden=false;f.reset();});
+  })();
+  </script>
+</div>

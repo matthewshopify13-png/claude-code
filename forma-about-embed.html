@@ -1,0 +1,283 @@
+<!-- ============================================================
+     FORMA. — ABOUT US page — SINGLE-FILE EMBED for GemPages
+     Paste this ENTIRE block into a GemPages "HTML / Liquid" (Custom Code) element.
+     Scoped under .fx so nothing leaks into your theme.
+     Images are placeholders (CSS) — drop your own photos into the .tile / .tagline__media blocks.
+     ============================================================ -->
+<div class="fx fx-about">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+
+    .fx {
+      --cream:#f6f1e8; --cream-2:#efe7d8; --cream-3:#faf6ee; --white:#fff;
+      --espresso:#3c2c22; --brown:#5b4231; --ink:#1e1b17; --muted:#7d7366;
+      --sale:#cf3b2e; --line:rgba(30,27,23,.12); --gold:#b98f4b;
+      --font-serif:'Playfair Display',Georgia,serif;
+      --font-sans:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --maxw:1280px; --shadow:0 24px 60px -28px rgba(30,27,23,.45);
+      font-family:var(--font-sans); color:var(--ink); background:var(--cream);
+      line-height:1.6; -webkit-font-smoothing:antialiased;
+    }
+    .fx, .fx *, .fx *::before, .fx *::after { box-sizing:border-box; }
+    .fx [hidden]{display:none !important;}
+    .fx a{color:inherit;text-decoration:none;}
+    .fx p,.fx h1,.fx h2,.fx h3,.fx h4,.fx ul,.fx li{margin:0;}
+    .fx ul{padding:0;list-style:none;}
+    .fx button{font-family:inherit;}
+    .fx .container{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,5vw,56px);}
+
+    /* Buttons */
+    .fx .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.95rem 1.8rem;border-radius:100px;font-size:.9rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border:1.5px solid transparent;transition:transform .2s,background .2s,color .2s;}
+    .fx .btn:hover{transform:translateY(-2px);}
+    .fx .btn--dark{background:var(--espresso);color:var(--cream);}
+    .fx .btn--dark:hover{background:#2c1f18;}
+    .fx .btn--out{background:transparent;color:var(--espresso);border-color:var(--espresso);}
+    .fx .btn--out:hover{background:var(--espresso);color:var(--cream);}
+
+    /* Announcement (rotating) */
+    .fx .announce{background:var(--espresso);color:var(--cream);text-align:center;padding:.6rem 1rem;font-family:var(--font-serif);font-size:.95rem;letter-spacing:.02em;position:relative;height:2.2rem;overflow:hidden;}
+    .fx .announce span{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .5s;}
+    .fx .announce span.is-on{opacity:1;}
+
+    /* Header */
+    .fx .header{background:var(--cream);border-bottom:1px solid var(--line);position:relative;z-index:5;}
+    .fx .header__inner{display:flex;align-items:center;gap:1.5rem;padding-block:1.1rem;}
+    .fx .logo{font-family:var(--font-serif);font-weight:800;font-size:1.8rem;letter-spacing:.02em;color:var(--espresso);}
+    .fx .logo .dot{color:var(--sale);}
+    .fx .nav{display:flex;gap:1.5rem;font-family:var(--font-serif);font-size:1.02rem;margin-inline:auto;}
+    .fx .nav a{transition:color .2s;white-space:nowrap;}
+    .fx .nav a:hover{color:var(--sale);}
+    .fx .header__actions{display:flex;align-items:center;gap:.9rem;}
+    .fx .cur{display:inline-flex;align-items:center;gap:.35rem;font-size:.92rem;}
+    .fx .icon-btn{border:none;background:transparent;cursor:pointer;color:var(--ink);display:grid;place-items:center;}
+    .fx .header__menu{display:none;border:none;background:transparent;cursor:pointer;}
+
+    /* About hero collage */
+    .fx .welcome{position:relative;padding:clamp(3rem,7vw,6rem) 0 clamp(2rem,5vw,4rem);overflow:hidden;}
+    .fx .welcome__center{position:relative;z-index:2;text-align:center;max-width:520px;margin-inline:auto;padding-block:clamp(4rem,10vw,7rem);}
+    .fx .welcome__eyebrow{font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);}
+    .fx .welcome__logo{font-family:var(--font-serif);font-weight:800;font-size:clamp(3rem,9vw,5.5rem);color:var(--espresso);line-height:1;margin:.4rem 0 1rem;}
+    .fx .welcome__logo .dot{color:var(--sale);}
+    .fx .welcome__tag{font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);line-height:2;}
+    .fx .collage{position:absolute;inset:0;z-index:1;pointer-events:none;}
+    .fx .tile{position:absolute;border-radius:14px;box-shadow:var(--shadow);background-size:cover;background-position:center;border:5px solid #fff;}
+    .fx .tile::after{content:"";position:absolute;inset:0;border-radius:9px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(30,27,23,.12));}
+    .fx .t1{width:200px;height:250px;top:6%;left:4%;transform:rotate(-6deg);background:linear-gradient(150deg,#c9b79f,#8a715a);}
+    .fx .t2{width:150px;height:180px;top:12%;left:31%;transform:rotate(5deg);background:linear-gradient(150deg,#b7a48c,#6f5947);}
+    .fx .t3{width:170px;height:150px;top:9%;right:26%;transform:rotate(-4deg);background:linear-gradient(150deg,#9aa08f,#5c6353);}
+    .fx .t4{width:180px;height:230px;top:5%;right:3%;transform:rotate(6deg);background:linear-gradient(150deg,#8f8578,#514a41);}
+    .fx .t5{width:165px;height:210px;bottom:6%;left:2%;transform:rotate(5deg);background:linear-gradient(150deg,#c2a9a2,#7d5a54);}
+    .fx .t6{width:200px;height:180px;bottom:2%;left:26%;transform:rotate(-5deg);background:linear-gradient(150deg,#b6a690,#6b5a45);}
+    .fx .t7{width:210px;height:180px;bottom:1%;right:24%;transform:rotate(4deg);background:linear-gradient(150deg,#8d8477,#4f463d);}
+    .fx .t8{width:150px;height:200px;bottom:7%;right:4%;transform:rotate(-6deg);background:linear-gradient(150deg,#a9b0ba,#5f6870);}
+    .fx .tile .ph{position:absolute;inset:auto 0 8px 0;text-align:center;font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8);}
+
+    /* Mission strip */
+    .fx .mission{background:var(--cream-2);text-align:center;padding:clamp(3rem,6vw,4.5rem) 0;}
+    .fx .mission h2{font-family:var(--font-serif);font-weight:500;font-size:clamp(1.6rem,3.5vw,2.4rem);max-width:40rem;margin:0 auto 1rem;line-height:1.25;}
+    .fx .mission h2 em{font-style:italic;color:var(--sale);}
+    .fx .mission p{color:var(--muted);max-width:38rem;margin:0 auto;}
+    .fx .stats{display:flex;justify-content:center;gap:clamp(1.5rem,5vw,4rem);flex-wrap:wrap;margin-top:2.4rem;}
+    .fx .stat b{display:block;font-family:var(--font-serif);font-size:2rem;color:var(--espresso);}
+    .fx .stat span{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+
+    /* Tagline full-bleed */
+    .fx .tagline{position:relative;min-height:min(78vh,700px);display:flex;align-items:flex-end;background:linear-gradient(120deg,#4a4741 0%,#6b665c 45%,#8a8377 100%);overflow:hidden;}
+    .fx .tagline::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 70% 20%,rgba(210,196,170,.35),transparent 55%),linear-gradient(180deg,rgba(20,18,15,.05) 30%,rgba(20,18,15,.72) 100%);}
+    .fx .tagline__ph{position:absolute;top:1rem;right:1.2rem;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);z-index:2;}
+    .fx .tagline__inner{position:relative;z-index:2;color:#fff;padding:clamp(2rem,6vw,4.5rem);max-width:640px;}
+    .fx .tagline__inner h2{font-family:var(--font-serif);font-weight:600;font-size:clamp(2.2rem,5vw,3.4rem);margin-bottom:1.3rem;}
+    .fx .tagline__list li{padding:.5rem 0;font-size:clamp(.95rem,1.6vw,1.12rem);border-top:1px solid rgba(255,255,255,.18);}
+    .fx .tagline__list li:first-child{border-top:none;}
+    .fx .tagline__list b{font-family:var(--font-serif);color:#f0d9a8;margin-right:.2rem;}
+
+    /* Promise cards */
+    .fx .promise{padding:clamp(3.5rem,7vw,5.5rem) 0;}
+    .fx .promise__head{text-align:center;max-width:40rem;margin:0 auto 3rem;}
+    .fx .promise__head .eyebrow{font-size:.8rem;letter-spacing:.24em;text-transform:uppercase;color:var(--sale);}
+    .fx .promise__head h2{font-family:var(--font-serif);font-weight:500;font-size:clamp(1.9rem,4vw,2.8rem);margin-top:.5rem;}
+    .fx .promise__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+    .fx .pcard{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:2.2rem 1.8rem;text-align:center;transition:transform .25s;}
+    .fx .pcard:hover{transform:translateY(-5px);box-shadow:var(--shadow);}
+    .fx .pcard .ico{width:52px;height:52px;border-radius:50%;background:var(--cream-2);display:grid;place-items:center;margin:0 auto 1rem;font-size:1.4rem;}
+    .fx .pcard h3{font-family:var(--font-serif);font-weight:600;font-size:1.25rem;margin-bottom:.5rem;}
+    .fx .pcard p{color:var(--muted);font-size:.92rem;}
+
+    /* CTA band */
+    .fx .band{background:var(--espresso);color:var(--cream);text-align:center;padding:clamp(3.5rem,7vw,5rem) 0;}
+    .fx .band h2{font-family:var(--font-serif);font-weight:500;font-size:clamp(1.9rem,4vw,2.8rem);margin-bottom:.7rem;}
+    .fx .band p{color:rgba(246,241,232,.8);max-width:34rem;margin:0 auto 1.8rem;}
+    .fx .band .btn--dark{background:var(--cream);color:var(--espresso);}
+    .fx .band .btn--dark:hover{background:#fff;}
+
+    /* Footer */
+    .fx .footer{background:var(--espresso);color:#e8ddcd;padding-top:3.5rem;}
+    .fx .footer__grid{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:2.5rem;padding-bottom:2.5rem;}
+    .fx .footer h4{font-family:var(--font-serif);font-weight:600;font-size:1.15rem;color:#fff;margin-bottom:1rem;}
+    .fx .footer a{display:block;color:rgba(232,221,205,.78);padding:.3rem 0;font-size:.92rem;transition:color .2s;}
+    .fx .footer a:hover{color:#fff;}
+    .fx .footer__mid p{color:rgba(232,221,205,.78);max-width:26rem;margin-bottom:1.2rem;}
+    .fx .badges{display:flex;gap:1.4rem;margin:1rem 0 1.4rem;font-size:.85rem;}
+    .fx .foot-form{display:flex;max-width:400px;background:#f6f1e8;border-radius:6px;overflow:hidden;}
+    .fx .foot-form input{flex:1;border:none;background:transparent;padding:.8rem 1rem;font-family:inherit;color:var(--ink);}
+    .fx .foot-form input:focus{outline:none;}
+    .fx .foot-form button{border:none;background:var(--espresso);color:var(--cream);padding:0 1.4rem;font-family:var(--font-serif);cursor:pointer;letter-spacing:.05em;}
+    .fx .social{display:flex;gap:1rem;margin-top:.4rem;}
+    .fx .social a{width:38px;height:38px;border:1px solid rgba(232,221,205,.4);border-radius:50%;display:grid;place-items:center;}
+    .fx .footer__bottom{border-top:1px solid rgba(232,221,205,.18);padding:1.4rem 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;font-size:.82rem;color:rgba(232,221,205,.7);}
+    .fx .pay span{background:rgba(246,241,232,.1);border-radius:4px;padding:.15rem .45rem;font-size:.62rem;margin-left:.3rem;}
+
+    @media (max-width:940px){
+      .fx .nav{display:none;}
+      .fx .header__menu{display:grid;}
+      .fx .promise__grid{grid-template-columns:1fr;}
+      .fx .footer__grid{grid-template-columns:1fr;}
+      .fx .collage .tile{display:none;}
+      .fx .collage .t1,.fx .collage .t4,.fx .collage .t5,.fx .collage .t8{display:block;opacity:.5;}
+    }
+    @media (max-width:560px){ .fx .collage{display:none;} .fx .welcome__center{padding-block:1rem;} }
+  </style>
+
+  <!-- Rotating announcement -->
+  <div class="announce" data-announce>
+    <span class="is-on">Free Shipping Worldwide Over $49</span>
+    <span>30-Day Guarantee</span>
+    <span>Trusted by 100,000+ Women Worldwide</span>
+  </div>
+
+  <!-- Header (exact menu) -->
+  <header class="header">
+    <div class="container header__inner">
+      <button class="header__menu" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <a href="#" class="logo">FORMA<span class="dot">.</span></a>
+      <nav class="nav">
+        <a href="#">Best Seller</a><a href="#">New Arrivals</a><a href="#">Leggings</a><a href="#">Tops</a><a href="#">Bra</a><a href="#">Accessories</a><a href="#">Blog</a><a href="#">About US</a><a href="#">Order Tracking</a>
+      </nav>
+      <div class="header__actions">
+        <span class="cur">🇺🇸 USD $ ▾</span>
+        <button class="icon-btn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+        <button class="icon-btn" aria-label="Cart"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9 8a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Welcome collage -->
+  <section class="welcome">
+    <div class="collage" aria-hidden="true">
+      <span class="tile t1"><span class="ph">Your photo</span></span>
+      <span class="tile t2"><span class="ph">Your photo</span></span>
+      <span class="tile t3"><span class="ph">Your photo</span></span>
+      <span class="tile t4"><span class="ph">Your photo</span></span>
+      <span class="tile t5"><span class="ph">Your photo</span></span>
+      <span class="tile t6"><span class="ph">Your photo</span></span>
+      <span class="tile t7"><span class="ph">Your photo</span></span>
+      <span class="tile t8"><span class="ph">Your photo</span></span>
+    </div>
+    <div class="container">
+      <div class="welcome__center">
+        <p class="welcome__eyebrow">Welcome to</p>
+        <p class="welcome__logo">FORMA<span class="dot">.</span></p>
+        <p class="welcome__tag">An ecosystem of movement, body &amp; confidence<br/>where comfort meets innovation</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="mission">
+    <div class="container">
+      <h2>We started FORMA because shapewear made us choose between <em>looking good</em> and feeling good. So we refused to choose.</h2>
+      <p>Every piece is engineered with 3D compression knit that gently sculpts, smooths, and supports — the moment you put it on and every hour after. No pinching. No rolling. Just a second skin that moves the way you do.</p>
+      <div class="stats">
+        <div class="stat"><b>100,000+</b><span>Women worldwide</span></div>
+        <div class="stat"><b>4.9 / 5</b><span>Average rating</span></div>
+        <div class="stat"><b>&lt;2%</b><span>Return rate</span></div>
+        <div class="stat"><b>30-Day</b><span>Money-back promise</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tagline full-bleed -->
+  <section class="tagline">
+    <span class="tagline__ph">Your lifestyle photo here</span>
+    <div class="tagline__inner">
+      <h2>Our Tagline</h2>
+      <ul class="tagline__list">
+        <li><b>F:</b> Feather-Light — barely-there fabric you forget you're wearing.</li>
+        <li><b>O:</b> One With You — a true second skin that moves as you move.</li>
+        <li><b>R:</b> Real Confidence — sculpts and smooths from the very first wear.</li>
+        <li><b>M:</b> Made for Every Body — inclusive sizing for every shape.</li>
+        <li><b>A:</b> All-Day Comfort — engineered for morning to midnight.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Promise cards -->
+  <section class="promise">
+    <div class="container">
+      <div class="promise__head">
+        <span class="eyebrow">The FORMA promise</span>
+        <h2>Designed around you, not the other way around</h2>
+      </div>
+      <div class="promise__grid">
+        <div class="pcard"><div class="ico">🧬</div><h3>3D Sculpt Technology</h3><p>Targeted compression zones lift, smooth, and refine — woven right into the fabric, not printed on.</p></div>
+        <div class="pcard"><div class="ico">🌿</div><h3>Breathe-Easy Comfort</h3><p>Moisture-wicking, cooling knit that stays soft through every rep, run, and rest day.</p></div>
+        <div class="pcard"><div class="ico">💛</div><h3>Confidence, Included</h3><p>Loved by 100,000+ women. Backed by a 30-day money-back promise, no questions asked.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA band -->
+  <section class="band">
+    <div class="container">
+      <h2>Find your second skin</h2>
+      <p>Join the 100,000+ women who traded uncomfortable shapewear for FORMA. Feel the difference from the first wear.</p>
+      <a href="#" class="btn btn--dark">Shop Best Sellers →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div>
+        <h4>Information</h4>
+        <a href="#">About Us</a><a href="#">Contact Us</a><a href="#">Refund Policy</a><a href="#">Privacy Policy</a><a href="#">Order Tracking</a><a href="#">Terms &amp; Conditions</a><a href="#">Shipping Policy</a>
+      </div>
+      <div class="footer__mid">
+        <h4>Keep In Touch</h4>
+        <p>Second-skin performance wear engineered to sculpt, smooth, and elevate your everyday confidence.</p>
+        <div class="badges"><span>🔒 Secure Checkout</span><span>🚚 Free Shipping</span></div>
+        <p style="text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;margin-bottom:.4rem;">Stay in the loop</p>
+        <form class="foot-form" data-foot-form>
+          <input type="email" placeholder="Enter your email" required/>
+          <button type="submit">JOIN</button>
+        </form>
+        <p data-foot-note hidden style="color:#f0d9a8;margin-top:.6rem;">Welcome to FORMA ✦ 10% off is on its way.</p>
+      </div>
+      <div>
+        <h4>Our Store</h4>
+        <a href="mailto:service@formawear.com">service@formawear.com</a>
+        <div class="social">
+          <a href="#" aria-label="Facebook">f</a><a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="TikTok">♪</a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>© <span data-year></span> FORMA. All Rights Reserved.</p>
+      <p class="pay">We accept<span>VISA</span><span>MC</span><span>AMEX</span><span>PayPal</span><span>Shop</span></p>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    var root=document.currentScript?document.currentScript.closest('.fx'):document.querySelector('.fx-about');
+    if(!root)return;
+    var y=root.querySelector('[data-year]'); if(y)y.textContent=new Date().getFullYear();
+    // rotating announcement
+    var msgs=root.querySelectorAll('[data-announce] span'), i=0;
+    if(msgs.length>1){setInterval(function(){msgs[i].classList.remove('is-on');i=(i+1)%msgs.length;msgs[i].classList.add('is-on');},3000);}
+    // footer signup
+    var f=root.querySelector('[data-foot-form]'),n=root.querySelector('[data-foot-note]');
+    if(f)f.addEventListener('submit',function(e){e.preventDefault();if(n)n.hidden=false;f.reset();});
+  })();
+  </script>
+</div>
