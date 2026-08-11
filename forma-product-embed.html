@@ -1,0 +1,740 @@
+<!-- ============================================================
+     FORMA. — PRODUCT PAGE (Pocket Sculpting Leggings) — SINGLE-FILE EMBED for GemPages
+     Paste this ENTIRE block into a GemPages "HTML / Liquid" (Custom Code) element.
+     Scoped under .fx-pdp so nothing leaks into your theme.
+     ALL interactions work: image gallery, color/size/length pickers, quantity,
+     bundle upsell + live countdown, Add to Cart -> slide-in cart drawer with totals,
+     Buy It Now, before/after slider, size-guide modal (INCH/CM), accordions, FAQs,
+     sticky mobile add-to-cart bar. Product images are placeholders (no photos).
+     ============================================================ -->
+<div class="fx fx-pdp">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Jost:wght@300;400;500;600&display=swap');
+    .fx{--cream:#f6f1e8;--cream-2:#efe7d8;--cream-3:#faf6ee;--white:#fff;--espresso:#3c2c22;--brown:#8a5a3c;--brown-2:#a86a44;--ink:#1e1b17;--muted:#7d7366;--sale:#cf3b2e;--gold:#f2b705;--green-ok:#1f7a44;--line:rgba(30,27,23,.13);--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--maxw:1280px;--shadow:0 24px 60px -28px rgba(30,27,23,.45);font-family:var(--font-sans);color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;}
+    .fx,.fx *,.fx *::before,.fx *::after{box-sizing:border-box;}
+    .fx [hidden]{display:none !important;}
+    .fx a{color:inherit;text-decoration:none;}
+    .fx p,.fx h1,.fx h2,.fx h3,.fx h4,.fx ul,.fx li,.fx figure{margin:0;}
+    .fx ul{padding:0;list-style:none;}
+    .fx button{font-family:inherit;}
+    .fx img{max-width:100%;display:block;}
+    .fx .container{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(18px,4vw,48px);}
+    .fx .stars-tp{display:inline-flex;gap:2px;}
+    .fx .stars-tp i{width:20px;height:20px;background:#00b67a;display:inline-grid;place-items:center;color:#fff;font-style:normal;font-size:12px;border-radius:2px;}
+
+    /* Buttons */
+    .fx .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border-radius:12px;font-weight:600;cursor:pointer;border:none;transition:transform .18s,background .18s,box-shadow .18s;}
+    .fx .btn:hover{transform:translateY(-2px);}
+
+    /* Header */
+    .fx .announce{background:var(--espresso);color:var(--cream);text-align:center;padding:.6rem 1rem;font-family:var(--font-serif);font-size:.95rem;position:relative;height:2.2rem;overflow:hidden;}
+    .fx .announce span{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .5s;}
+    .fx .announce span.is-on{opacity:1;}
+    .fx .header{background:var(--cream);border-bottom:1px solid var(--line);position:relative;z-index:6;}
+    .fx .header__inner{display:flex;align-items:center;gap:1.4rem;padding-block:1.05rem;}
+    .fx .logo{font-family:var(--font-serif);font-weight:800;font-size:1.75rem;color:var(--espresso);}
+    .fx .logo .dot{color:var(--sale);}
+    .fx .nav{display:flex;gap:1.4rem;font-family:var(--font-serif);font-size:1rem;margin-inline:auto;}
+    .fx .nav a:hover{color:var(--sale);}
+    .fx .header__actions{display:flex;align-items:center;gap:.8rem;}
+    .fx .cur{font-size:.9rem;white-space:nowrap;}
+    .fx .icon-btn{position:relative;border:none;background:transparent;cursor:pointer;color:var(--ink);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;}
+    .fx .icon-btn:hover{background:var(--cream-2);}
+    .fx .cart-count{position:absolute;bottom:4px;right:2px;background:var(--espresso);color:var(--cream);font-size:.58rem;min-width:15px;height:15px;border-radius:9px;display:grid;place-items:center;padding:0 4px;}
+    .fx .header__menu{display:none;border:none;background:transparent;cursor:pointer;}
+
+    /* PDP layout */
+    .fx .pdp{padding:clamp(1.5rem,4vw,2.6rem) 0;}
+    .fx .pdp__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3.2rem);align-items:start;}
+
+    /* Gallery */
+    .fx .gallery{position:sticky;top:1rem;}
+    .fx .gallery__main{position:relative;aspect-ratio:1/1.12;border-radius:16px;overflow:hidden;background:#efeae1;display:grid;place-items:center;}
+    .fx .gallery__view{position:absolute;inset:0;display:grid;place-items:center;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(30,27,23,.4);opacity:0;transition:opacity .35s;}
+    .fx .gallery__view.is-on{opacity:1;}
+    .fx .gv1{background:linear-gradient(160deg,#e7e2d8,#cfc7b6);} .fx .gv2{background:linear-gradient(160deg,#dcd6cc,#bcb3a1);}
+    .fx .gv3{background:linear-gradient(160deg,#e9ddc8,#d3c1a3);} .fx .gv4{background:linear-gradient(160deg,#d9dcd9,#c1c7c2);}
+    .fx .gv5{background:linear-gradient(160deg,#e2d3bd,#c9b291);} .fx .gv6{background:linear-gradient(160deg,#d7c9be,#b9a390);}
+    .fx .gallery__arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--brown);color:#fff;border:none;cursor:pointer;font-size:1.2rem;display:grid;place-items:center;z-index:2;opacity:.92;}
+    .fx .gallery__arrow:hover{opacity:1;}
+    .fx .gallery__arrow--prev{left:.8rem;} .fx .gallery__arrow--next{right:.8rem;}
+    .fx .thumbs{display:flex;gap:.6rem;margin-top:.7rem;overflow-x:auto;padding-bottom:.2rem;}
+    .fx .thumb{flex:0 0 74px;height:84px;border-radius:10px;border:2px solid transparent;cursor:pointer;overflow:hidden;position:relative;}
+    .fx .thumb.is-active{border-color:var(--espresso);}
+
+    /* Buy box */
+    .fx .buy__title{font-family:var(--font-serif);font-weight:700;font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.12;}
+    .fx .buy__sub{color:var(--muted);font-size:.95rem;margin-top:.3rem;}
+    .fx .buy__rating{display:flex;align-items:center;gap:.5rem;margin:.9rem 0 1rem;font-size:.9rem;}
+    .fx .buy__price{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin-bottom:1.3rem;}
+    .fx .buy__now{font-family:var(--font-serif);font-size:1.9rem;color:var(--sale);}
+    .fx .buy__was{color:var(--muted);text-decoration:line-through;}
+    .fx .buy__save{background:var(--brown-2);color:#fff;font-size:.74rem;font-weight:600;letter-spacing:.04em;padding:.25rem .6rem;border-radius:6px;}
+    .fx .opt{margin-bottom:1.2rem;}
+    .fx .opt__label{font-size:.9rem;margin-bottom:.5rem;}
+    .fx .opt__label b{font-weight:600;}
+    .fx .opt__label span{color:var(--muted);}
+    .fx .swatches{display:flex;gap:.6rem;flex-wrap:wrap;}
+    .fx .sw{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(0,0,0,.15);cursor:pointer;padding:0;position:relative;background:var(--c);transition:transform .15s;}
+    .fx .sw:hover{transform:scale(1.08);}
+    .fx .sw.is-active::after{content:"";position:absolute;inset:-5px;border:2px solid var(--espresso);border-radius:50%;}
+    .fx .sizes{display:flex;gap:.5rem;flex-wrap:wrap;}
+    .fx .size{min-width:52px;padding:.7rem .4rem;border:1.5px solid var(--line);background:var(--white);border-radius:10px;font-size:.9rem;cursor:pointer;transition:all .15s;}
+    .fx .size:hover{border-color:var(--ink);}
+    .fx .size.is-active{background:var(--espresso);color:#fff;border-color:var(--espresso);}
+    .fx .lengths{display:flex;gap:.5rem;}
+    .fx .len{padding:.7rem 1.1rem;border:1.5px solid var(--line);background:var(--white);border-radius:10px;font-size:.9rem;cursor:pointer;}
+    .fx .len.is-active{background:var(--espresso);color:#fff;border-color:var(--espresso);}
+    .fx .size-guide-link{display:inline-flex;align-items:center;gap:.4rem;color:var(--brown);font-size:.9rem;text-decoration:underline;cursor:pointer;background:none;border:none;padding:0;}
+    .fx .qty{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;}
+    .fx .qty button{width:42px;height:48px;border:none;background:transparent;font-size:1.2rem;cursor:pointer;color:var(--ink);}
+    .fx .qty span{min-width:40px;text-align:center;font-size:1rem;}
+
+    /* Bundle upsell */
+    .fx .offer{margin:1.6rem 0;}
+    .fx .offer__head{display:flex;align-items:center;gap:.8rem;justify-content:center;font-family:var(--font-serif);font-size:1.15rem;margin-bottom:1rem;}
+    .fx .offer__head::before,.fx .offer__head::after{content:"";height:1px;background:var(--line);flex:1;}
+    .fx .bundle{position:relative;border:1.5px solid var(--line);border-radius:14px;padding:1rem 1rem 1rem 2.6rem;margin-bottom:.8rem;cursor:pointer;transition:border-color .2s,background .2s;background:var(--cream-3);}
+    .fx .bundle.is-active{border-color:var(--brown);border-width:2px;background:#fff;}
+    .fx .bundle__radio{position:absolute;left:1rem;top:1.15rem;width:20px;height:20px;border-radius:50%;border:2px solid var(--brown);display:grid;place-items:center;}
+    .fx .bundle.is-active .bundle__radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--brown);}
+    .fx .bundle__flag{position:absolute;top:-11px;right:14px;background:var(--espresso);color:#fff;font-size:.68rem;padding:.2rem .55rem;border-radius:6px;letter-spacing:.03em;}
+    .fx .bundle__row{display:flex;align-items:center;justify-content:space-between;gap:.6rem;}
+    .fx .bundle__name{font-weight:600;display:flex;align-items:center;gap:.5rem;}
+    .fx .bundle__pill{background:var(--brown-2);color:#fff;font-size:.7rem;padding:.15rem .5rem;border-radius:5px;}
+    .fx .bundle__price{font-weight:600;} .fx .bundle__price s{color:var(--muted);font-weight:400;font-size:.85rem;margin-left:.35rem;}
+    .fx .bundle__save{font-size:.82rem;color:var(--sale);margin-top:.2rem;}
+    .fx .bundle__variants{margin-top:.8rem;display:none;gap:.5rem;}
+    .fx .bundle.is-active .bundle__variants{display:grid;}
+    .fx .bundle__vrow{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:.4rem;align-items:center;font-size:.8rem;}
+    .fx .bundle__vrow select{font-family:inherit;font-size:.8rem;padding:.4rem;border:1px solid var(--line);border-radius:7px;background:#fff;}
+    .fx .buy__cta{display:grid;gap:.7rem;margin-top:1rem;}
+    .fx .btn-atc{background:var(--brown);color:#fff;padding:1.15rem;font-size:1.05rem;letter-spacing:.03em;text-transform:uppercase;}
+    .fx .btn-atc:hover{background:#744a30;}
+    .fx .btn-bin{background:var(--gold);color:#1a1a1a;padding:1.15rem;font-size:1.05rem;letter-spacing:.03em;text-transform:uppercase;}
+    .fx .btn-bin:hover{background:#e0aa04;}
+    .fx .trust-list{margin-top:1.3rem;display:grid;gap:.55rem;font-size:.92rem;}
+    .fx .trust-list li{display:flex;align-items:center;gap:.6rem;}
+    .fx .trust-list .ok{color:var(--green-ok);font-weight:600;}
+
+    /* Accordions */
+    .fx .accs{margin-top:1.6rem;border-top:1px solid var(--line);}
+    .fx .acc{border-bottom:1px solid var(--line);}
+    .fx .acc__btn{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:none;padding:1.1rem 0;font-family:var(--font-serif);font-size:1.15rem;cursor:pointer;color:var(--ink);text-align:left;}
+    .fx .acc__btn .chev{transition:transform .25s;}
+    .fx .acc.is-open .acc__btn .chev{transform:rotate(180deg);}
+    .fx .acc__body{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+    .fx .acc__inner{padding:0 0 1.2rem;color:var(--muted);font-size:.94rem;}
+    .fx .acc__inner li{position:relative;padding-left:1.2rem;margin:.3rem 0;}
+    .fx .acc__inner li::before{content:"•";position:absolute;left:.2rem;color:var(--brown);}
+
+    /* Section shells */
+    .fx .sec{padding:clamp(3rem,6vw,5rem) 0;}
+    .fx .sec--tint{background:var(--cream-2);}
+    .fx .sec__head{text-align:center;max-width:44rem;margin:0 auto 2.6rem;}
+    .fx .sec__head .eyebrow{font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:var(--sale);}
+    .fx .sec__head h2{font-family:var(--font-serif);font-weight:600;font-size:clamp(1.9rem,4vw,2.8rem);margin-top:.4rem;}
+    .fx .sec__head p{color:var(--muted);margin-top:.6rem;}
+
+    /* Press bar */
+    .fx .press{background:var(--espresso);color:#e8ddcd;overflow:hidden;padding:1.2rem 0;}
+    .fx .press__track{display:flex;gap:3.5rem;white-space:nowrap;animation:fx-marq 22s linear infinite;font-family:var(--font-serif);font-size:1.3rem;letter-spacing:.08em;opacity:.85;}
+    @keyframes fx-marq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+    /* Before/After */
+    .fx .ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:center;}
+    .fx .ba{position:relative;aspect-ratio:1/1.05;border-radius:16px;overflow:hidden;user-select:none;touch-action:none;}
+    .fx .ba__img{position:absolute;inset:0;display:grid;place-items:center;}
+    .fx .ba__after{background:linear-gradient(160deg,#e4c9b4,#caa284);}
+    .fx .ba__before{background:linear-gradient(160deg,#d8bda8,#b98d6f);clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0);}
+    .fx .ba__lbl{position:absolute;top:1rem;background:#fff;color:var(--ink);font-size:.82rem;font-weight:600;padding:.3rem .7rem;border-radius:6px;}
+    .fx .ba__lbl--l{left:1rem;} .fx .ba__lbl--r{right:1rem;}
+    .fx .ba__handle{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:3px;background:#fff;transform:translateX(-50%);cursor:ew-resize;z-index:3;}
+    .fx .ba__grip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;box-shadow:var(--shadow);font-size:1rem;letter-spacing:-2px;}
+    .fx .ba__copy h2{font-family:var(--font-serif);font-weight:600;font-size:clamp(1.8rem,3.6vw,2.6rem);margin-bottom:1.2rem;}
+    .fx .ba__copy li{position:relative;padding-left:1.5rem;margin:.7rem 0;font-size:1.05rem;}
+    .fx .ba__copy li::before{content:"✓";position:absolute;left:0;color:var(--green-ok);font-weight:700;}
+
+    /* How it works */
+    .fx .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+    .fx .stepc{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:2rem 1.6rem;text-align:center;}
+    .fx .stepc .n{font-family:var(--font-serif);font-size:1.4rem;color:var(--brown);}
+    .fx .stepc h3{font-family:var(--font-serif);font-weight:600;font-size:1.25rem;margin:.4rem 0 .5rem;}
+    .fx .stepc p{color:var(--muted);font-size:.92rem;}
+
+    /* Reviews with images */
+    .fx .rev-sum{text-align:center;margin-bottom:2rem;}
+    .fx .rev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;}
+    .fx .rev{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+    .fx .rev__img{aspect-ratio:1/1;position:relative;display:grid;place-items:center;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);}
+    .fx .rev__img--1{background:linear-gradient(160deg,#c9b3a3,#8a6f5c);} .fx .rev__img--2{background:linear-gradient(160deg,#b3b7bd,#6d7278);}
+    .fx .rev__img--3{background:linear-gradient(160deg,#c7b39a,#8f7457);} .fx .rev__img--4{background:linear-gradient(160deg,#b8a7ad,#7d626a);}
+    .fx .rev__verified{position:absolute;top:.7rem;right:.7rem;background:#1f7a44;color:#fff;font-size:.62rem;font-weight:600;padding:.25rem .55rem;border-radius:5px;letter-spacing:.04em;}
+    .fx .rev__body{padding:1.1rem 1.2rem 1.3rem;}
+    .fx .rev__stars{color:var(--gold);letter-spacing:.1em;}
+    .fx .rev__text{font-size:.9rem;color:var(--ink);margin:.6rem 0 .9rem;}
+    .fx .rev__who{font-weight:600;font-size:.9rem;} .fx .rev__meta{font-size:.78rem;color:var(--muted);}
+
+    /* Related */
+    .fx .rel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;}
+    .fx .rcard{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;position:relative;}
+    .fx .rcard__media{aspect-ratio:1/1.1;display:grid;place-items:center;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(30,27,23,.35);}
+    .fx .rcard__add{position:absolute;bottom:5.6rem;right:.8rem;width:42px;height:42px;border-radius:50%;background:#fff;border:1px solid var(--line);cursor:pointer;display:grid;place-items:center;box-shadow:var(--shadow);}
+    .fx .rcard__body{padding:1rem 1.1rem 1.2rem;}
+    .fx .rcard__title{font-family:var(--font-serif);font-weight:600;font-size:1.05rem;}
+    .fx .rcard__price{margin-top:.3rem;} .fx .rcard__price b{color:var(--sale);} .fx .rcard__price s{color:var(--muted);font-size:.85rem;margin-left:.35rem;}
+
+    /* FAQs */
+    .fx .faqs{max-width:820px;margin:0 auto;}
+
+    /* Size guide modal */
+    .fx .modal{position:fixed;inset:0;z-index:9997;display:none;}
+    .fx .modal.is-open{display:block;}
+    .fx .modal__ov{position:absolute;inset:0;background:rgba(30,27,23,.5);}
+    .fx .modal__box{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(920px,94vw);max-height:88vh;overflow:auto;background:var(--cream);border-radius:18px;padding:clamp(1.4rem,3vw,2.2rem);}
+    .fx .modal__close{position:absolute;top:1rem;right:1rem;border:none;background:transparent;font-size:1.6rem;cursor:pointer;}
+    .fx .modal h3{font-family:var(--font-serif);font-weight:600;font-size:1.6rem;text-align:center;margin-bottom:1.2rem;}
+    .fx .unit-tabs{display:flex;max-width:320px;margin:0 auto 1.4rem;border-radius:10px;overflow:hidden;border:1px solid var(--line);}
+    .fx .unit-tab{flex:1;padding:.7rem;border:none;background:var(--white);cursor:pointer;font-weight:600;color:var(--muted);}
+    .fx .unit-tab.is-active{background:var(--espresso);color:#fff;}
+    .fx .sg-table{width:100%;border-collapse:separate;border-spacing:0 8px;font-size:.86rem;}
+    .fx .sg-table th{background:var(--cream-2);padding:.7rem .6rem;text-align:center;font-weight:600;}
+    .fx .sg-table th:first-child{border-radius:8px 0 0 8px;} .fx .sg-table th:last-child{border-radius:0 8px 8px 0;}
+    .fx .sg-table td{background:var(--white);padding:.7rem .6rem;text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+    .fx .sg-table td:first-child{border-left:1px solid var(--line);border-radius:8px 0 0 8px;font-weight:600;}
+    .fx .sg-table td:last-child{border-right:1px solid var(--line);border-radius:0 8px 8px 0;}
+    .fx .sg-scroll{overflow-x:auto;}
+
+    /* Cart drawer */
+    .fx .cart-ov{position:fixed;inset:0;background:rgba(30,27,23,.45);z-index:9998;opacity:0;pointer-events:none;transition:opacity .3s;}
+    .fx .cart-ov.is-open{opacity:1;pointer-events:auto;}
+    .fx .cart{position:fixed;top:0;right:0;height:100%;width:min(420px,92vw);background:var(--cream);z-index:9999;box-shadow:-20px 0 60px -20px rgba(0,0,0,.4);transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;}
+    .fx .cart.is-open{transform:translateX(0);}
+    .fx .cart__head{display:flex;justify-content:space-between;align-items:center;padding:1.3rem 1.4rem;border-bottom:1px solid var(--line);}
+    .fx .cart__head h3{font-family:var(--font-serif);font-weight:600;font-size:1.3rem;}
+    .fx .cart__close{border:none;background:none;font-size:1.5rem;cursor:pointer;}
+    .fx .cart__items{flex:1;overflow-y:auto;padding:1rem 1.4rem;display:flex;flex-direction:column;gap:1rem;}
+    .fx .cart__empty{color:var(--muted);text-align:center;margin-top:3rem;}
+    .fx .ci{display:flex;gap:.9rem;}
+    .fx .ci__thumb{width:56px;height:56px;border-radius:9px;flex-shrink:0;}
+    .fx .ci__name{font-family:var(--font-serif);font-weight:600;}
+    .fx .ci__var{font-size:.76rem;color:var(--muted);}
+    .fx .ci__row{display:flex;justify-content:space-between;align-items:center;margin-top:.3rem;}
+    .fx .ci__qty{display:inline-flex;gap:.5rem;border:1px solid var(--line);border-radius:100px;padding:.1rem .3rem;align-items:center;}
+    .fx .ci__qty button{border:none;background:none;cursor:pointer;width:22px;}
+    .fx .ci__rm{border:none;background:none;color:var(--muted);text-decoration:underline;font-size:.74rem;cursor:pointer;padding:0;margin-top:.2rem;}
+    .fx .cart__foot{border-top:1px solid var(--line);padding:1.2rem 1.4rem 1.4rem;}
+    .fx .cart__sub{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.9rem;}
+    .fx .cart__sub .amt{font-family:var(--font-serif);font-size:1.5rem;}
+    .fx .cart__foot .btn-atc{width:100%;border-radius:12px;}
+
+    /* Sticky bar */
+    .fx .stickybar{position:fixed;left:0;right:0;bottom:0;background:var(--cream);border-top:1px solid var(--line);box-shadow:0 -10px 30px -20px rgba(0,0,0,.4);z-index:60;transform:translateY(110%);transition:transform .3s;}
+    .fx .stickybar.is-show{transform:translateY(0);}
+    .fx .stickybar__in{display:flex;align-items:center;gap:1rem;padding:.7rem clamp(18px,4vw,48px);}
+    .fx .stickybar__thumb{width:46px;height:46px;border-radius:8px;background:linear-gradient(160deg,#e7e2d8,#cfc7b6);flex-shrink:0;}
+    .fx .stickybar__name{font-family:var(--font-serif);font-weight:600;flex:1;font-size:.98rem;}
+    .fx .stickybar__price b{color:var(--sale);} .fx .stickybar__price s{color:var(--muted);font-size:.82rem;margin-left:.3rem;}
+    .fx .stickybar .btn-atc{border-radius:10px;padding:.85rem 1.6rem;}
+
+    /* Toast */
+    .fx .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--espresso);color:var(--cream);padding:.8rem 1.4rem;border-radius:100px;font-size:.9rem;box-shadow:var(--shadow);z-index:10000;opacity:0;pointer-events:none;transition:all .3s;}
+    .fx .toast.is-show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+    /* Footer */
+    .fx .footer{background:var(--espresso);color:#e8ddcd;padding-top:3.5rem;padding-bottom:5rem;}
+    .fx .footer__grid{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:2.5rem;padding-bottom:2.5rem;}
+    .fx .footer h4{font-family:var(--font-serif);font-weight:600;font-size:1.15rem;color:#fff;margin-bottom:1rem;}
+    .fx .footer a{display:block;color:rgba(232,221,205,.78);padding:.3rem 0;font-size:.92rem;}
+    .fx .footer a:hover{color:#fff;}
+    .fx .footer__mid p{color:rgba(232,221,205,.78);max-width:26rem;margin-bottom:1rem;}
+    .fx .foot-form{display:flex;max-width:400px;background:#f6f1e8;border-radius:6px;overflow:hidden;}
+    .fx .foot-form input{flex:1;border:none;background:transparent;padding:.8rem 1rem;font-family:inherit;color:var(--ink);}
+    .fx .foot-form input:focus{outline:none;}
+    .fx .foot-form button{border:none;background:var(--espresso);color:var(--cream);padding:0 1.4rem;font-family:var(--font-serif);cursor:pointer;}
+    .fx .footer__bottom{border-top:1px solid rgba(232,221,205,.18);padding:1.4rem 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;font-size:.82rem;color:rgba(232,221,205,.7);}
+
+    @media (max-width:940px){
+      .fx .nav{display:none;} .fx .header__menu{display:grid;}
+      .fx .pdp__grid{grid-template-columns:1fr;} .fx .gallery{position:static;}
+      .fx .ba-wrap{grid-template-columns:1fr;} .fx .steps{grid-template-columns:1fr;}
+      .fx .rev-grid,.fx .rel-grid{grid-template-columns:1fr 1fr;} .fx .footer__grid{grid-template-columns:1fr;}
+    }
+    @media (max-width:560px){ .fx .rev-grid,.fx .rel-grid{grid-template-columns:1fr;} }
+  </style>
+
+  <!-- Rotating announcement + header -->
+  <div class="announce" data-announce>
+    <span class="is-on">Free Shipping Worldwide Over $49</span><span>30-Day Guarantee</span><span>Trusted by 100,000+ Women Worldwide</span>
+  </div>
+  <header class="header">
+    <div class="container header__inner">
+      <button class="header__menu" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <a href="#" class="logo">FORMA<span class="dot">.</span></a>
+      <nav class="nav"><a href="#">Best Seller</a><a href="#">New Arrivals</a><a href="#">Leggings</a><a href="#">Tops</a><a href="#">Bra</a><a href="#">Accessories</a><a href="#">Blog</a><a href="#">About US</a><a href="#">Order Tracking</a></nav>
+      <div class="header__actions">
+        <span class="cur">🇺🇸 USD $ ▾</span>
+        <button class="icon-btn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+        <button class="icon-btn" data-cart-open aria-label="Cart"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9 8a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.6" fill="none"/></svg><span class="cart-count">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PDP -->
+  <section class="pdp">
+    <div class="container pdp__grid">
+      <!-- Gallery -->
+      <div class="gallery">
+        <div class="gallery__main" data-gallery>
+          <div class="gallery__view gv1 is-on"><span>Your product photo · Front</span></div>
+          <div class="gallery__view gv2"><span>Your product photo · Detail</span></div>
+          <div class="gallery__view gv3"><span>Your infographic · Benefits</span></div>
+          <div class="gallery__view gv4"><span>Your infographic · 3D-Sculpt</span></div>
+          <div class="gallery__view gv5"><span>Your product photo · Back</span></div>
+          <div class="gallery__view gv6"><span>Your lifestyle photo</span></div>
+          <button class="gallery__arrow gallery__arrow--prev" data-g-prev aria-label="Previous">‹</button>
+          <button class="gallery__arrow gallery__arrow--next" data-g-next aria-label="Next">›</button>
+        </div>
+        <div class="thumbs" data-thumbs>
+          <button class="thumb gv1 is-active" data-g="0"></button>
+          <button class="thumb gv2" data-g="1"></button>
+          <button class="thumb gv3" data-g="2"></button>
+          <button class="thumb gv4" data-g="3"></button>
+          <button class="thumb gv5" data-g="4"></button>
+          <button class="thumb gv6" data-g="5"></button>
+        </div>
+      </div>
+
+      <!-- Buy box -->
+      <div class="buy">
+        <h1 class="buy__title">Pocket Sculpting Leggings</h1>
+        <p class="buy__sub">Award-Winning 3D-Sculpt Innovation · Anti-Cellulite</p>
+        <div class="buy__rating">
+          <span class="stars-tp"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span>
+          <strong>4.7</strong><span class="muted">(355) · 7,000+ satisfied customers</span>
+        </div>
+        <div class="buy__price">
+          <span class="buy__now" data-price-now>$35.00 USD</span>
+          <span class="buy__was" data-price-was>$75.00 USD</span>
+          <span class="buy__save" data-price-save>SAVE 53%</span>
+        </div>
+
+        <!-- Color -->
+        <div class="opt">
+          <p class="opt__label"><b>Color:</b> <span data-color-label>Black</span></p>
+          <div class="swatches" data-swatches>
+            <button class="sw is-active" style="--c:#1f1f22" data-name="Black"></button>
+            <button class="sw" style="--c:#9aa0a1" data-name="Graphite"></button>
+            <button class="sw" style="--c:#1c2740" data-name="Navy"></button>
+            <button class="sw" style="--c:#3b5c9a" data-name="Cobalt"></button>
+            <button class="sw" style="--c:#b4c2ac" data-name="Sage"></button>
+            <button class="sw" style="--c:#d5d7d4" data-name="Mist"></button>
+          </div>
+        </div>
+
+        <!-- Size -->
+        <div class="opt">
+          <p class="opt__label"><b>Size:</b> <span data-size-label>S</span></p>
+          <div class="sizes" data-sizes>
+            <button class="size is-active">S</button><button class="size">M</button><button class="size">L</button><button class="size">XL</button><button class="size">XXL</button><button class="size">3XL</button><button class="size">4XL</button>
+          </div>
+        </div>
+
+        <!-- Length -->
+        <div class="opt">
+          <p class="opt__label"><b>Length:</b> <span data-length-label>Full Length</span></p>
+          <div class="lengths" data-lengths>
+            <button class="len is-active">Full Length</button><button class="len">½ Length</button>
+          </div>
+        </div>
+
+        <button class="size-guide-link" data-open-sizeguide>◇ Size Guide</button>
+
+        <!-- Quantity -->
+        <div class="opt" style="margin-top:1.2rem;">
+          <p class="opt__label"><b>Quantity</b></p>
+          <div class="qty" data-qty><button data-dec>−</button><span>1</span><button data-inc>+</button></div>
+        </div>
+
+        <!-- Bundle upsell -->
+        <div class="offer">
+          <div class="offer__head">The offer ends soon! <span style="color:var(--sale);font-family:var(--font-sans);font-size:.85rem;">⏳ <span data-countdown>26:03</span></span></div>
+
+          <div class="bundle is-active" data-bundle data-qtyn="2" data-total="59.50" data-compare="150.00" data-label="2 Pack">
+            <span class="bundle__radio"></span>
+            <span class="bundle__flag">SAVINGS EXPIRE IN <span data-countdown>26:03</span></span>
+            <div class="bundle__row">
+              <span class="bundle__name">2 PACK <span class="bundle__pill">60% OFF Today</span></span>
+              <span class="bundle__price">$59.50 <s>$150.00</s></span>
+            </div>
+            <p class="bundle__save">🔥 One to wear, one to wash — save $90.50 &amp; free shipping</p>
+            <div class="bundle__variants">
+              <div class="bundle__vrow"><span>#1</span><select><option>Black</option><option>Graphite</option><option>Navy</option><option>Cobalt</option><option>Sage</option><option>Mist</option></select><select><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>3XL</option><option>4XL</option></select><select><option>Full Length</option><option>½ Length</option></select></div>
+              <div class="bundle__vrow"><span>#2</span><select><option>Black</option><option>Graphite</option><option>Navy</option><option>Cobalt</option><option>Sage</option><option>Mist</option></select><select><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>3XL</option><option>4XL</option></select><select><option>Full Length</option><option>½ Length</option></select></div>
+            </div>
+          </div>
+
+          <div class="bundle" data-bundle data-qtyn="3" data-total="84.00" data-compare="225.00" data-label="3 Pack">
+            <span class="bundle__radio"></span>
+            <span class="bundle__flag">💎 BEST VALUE · from $28/pc</span>
+            <div class="bundle__row">
+              <span class="bundle__name">3 PACK <span class="bundle__pill">72% OFF</span></span>
+              <span class="bundle__price">$84.00 <s>$225.00</s></span>
+            </div>
+            <p class="bundle__save">Save $141.00 &amp; free shipping</p>
+            <div class="bundle__variants">
+              <div class="bundle__vrow"><span>#1</span><select><option>Black</option><option>Graphite</option><option>Navy</option><option>Cobalt</option><option>Sage</option><option>Mist</option></select><select><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>3XL</option><option>4XL</option></select><select><option>Full Length</option><option>½ Length</option></select></div>
+              <div class="bundle__vrow"><span>#2</span><select><option>Black</option><option>Graphite</option><option>Navy</option><option>Cobalt</option><option>Sage</option><option>Mist</option></select><select><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>3XL</option><option>4XL</option></select><select><option>Full Length</option><option>½ Length</option></select></div>
+              <div class="bundle__vrow"><span>#3</span><select><option>Black</option><option>Graphite</option><option>Navy</option><option>Cobalt</option><option>Sage</option><option>Mist</option></select><select><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>3XL</option><option>4XL</option></select><select><option>Full Length</option><option>½ Length</option></select></div>
+            </div>
+          </div>
+
+          <div class="bundle" data-bundle data-qtyn="1" data-total="35.00" data-compare="75.00" data-label="1 Pack">
+            <span class="bundle__radio"></span>
+            <div class="bundle__row">
+              <span class="bundle__name">1 PACK</span>
+              <span class="bundle__price">$35.00 <s>$75.00</s></span>
+            </div>
+            <div class="bundle__variants">
+              <div class="bundle__vrow"><span>#1</span><select><option>Black</option><option>Graphite</option><option>Navy</option><option>Cobalt</option><option>Sage</option><option>Mist</option></select><select><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>3XL</option><option>4XL</option></select><select><option>Full Length</option><option>½ Length</option></select></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="buy__cta">
+          <button class="btn btn-atc" data-add>Add to cart — <span data-atc-total>$59.50</span></button>
+          <button class="btn btn-bin" data-buynow>Buy it now</button>
+        </div>
+
+        <ul class="trust-list">
+          <li><span class="ok">● In stock</span> — ships worldwide</li>
+          <li>🇺🇸 Est. delivery <strong data-eta>Aug 16 – Aug 21</strong></li>
+          <li>✈️ Free shipping over $49+</li>
+          <li>↩️ Easy returns within 30 days</li>
+        </ul>
+
+        <!-- Accordions -->
+        <div class="accs" data-accs>
+          <div class="acc is-open">
+            <button class="acc__btn">Description <span class="chev">⌄</span></button>
+            <div class="acc__body"><div class="acc__inner">
+              <p>Meet the legging that works while you live your life. FORMA's Pocket Sculpting Leggings are knit with our 3D-Sculpt™ compression zones that gently lift, smooth, and support — with deep side pockets big enough for your phone and keys.</p>
+              <ul><li>3D-Sculpt™ compression woven into the fabric, not printed on</li><li>Two deep, secure side pockets</li><li>High-rise tummy-control waistband that never rolls</li><li>Squat-proof, fully opaque, buttery second-skin feel</li></ul>
+            </div></div>
+          </div>
+          <div class="acc">
+            <button class="acc__btn">30-Day Satisfaction Guarantee <span class="chev">⌄</span></button>
+            <div class="acc__body"><div class="acc__inner"><p>Wear them, wash them, work out in them. If you don't love the way you look and feel within 30 days, send them back for a full refund — no questions asked.</p></div></div>
+          </div>
+          <div class="acc">
+            <button class="acc__btn">Materials &amp; Care <span class="chev">⌄</span></button>
+            <div class="acc__body"><div class="acc__inner">
+              <p>72% Nylon · 28% Spandex. Breathable, moisture-wicking, four-way stretch.</p>
+              <ul><li>Machine wash cold, inside out</li><li>Hang dry — do not tumble dry</li><li>No bleach, no fabric softener, no ironing</li></ul>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Press bar -->
+  <div class="press"><div class="press__track">
+    <span>THE EDIT</span><span>MOVE.</span><span>WELLNESS WEEKLY</span><span>ACTIVE</span><span>PULSE+</span><span>IN FORM</span>
+    <span>THE EDIT</span><span>MOVE.</span><span>WELLNESS WEEKLY</span><span>ACTIVE</span><span>PULSE+</span><span>IN FORM</span>
+  </div></div>
+
+  <!-- Before / After -->
+  <section class="sec">
+    <div class="container ba-wrap">
+      <div class="ba" data-ba>
+        <div class="ba__img ba__after"><span class="ba__lbl ba__lbl--r">After</span></div>
+        <div class="ba__img ba__before" data-ba-before><span class="ba__lbl ba__lbl--l">Before</span></div>
+        <div class="ba__handle" data-ba-handle><span class="ba__grip">‹ ›</span></div>
+      </div>
+      <div class="ba__copy">
+        <h2>Bye-bye cellulite look</h2>
+        <ul>
+          <li>3D-Sculpt™ compression technology</li>
+          <li>Micro-massage effect as you move</li>
+          <li>Visibly smooths the look of cellulite</li>
+          <li>Promotes firmer, more even-looking skin</li>
+        </ul>
+        <p class="muted" style="margin-top:1rem;font-size:.85rem;">Drag the slider to see the difference. Illustrative — individual results vary.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="sec sec--tint">
+    <div class="container">
+      <div class="sec__head"><span class="eyebrow">How it works</span><h2>Three zones. One second skin.</h2></div>
+      <div class="steps">
+        <div class="stepc"><span class="n">01</span><h3>Compress</h3><p>Targeted 3D-Sculpt™ zones apply gentle, graduated compression exactly where you want lift and smoothing.</p></div>
+        <div class="stepc"><span class="n">02</span><h3>Move</h3><p>Every step creates a subtle micro-massage that boosts circulation and keeps the fabric working with you.</p></div>
+        <div class="stepc"><span class="n">03</span><h3>Sculpt</h3><p>Firmer, smoother, more even-looking skin — with the confidence to wear whatever you want.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews with images -->
+  <section class="sec">
+    <div class="container">
+      <div class="rev-sum">
+        <span class="rev__stars" style="font-size:1.4rem;">★★★★★</span>
+        <h2 style="font-family:var(--font-serif);font-weight:600;font-size:clamp(1.8rem,3.6vw,2.6rem);margin-top:.3rem;">Proven in real life</h2>
+        <p class="muted">4.7 / 5 — from 7,000+ satisfied customers</p>
+      </div>
+      <div class="rev-grid">
+        <div class="rev"><div class="rev__img rev__img--1"><span class="rev__verified">VERIFIED</span>Before / After</div><div class="rev__body"><div class="rev__stars">★★★★★</div><p class="rev__text">"I'm in my 40s and these are the first leggings that actually feel supportive and soft. I feel more confident every time I put them on."</p><p class="rev__who">Rachel</p><p class="rev__meta">Size XL · United States</p></div></div>
+        <div class="rev"><div class="rev__img rev__img--2"><span class="rev__verified">VERIFIED</span>Before / After</div><div class="rev__body"><div class="rev__stars">★★★★★</div><p class="rev__text">"The perfect balance of shaping and comfort. The compression holds me in without feeling restrictive, and the texture smooths everything."</p><p class="rev__who">Jessica M.</p><p class="rev__meta">Size S · Canada</p></div></div>
+        <div class="rev"><div class="rev__img rev__img--3"><span class="rev__verified">VERIFIED</span>Before / After</div><div class="rev__body"><div class="rev__stars">★★★★★</div><p class="rev__text">"I wear these for everything from yoga to grocery runs. They smooth my shape but still look natural — so comfy I forget I'm wearing them."</p><p class="rev__who">Amanda</p><p class="rev__meta">Size L · United Kingdom</p></div></div>
+        <div class="rev"><div class="rev__img rev__img--4"><span class="rev__verified">VERIFIED</span>Before / After</div><div class="rev__body"><div class="rev__stars">★★★★★</div><p class="rev__text">"Didn't expect a difference this fast. They smooth everything without feeling tight, and my legs feel supported all day."</p><p class="rev__who">Lauren</p><p class="rev__meta">Size L · Australia</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- You might also like -->
+  <section class="sec sec--tint">
+    <div class="container">
+      <div class="sec__head"><h2>You might also like</h2></div>
+      <div class="rel-grid" data-related>
+        <div class="rcard" data-name="3D Anti-Cellulite Leggings" data-price="27.00"><div class="rcard__media gv1">Your photo</div><button class="rcard__add" data-radd aria-label="Add">🛍</button><div class="rcard__body"><p class="rcard__title">3D Anti-Cellulite Leggings</p><p class="rcard__price"><b>$27.00</b><s>$45.00</s></p></div></div>
+        <div class="rcard" data-name="High-Waisted Ankle Legging" data-price="32.00"><div class="rcard__media gv4">Your photo</div><button class="rcard__add" data-radd aria-label="Add">🛍</button><div class="rcard__body"><p class="rcard__title">High-Waisted Ankle Legging</p><p class="rcard__price"><b>$32.00</b><s>$59.90</s></p></div></div>
+        <div class="rcard" data-name="Right Side Pocket Leggings" data-price="32.00"><div class="rcard__media gv2">Your photo</div><button class="rcard__add" data-radd aria-label="Add">🛍</button><div class="rcard__body"><p class="rcard__title">Right Side Pocket Leggings</p><p class="rcard__price"><b>$32.00</b><s>$54.00</s></p></div></div>
+        <div class="rcard" data-name="CelluSmooth Sculpt Tee" data-price="35.00"><div class="rcard__media gv3">Your photo</div><button class="rcard__add" data-radd aria-label="Add">🛍</button><div class="rcard__body"><p class="rcard__title">CelluSmooth Sculpt Tee</p><p class="rcard__price"><b>$35.00</b><s>$59.00</s></p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="sec">
+    <div class="container">
+      <div class="sec__head"><span class="eyebrow">Good to know</span><h2>FAQs</h2></div>
+      <div class="accs faqs" data-accs>
+        <div class="acc"><button class="acc__btn">Do these really help with cellulite? <span class="chev">⌄</span></button><div class="acc__body"><div class="acc__inner"><p>Our 3D-Sculpt™ knit applies gentle compression and a micro-massage effect as you move, which visibly smooths the look of cellulite and supports firmer-looking skin. Results are cosmetic and vary from person to person.</p></div></div></div>
+        <div class="acc"><button class="acc__btn">How do I choose my size? <span class="chev">⌄</span></button><div class="acc__body"><div class="acc__inner"><p>Use the Size Guide above — measure your waist and hips and match to the chart. If you're between sizes, size down for more compression or up for a relaxed feel.</p></div></div></div>
+        <div class="acc"><button class="acc__btn">Are they squat-proof and opaque? <span class="chev">⌄</span></button><div class="acc__body"><div class="acc__inner"><p>Yes. The high-density knit is fully opaque and stays put through squats, lunges, and everyday movement.</p></div></div></div>
+        <div class="acc"><button class="acc__btn">What's your return policy? <span class="chev">⌄</span></button><div class="acc__body"><div class="acc__inner"><p>Every order is backed by our 30-day satisfaction guarantee. If they're not for you, start a return within 30 days for a full refund.</p></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Size guide modal -->
+  <div class="modal" data-sizeguide>
+    <div class="modal__ov" data-close-sizeguide></div>
+    <div class="modal__box">
+      <button class="modal__close" data-close-sizeguide aria-label="Close">×</button>
+      <h3>Size Guide</h3>
+      <div class="unit-tabs" data-units><button class="unit-tab is-active" data-unit="in">INCH</button><button class="unit-tab" data-unit="cm">CM</button></div>
+      <div class="sg-scroll">
+        <table class="sg-table" data-sg-in>
+          <thead><tr><th>Size</th><th>Hips</th><th>Waist</th><th>Length</th><th>Rec. Waist</th><th>Rec. Hips</th><th>Weight (LBS)</th><th>Weight (KG)</th><th>Height</th></tr></thead>
+          <tbody>
+            <tr><td>S</td><td>30</td><td>24</td><td>37</td><td>24–27</td><td>30–35</td><td>99–132</td><td>45–60</td><td>59–65</td></tr>
+            <tr><td>M</td><td>31</td><td>25</td><td>37</td><td>25–28</td><td>31–37</td><td>132–154</td><td>60–70</td><td>63–67</td></tr>
+            <tr><td>L</td><td>32</td><td>26</td><td>37</td><td>26–30</td><td>32–38</td><td>154–176</td><td>70–80</td><td>63–69</td></tr>
+            <tr><td>XL</td><td>33</td><td>28</td><td>38</td><td>28–31</td><td>33–41</td><td>176–198</td><td>80–90</td><td>63–71</td></tr>
+            <tr><td>XXL</td><td>34</td><td>29</td><td>38</td><td>29–32</td><td>34–42</td><td>198–220</td><td>90–100</td><td>63–71</td></tr>
+            <tr><td>3XL</td><td>35</td><td>30</td><td>39</td><td>30–33</td><td>35–43</td><td>220–253</td><td>100–115</td><td>63–71</td></tr>
+            <tr><td>4XL</td><td>37</td><td>31</td><td>39</td><td>31–34</td><td>37–44</td><td>253–286</td><td>115–130</td><td>63–71</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table" data-sg-cm hidden>
+          <thead><tr><th>Size</th><th>Hips</th><th>Waist</th><th>Length</th><th>Rec. Waist</th><th>Rec. Hips</th><th>Weight (KG)</th><th>Height</th></tr></thead>
+          <tbody>
+            <tr><td>S</td><td>76</td><td>61</td><td>94</td><td>61–69</td><td>76–89</td><td>45–60</td><td>150–165</td></tr>
+            <tr><td>M</td><td>79</td><td>64</td><td>94</td><td>64–71</td><td>79–94</td><td>60–70</td><td>160–170</td></tr>
+            <tr><td>L</td><td>81</td><td>66</td><td>94</td><td>66–76</td><td>81–97</td><td>70–80</td><td>160–175</td></tr>
+            <tr><td>XL</td><td>84</td><td>71</td><td>97</td><td>71–79</td><td>84–104</td><td>80–90</td><td>160–180</td></tr>
+            <tr><td>XXL</td><td>86</td><td>74</td><td>97</td><td>74–81</td><td>86–107</td><td>90–100</td><td>160–180</td></tr>
+            <tr><td>3XL</td><td>89</td><td>76</td><td>99</td><td>76–84</td><td>89–109</td><td>100–115</td><td>160–180</td></tr>
+            <tr><td>4XL</td><td>94</td><td>79</td><td>99</td><td>79–86</td><td>94–112</td><td>115–130</td><td>160–180</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart drawer -->
+  <div class="cart-ov" data-cart-ov></div>
+  <aside class="cart" data-cart aria-label="Cart">
+    <div class="cart__head"><h3>Your Cart</h3><button class="cart__close" data-cart-close>×</button></div>
+    <div class="cart__items" data-cart-items><p class="cart__empty">Your cart is empty.</p></div>
+    <div class="cart__foot">
+      <div class="cart__sub"><span class="muted">Subtotal</span><span class="amt" data-cart-sub>$0.00</span></div>
+      <button class="btn btn-atc" data-checkout>Checkout</button>
+    </div>
+  </aside>
+
+  <!-- Sticky bar -->
+  <div class="stickybar" data-stickybar>
+    <div class="stickybar__in container">
+      <span class="stickybar__thumb"></span>
+      <span class="stickybar__name">Pocket Sculpting Leggings</span>
+      <span class="stickybar__price"><b data-sticky-now>$59.50</b><s>$150.00</s></span>
+      <button class="btn btn-atc" data-add>Add to cart</button>
+    </div>
+  </div>
+
+  <div class="toast" data-toast>Added to cart ✓</div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div><h4>Information</h4><a href="#">About Us</a><a href="#">Contact Us</a><a href="#">Refund Policy</a><a href="#">Privacy Policy</a><a href="#">Order Tracking</a><a href="#">Terms &amp; Conditions</a><a href="#">Shipping Policy</a></div>
+      <div class="footer__mid"><h4>Keep In Touch</h4><p>Second-skin performance wear engineered to sculpt, smooth, and elevate your everyday confidence.</p>
+        <form class="foot-form" data-foot-form><input type="email" placeholder="Enter your email" required/><button type="submit">JOIN</button></form>
+        <p data-foot-note hidden style="color:#f0d9a8;margin-top:.6rem;">Welcome to FORMA ✦ 10% off is on its way.</p>
+      </div>
+      <div><h4>Our Store</h4><a href="mailto:service@formawear.com">service@formawear.com</a></div>
+    </div>
+    <div class="container footer__bottom"><p>© <span data-year></span> FORMA. All Rights Reserved.</p><p>We accept · VISA · MC · AMEX · PayPal · Shop</p></div>
+  </footer>
+
+  <script>
+  (function(){
+    var root=document.currentScript?document.currentScript.closest('.fx'):document.querySelector('.fx-pdp');
+    if(!root)return;
+    var money=function(n){return '$'+n.toFixed(2);};
+    var $=function(s){return root.querySelector(s);};
+    var $$=function(s){return Array.prototype.slice.call(root.querySelectorAll(s));};
+    var y=$('[data-year]');if(y)y.textContent=new Date().getFullYear();
+
+    /* rotating announcement */
+    var msgs=$$('[data-announce] span'),ai=0;
+    if(msgs.length>1)setInterval(function(){msgs[ai].classList.remove('is-on');ai=(ai+1)%msgs.length;msgs[ai].classList.add('is-on');},3000);
+
+    /* ETA date */
+    var eta=$('[data-eta]');
+    if(eta){var a=new Date(),b=new Date();a.setDate(a.getDate()+5);b.setDate(b.getDate()+10);var mo={0:'Jan',1:'Feb',2:'Mar',3:'Apr',4:'May',5:'Jun',6:'Jul',7:'Aug',8:'Sep',9:'Oct',10:'Nov',11:'Dec'};eta.textContent=mo[a.getMonth()]+' '+a.getDate()+' – '+mo[b.getMonth()]+' '+b.getDate();}
+
+    /* countdown */
+    var cds=$$('[data-countdown]'),secs=26*60+3;
+    setInterval(function(){secs--;if(secs<0)secs=29*60+59;var m=Math.floor(secs/60),s=secs%60;var t=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;cds.forEach(function(c){c.textContent=t;});},1000);
+
+    /* gallery */
+    var views=$$('[data-gallery] .gallery__view'),thumbs=$$('[data-thumbs] .thumb'),gi=0;
+    function setG(n){gi=(n+views.length)%views.length;views.forEach(function(v,k){v.classList.toggle('is-on',k===gi);});thumbs.forEach(function(t,k){t.classList.toggle('is-active',k===gi);});}
+    thumbs.forEach(function(t){t.addEventListener('click',function(){setG(+t.getAttribute('data-g'));});});
+    $('[data-g-prev]').addEventListener('click',function(){setG(gi-1);});
+    $('[data-g-next]').addEventListener('click',function(){setG(gi+1);});
+
+    /* variant pickers */
+    function pick(sel,labelSel){
+      $$(sel+' > *').forEach(function(b){b.addEventListener('click',function(){
+        $$(sel+' > *').forEach(function(x){x.classList.remove('is-active');});
+        b.classList.add('is-active');
+        var lbl=$(labelSel);if(lbl)lbl.textContent=b.getAttribute('data-name')||b.textContent;
+      });});
+    }
+    pick('[data-swatches]','[data-color-label]');
+    pick('[data-sizes]','[data-size-label]');
+    pick('[data-lengths]','[data-length-label]');
+
+    /* qty */
+    var qEl=$('[data-qty] span');
+    $('[data-qty] [data-inc]').addEventListener('click',function(){qEl.textContent=(+qEl.textContent+1);});
+    $('[data-qty] [data-dec]').addEventListener('click',function(){qEl.textContent=Math.max(1,+qEl.textContent-1);});
+
+    /* bundle selection */
+    var sel={qtyn:2,total:59.50,compare:150,label:'2 Pack'};
+    function selectBundle(b){
+      $$('[data-bundle]').forEach(function(x){x.classList.remove('is-active');});
+      b.classList.add('is-active');
+      sel={qtyn:+b.getAttribute('data-qtyn'),total:parseFloat(b.getAttribute('data-total')),compare:parseFloat(b.getAttribute('data-compare')),label:b.getAttribute('data-label')};
+      $('[data-atc-total]').textContent=money(sel.total);
+      $('[data-sticky-now]').textContent=money(sel.total);
+    }
+    $$('[data-bundle]').forEach(function(b){b.addEventListener('click',function(){selectBundle(b);});});
+
+    /* ---- cart ---- */
+    var cart=[],itemsEl=$('[data-cart-items]'),subEl=$('[data-cart-sub]'),countEls=$$('.cart-count');
+    function render(){
+      var c=0,s=0;cart.forEach(function(i){c+=i.qty;s+=i.qty*i.price;});
+      countEls.forEach(function(e){e.textContent=c;});subEl.textContent=money(s);
+      if(!cart.length){itemsEl.innerHTML='<p class="cart__empty">Your cart is empty.</p>';return;}
+      itemsEl.innerHTML=cart.map(function(i){var v=[i.variant].filter(Boolean).join('');return '<div class="ci"><div class="ci__thumb" style="background:'+i.hex+'"></div><div style="flex:1"><div class="ci__name">'+i.name+'</div><div class="ci__var">'+v+'</div><div class="ci__row"><span class="ci__qty"><button data-cq="'+i.key+'" data-d="-1">−</button><span>'+i.qty+'</span><button data-cq="'+i.key+'" data-d="1">+</button></span><span>'+money(i.qty*i.price)+'</span></div><button class="ci__rm" data-cr="'+i.key+'">Remove</button></div></div>';}).join('');
+      $$('[data-cq]').forEach(function(b){b.addEventListener('click',function(){var it=cart.filter(function(x){return x.key===b.getAttribute('data-cq');})[0];if(!it)return;it.qty+=+b.getAttribute('data-d');if(it.qty<1)cart=cart.filter(function(x){return x!==it;});render();});});
+      $$('[data-cr]').forEach(function(b){b.addEventListener('click',function(){cart=cart.filter(function(x){return x.key!==b.getAttribute('data-cr');});render();});});
+    }
+    function addItem(item){var f=cart.filter(function(c){return c.key===item.key;})[0];if(f)f.qty+=item.qty;else cart.push(item);render();}
+    function openCart(){$('[data-cart-ov]').classList.add('is-open');$('[data-cart]').classList.add('is-open');}
+    function closeCart(){$('[data-cart-ov]').classList.remove('is-open');$('[data-cart]').classList.remove('is-open');}
+    $('[data-cart-open]').addEventListener('click',openCart);
+    $('[data-cart-close]').addEventListener('click',closeCart);
+    $('[data-cart-ov]').addEventListener('click',closeCart);
+    $('[data-checkout]').addEventListener('click',function(){if(!cart.length){toast('Your cart is empty');return;}toast('Proceeding to checkout…');});
+
+    /* add main product (uses selected bundle + variant) */
+    function currentVariant(){
+      var color=$('[data-color-label]').textContent,size=$('[data-size-label]').textContent,len=$('[data-length-label]').textContent;
+      var sw=$('[data-swatches] .sw.is-active'),hex=sw?getComputedStyle(sw).getPropertyValue('--c').trim():'#333';
+      return {color:color,size:size,len:len,hex:hex};
+    }
+    function addMain(){
+      var v=currentVariant();
+      var key='pocket|'+sel.label+'|'+v.color+'|'+v.size+'|'+v.len;
+      addItem({key:key,name:'Pocket Sculpting Leggings ('+sel.label+')',variant:v.color+' · '+v.size+' · '+v.len,price:sel.total,qty:1,hex:v.hex});
+      toast(sel.label+' added ✓');openCart();
+    }
+    $$('[data-add]').forEach(function(b){b.addEventListener('click',addMain);});
+    $('[data-buynow]').addEventListener('click',function(){addMain();toast('Redirecting to checkout…');});
+
+    /* related quick-add */
+    $$('[data-related] .rcard').forEach(function(card){
+      card.querySelector('[data-radd]').addEventListener('click',function(){
+        var name=card.getAttribute('data-name'),price=parseFloat(card.getAttribute('data-price'));
+        addItem({key:'rel|'+name,name:name,variant:'',price:price,qty:1,hex:'#cbb8a0'});
+        toast(name+' added ✓');openCart();
+      });
+    });
+
+    /* toast */
+    var toastEl=$('[data-toast]'),tt;
+    function toast(m){toastEl.textContent=m;toastEl.classList.add('is-show');clearTimeout(tt);tt=setTimeout(function(){toastEl.classList.remove('is-show');},1700);}
+
+    /* accordions (all groups) */
+    $$('[data-accs]').forEach(function(group){
+      group.querySelectorAll('.acc__btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          var acc=btn.closest('.acc'),body=acc.querySelector('.acc__body'),open=acc.classList.contains('is-open');
+          if(open){body.style.maxHeight=null;acc.classList.remove('is-open');}
+          else{acc.classList.add('is-open');body.style.maxHeight=body.scrollHeight+'px';}
+        });
+      });
+      // open any pre-open ones
+      group.querySelectorAll('.acc.is-open .acc__body').forEach(function(b){b.style.maxHeight=b.scrollHeight+'px';});
+    });
+
+    /* before/after slider */
+    var ba=$('[data-ba]'),handle=$('[data-ba-handle]'),dragging=false;
+    function setPos(clientX){var r=ba.getBoundingClientRect();var pct=Math.max(0,Math.min(100,((clientX-r.left)/r.width)*100));ba.style.setProperty('--pos',pct+'%');}
+    handle.addEventListener('pointerdown',function(e){dragging=true;handle.setPointerCapture(e.pointerId);});
+    window.addEventListener('pointermove',function(e){if(dragging)setPos(e.clientX);});
+    window.addEventListener('pointerup',function(){dragging=false;});
+    ba.addEventListener('click',function(e){setPos(e.clientX);});
+
+    /* size guide modal */
+    var sg=$('[data-sizeguide]');
+    $('[data-open-sizeguide]').addEventListener('click',function(){sg.classList.add('is-open');});
+    $$('[data-close-sizeguide]').forEach(function(b){b.addEventListener('click',function(){sg.classList.remove('is-open');});});
+    $$('[data-units] .unit-tab').forEach(function(t){t.addEventListener('click',function(){
+      $$('[data-units] .unit-tab').forEach(function(x){x.classList.remove('is-active');});t.classList.add('is-active');
+      var cm=t.getAttribute('data-unit')==='cm';$('[data-sg-in]').hidden=cm;$('[data-sg-cm]').hidden=!cm;
+    });});
+
+    /* sticky bar on scroll past buy box */
+    var bar=$('[data-stickybar]'),cta=$('.buy__cta');
+    if('IntersectionObserver' in window && cta){
+      new IntersectionObserver(function(en){bar.classList.toggle('is-show',!en[0].isIntersecting && en[0].boundingClientRect.top<0);},{threshold:0}).observe(cta);
+    }
+
+    /* footer signup */
+    var f=$('[data-foot-form]'),n=$('[data-foot-note]');
+    if(f)f.addEventListener('submit',function(e){e.preventDefault();if(n)n.hidden=false;f.reset();});
+
+    render();selectBundle($('[data-bundle]'));
+  })();
+  </script>
+</div>
