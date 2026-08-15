@@ -76,3 +76,25 @@ The cart is a front-end demo: it tracks state in a JS array and the Checkout
 button only shows a toast. There are no products in this store yet, so there is
 nothing to add. To make it real, create the product, then POST variant IDs to
 `/cart/add.js` and redirect to `/checkout`.
+
+## Mobile menu
+
+The original block hid the nav below 900px and handed off to `.header__menu`,
+but no element with that class existed in the markup — so on any phone the
+navigation disappeared entirely with nothing to replace it:
+
+```
+1280px  nav visible: true   hamburger elements in DOM: 0
+ 375px  nav visible: false  hamburger elements in DOM: 0
+```
+
+Added:
+
+- A hamburger button in the header's left slot, shown only below 900px
+- A slide-in drawer reusing the cart's overlay pattern, closable by the ×, the
+  overlay, `Escape`, or following any link inside it
+- An expanding **Shop Add-Ons** submenu in the drawer, and a hover/focus
+  dropdown for the same item on desktop — the `▾` had no menu behind it before
+- `setText()` now updates *every* matching node instead of only the first, so
+  the price mirrored in the drawer footer stays in sync with the buy box and
+  sticky bar
