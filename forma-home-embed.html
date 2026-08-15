@@ -1,0 +1,364 @@
+<!-- ============================================================
+     FORMA. — HOMEPAGE — SINGLE-FILE EMBED for GemPages
+     Paste this ENTIRE block into a GemPages "HTML / Liquid" (Custom Code) element.
+     Scoped under .fx-home. Hero, category tiles, featured grid (quick-add ->
+     cart drawer), before/after, reviews-with-images, guarantee band, footer.
+     Original copy + FORMA branding, placeholder images.
+     ============================================================ -->
+<div class="fx fx-home">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap');
+    .fx{--cream:#f6f1e8;--cream-2:#efe7d8;--cream-3:#faf6ee;--white:#fff;--espresso:#3c2c22;--brown:#8a5a3c;--ink:#1e1b17;--muted:#7d7366;--sale:#cf3b2e;--gold:#f2b705;--green-ok:#1f7a44;--tp:#00b67a;--line:rgba(30,27,23,.13);--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--maxw:1280px;--shadow:0 24px 60px -28px rgba(30,27,23,.45);font-family:var(--font-sans);color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;}
+    .fx,.fx *,.fx *::before,.fx *::after{box-sizing:border-box;}
+    .fx [hidden]{display:none !important;}
+    .fx a{color:inherit;text-decoration:none;}
+    .fx p,.fx h1,.fx h2,.fx h3,.fx h4,.fx ul,.fx li{margin:0;}
+    .fx ul{padding:0;list-style:none;}
+    .fx button{font-family:inherit;}
+    .fx .container{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(18px,4vw,48px);}
+    .fx .btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;border-radius:100px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:transform .18s,background .18s,color .18s,box-shadow .18s;}
+    .fx .btn:hover{transform:translateY(-2px);}
+    .fx .btn--dark{background:#141210;color:var(--cream);padding:1.05rem 2rem;letter-spacing:.06em;text-transform:uppercase;font-size:.9rem;border-radius:14px;}
+    .fx .btn--dark:hover{background:#000;box-shadow:var(--shadow);}
+    .fx .btn--out{background:transparent;color:var(--espresso);border-color:var(--espresso);padding:.9rem 1.8rem;}
+    .fx .btn--out:hover{background:var(--espresso);color:var(--cream);}
+    .fx .tp{display:inline-flex;align-items:center;gap:.5rem;font-size:.9rem;}
+    .fx .tp i{width:20px;height:20px;background:var(--tp);display:inline-grid;place-items:center;color:#fff;font-style:normal;font-size:12px;border-radius:2px;}
+
+    /* Header */
+    .fx .announce{background:var(--espresso);color:var(--cream);text-align:center;padding:.6rem 1rem;font-family:var(--font-serif);font-size:.95rem;position:relative;height:2.2rem;overflow:hidden;}
+    .fx .announce span{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .5s;}
+    .fx .announce span.is-on{opacity:1;}
+    .fx .header{background:var(--cream);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40;}
+    .fx .header__inner{display:flex;align-items:center;gap:1.4rem;padding-block:1.05rem;}
+    .fx .logo{font-family:var(--font-serif);font-weight:800;font-size:1.75rem;color:var(--espresso);}
+    .fx .logo .dot{color:var(--sale);}
+    .fx .nav{display:flex;gap:1.4rem;font-family:var(--font-serif);font-size:1rem;margin-inline:auto;}
+    .fx .nav a:hover{color:var(--sale);}
+    .fx .header__actions{display:flex;align-items:center;gap:.8rem;}
+    .fx .cur{font-size:.9rem;white-space:nowrap;}
+    .fx .icon-btn{position:relative;border:none;background:transparent;cursor:pointer;color:var(--ink);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;}
+    .fx .icon-btn:hover{background:var(--cream-2);}
+    .fx .cart-count{position:absolute;bottom:4px;right:2px;background:var(--espresso);color:var(--cream);font-size:.58rem;min-width:15px;height:15px;border-radius:9px;display:grid;place-items:center;padding:0 4px;}
+    .fx .header__menu{display:none;border:none;background:transparent;cursor:pointer;}
+
+    /* Hero */
+    .fx .hero{padding-block:clamp(1.5rem,4vw,3rem);}
+    .fx .hero__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:center;}
+    .fx .hero__title{font-family:var(--font-serif);font-style:italic;font-weight:500;font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;letter-spacing:-.01em;margin:1rem 0 1.2rem;}
+    .fx .hero__lede{color:var(--muted);max-width:32rem;margin-bottom:.8rem;}
+    .fx .hero__cta{margin:1.4rem 0 1rem;}
+    .fx .hero__guar{font-size:.88rem;color:var(--muted);}
+    .fx .hero__ordered{color:var(--green-ok);font-size:.88rem;margin:.7rem 0 1rem;}
+    .fx .hero__checks{display:flex;gap:1.4rem;flex-wrap:wrap;font-size:.85rem;}
+    .fx .hero__checks li{display:flex;align-items:center;gap:.4rem;color:var(--brown);}
+    .fx .hero__visual{position:relative;aspect-ratio:1/1.05;border-radius:18px;background:linear-gradient(160deg,#e2ddd2,#c7bdaa);display:grid;place-items:center;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(30,27,23,.4);}
+    .fx .hero__badge{position:absolute;top:1.2rem;right:1.2rem;background:var(--cream-3);border-radius:14px;padding:.9rem 1.1rem;box-shadow:var(--shadow);max-width:210px;}
+    .fx .hero__badge b{font-family:var(--font-serif);font-size:1.6rem;color:var(--brown);}
+    .fx .hero__badge .t{font-weight:600;font-size:.82rem;letter-spacing:.04em;}
+    .fx .hero__badge .s{font-size:.72rem;color:var(--muted);}
+    .fx .hero__badge .chk{font-size:.72rem;color:var(--muted);margin-top:.5rem;border-top:1px solid var(--line);padding-top:.5rem;}
+    .fx .hero__callout{position:absolute;bottom:1.4rem;left:1.2rem;background:#fff;border-radius:10px;padding:.6rem .8rem;box-shadow:var(--shadow);font-weight:600;font-size:.9rem;}
+
+    .fx .strip{border-block:1px solid var(--line);text-align:center;padding:1rem;font-family:var(--font-serif);letter-spacing:.24em;text-transform:uppercase;font-size:.8rem;color:var(--muted);}
+
+    /* Category tiles */
+    .fx .sec{padding:clamp(3rem,6vw,5rem) 0;}
+    .fx .sec--tint{background:var(--cream-2);}
+    .fx .sec__head{text-align:center;max-width:44rem;margin:0 auto 2.6rem;}
+    .fx .sec__head .eyebrow{font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:var(--sale);}
+    .fx .sec__head h2{font-family:var(--font-serif);font-weight:600;font-size:clamp(1.9rem,4vw,2.9rem);margin-top:.4rem;}
+    .fx .sec__head p{color:var(--muted);margin-top:.5rem;}
+    .fx .cats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;}
+    .fx .cat{position:relative;aspect-ratio:1/1.2;border-radius:16px;overflow:hidden;display:flex;align-items:flex-end;color:#fff;padding:1.2rem;font-family:var(--font-serif);font-size:1.4rem;transition:transform .2s;}
+    .fx .cat:hover{transform:translateY(-4px);}
+    .fx .cat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(20,15,12,.6));}
+    .fx .cat span{position:relative;z-index:2;}
+    .fx .cat--1{background:linear-gradient(160deg,#c9bda8,#8a765d);} .fx .cat--2{background:linear-gradient(160deg,#c2b6bd,#7d6570);}
+    .fx .cat--3{background:linear-gradient(160deg,#b9c2bd,#65756c);} .fx .cat--4{background:linear-gradient(160deg,#c7bba7,#8f7457);}
+
+    /* Product grid */
+    .fx .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;}
+    .fx .card{position:relative;background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;}
+    .fx .card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+    .fx .card__media{position:relative;aspect-ratio:1/1.12;display:grid;place-items:center;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(30,27,23,.32);}
+    .fx .card__flag{position:absolute;top:.8rem;left:.8rem;background:var(--espresso);color:#fff;font-size:.62rem;text-transform:uppercase;padding:.22rem .5rem;border-radius:5px;}
+    .fx .card__add{position:absolute;bottom:.8rem;right:.8rem;width:42px;height:42px;border-radius:50%;background:#fff;border:1px solid var(--line);cursor:pointer;display:grid;place-items:center;box-shadow:var(--shadow);transition:background .2s,color .2s;}
+    .fx .card__add:hover{background:var(--espresso);color:#fff;}
+    .fx .card__body{padding:1rem 1.1rem 1.3rem;text-align:center;display:flex;flex-direction:column;gap:.5rem;flex:1;}
+    .fx .card__title{font-family:var(--font-serif);font-weight:600;font-size:1.05rem;}
+    .fx .card__price b{color:var(--sale);} .fx .card__price s{color:var(--muted);font-size:.85rem;margin-left:.35rem;}
+    .fx .card__sw{display:flex;gap:.35rem;justify-content:center;margin-top:auto;}
+    .fx .card__sw i{width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.15);}
+    .fx .sec__more{text-align:center;margin-top:2.4rem;}
+
+    /* Before/After */
+    .fx .ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:center;}
+    .fx .ba{position:relative;aspect-ratio:1/1.05;border-radius:16px;overflow:hidden;user-select:none;touch-action:none;}
+    .fx .ba__img{position:absolute;inset:0;}
+    .fx .ba__after{background:linear-gradient(160deg,#e4c9b4,#caa284);}
+    .fx .ba__before{background:linear-gradient(160deg,#d8bda8,#b98d6f);clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0);}
+    .fx .ba__lbl{position:absolute;top:1rem;background:#fff;font-size:.82rem;font-weight:600;padding:.3rem .7rem;border-radius:6px;}
+    .fx .ba__lbl--l{left:1rem;} .fx .ba__lbl--r{right:1rem;}
+    .fx .ba__handle{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:3px;background:#fff;transform:translateX(-50%);cursor:ew-resize;z-index:3;}
+    .fx .ba__grip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:var(--shadow);letter-spacing:-2px;}
+    .fx .ba__copy h2{font-family:var(--font-serif);font-weight:600;font-size:clamp(1.8rem,3.6vw,2.6rem);margin-bottom:1.2rem;}
+    .fx .ba__copy li{position:relative;padding-left:1.5rem;margin:.7rem 0;font-size:1.05rem;}
+    .fx .ba__copy li::before{content:"✓";position:absolute;left:0;color:var(--green-ok);font-weight:700;}
+
+    /* Reviews */
+    .fx .rev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;}
+    .fx .rev{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+    .fx .rev__img{aspect-ratio:1/1;position:relative;display:grid;place-items:center;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);}
+    .fx .rev__img--1{background:linear-gradient(160deg,#c9b3a3,#8a6f5c);} .fx .rev__img--2{background:linear-gradient(160deg,#b3b7bd,#6d7278);}
+    .fx .rev__img--3{background:linear-gradient(160deg,#c7b39a,#8f7457);} .fx .rev__img--4{background:linear-gradient(160deg,#b8a7ad,#7d626a);}
+    .fx .rev__verified{position:absolute;top:.7rem;right:.7rem;background:#1f7a44;color:#fff;font-size:.62rem;font-weight:600;padding:.25rem .55rem;border-radius:5px;}
+    .fx .rev__body{padding:1.1rem 1.2rem 1.3rem;}
+    .fx .rev__stars{color:var(--gold);letter-spacing:.1em;}
+    .fx .rev__text{font-size:.9rem;margin:.6rem 0 .9rem;}
+    .fx .rev__who{font-weight:600;font-size:.9rem;} .fx .rev__meta{font-size:.78rem;color:var(--muted);}
+
+    /* Guarantee band */
+    .fx .band{background:var(--espresso);color:var(--cream);text-align:center;padding:clamp(3.5rem,7vw,5rem) 0;}
+    .fx .band h2{font-family:var(--font-serif);font-weight:500;font-size:clamp(2rem,4.5vw,3rem);margin-bottom:.7rem;}
+    .fx .band p{color:rgba(246,241,232,.82);max-width:34rem;margin:0 auto 1.8rem;}
+    .fx .band .btn--dark{background:var(--cream);color:var(--espresso);}
+    .fx .band .btn--dark:hover{background:#fff;}
+
+    /* Cart + toast (shared) */
+    .fx .cart-ov{position:fixed;inset:0;background:rgba(30,27,23,.45);z-index:9998;opacity:0;pointer-events:none;transition:opacity .3s;}
+    .fx .cart-ov.is-open{opacity:1;pointer-events:auto;}
+    .fx .cart{position:fixed;top:0;right:0;height:100%;width:min(420px,92vw);background:var(--cream);z-index:9999;box-shadow:-20px 0 60px -20px rgba(0,0,0,.4);transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;}
+    .fx .cart.is-open{transform:translateX(0);}
+    .fx .cart__head{display:flex;justify-content:space-between;align-items:center;padding:1.3rem 1.4rem;border-bottom:1px solid var(--line);}
+    .fx .cart__head h3{font-family:var(--font-serif);font-weight:600;font-size:1.3rem;}
+    .fx .cart__close{border:none;background:none;font-size:1.5rem;cursor:pointer;}
+    .fx .cart__items{flex:1;overflow-y:auto;padding:1rem 1.4rem;display:flex;flex-direction:column;gap:1rem;}
+    .fx .cart__empty{color:var(--muted);text-align:center;margin-top:3rem;}
+    .fx .ci{display:flex;gap:.9rem;} .fx .ci__thumb{width:56px;height:56px;border-radius:9px;flex-shrink:0;}
+    .fx .ci__name{font-family:var(--font-serif);font-weight:600;font-size:.98rem;}
+    .fx .ci__row{display:flex;justify-content:space-between;align-items:center;margin-top:.3rem;}
+    .fx .ci__qty{display:inline-flex;gap:.5rem;border:1px solid var(--line);border-radius:100px;padding:.1rem .3rem;align-items:center;}
+    .fx .ci__qty button{border:none;background:none;cursor:pointer;width:22px;}
+    .fx .ci__rm{border:none;background:none;color:var(--muted);text-decoration:underline;font-size:.74rem;cursor:pointer;padding:0;margin-top:.2rem;}
+    .fx .cart__foot{border-top:1px solid var(--line);padding:1.2rem 1.4rem 1.4rem;}
+    .fx .cart__sub{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.9rem;}
+    .fx .cart__sub .amt{font-family:var(--font-serif);font-size:1.5rem;}
+    .fx .btn-atc{background:var(--brown);color:#fff;border:none;border-radius:12px;padding:1.05rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em;cursor:pointer;width:100%;}
+    .fx .btn-atc:hover{background:#744a30;}
+    .fx .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--espresso);color:var(--cream);padding:.8rem 1.4rem;border-radius:100px;font-size:.9rem;box-shadow:var(--shadow);z-index:10000;opacity:0;pointer-events:none;transition:all .3s;}
+    .fx .toast.is-show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+    /* Footer */
+    .fx .footer{background:var(--espresso);color:#e8ddcd;padding-top:3.5rem;}
+    .fx .footer__grid{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:2.5rem;padding-bottom:2.5rem;}
+    .fx .footer h4{font-family:var(--font-serif);font-weight:600;font-size:1.15rem;color:#fff;margin-bottom:1rem;}
+    .fx .footer a{display:block;color:rgba(232,221,205,.78);padding:.3rem 0;font-size:.92rem;}
+    .fx .footer a:hover{color:#fff;}
+    .fx .footer__mid p{color:rgba(232,221,205,.78);max-width:26rem;margin-bottom:1rem;}
+    .fx .foot-form{display:flex;max-width:400px;background:#f6f1e8;border-radius:6px;overflow:hidden;}
+    .fx .foot-form input{flex:1;border:none;background:transparent;padding:.8rem 1rem;font-family:inherit;color:var(--ink);}
+    .fx .foot-form input:focus{outline:none;}
+    .fx .foot-form button{border:none;background:var(--espresso);color:var(--cream);padding:0 1.4rem;font-family:var(--font-serif);cursor:pointer;}
+    .fx .footer__bottom{border-top:1px solid rgba(232,221,205,.18);padding:1.4rem 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;font-size:.82rem;color:rgba(232,221,205,.7);}
+
+    @media (max-width:940px){
+      .fx .nav{display:none;} .fx .header__menu{display:grid;}
+      .fx .hero__grid,.fx .ba-wrap{grid-template-columns:1fr;}
+      .fx .cats{grid-template-columns:1fr 1fr;} .fx .grid,.fx .rev-grid{grid-template-columns:1fr 1fr;}
+      .fx .footer__grid{grid-template-columns:1fr;}
+    }
+    @media (max-width:520px){ .fx .grid,.fx .rev-grid,.fx .cats{grid-template-columns:1fr;} }
+  </style>
+
+  <div class="announce" data-announce>
+    <span class="is-on">Free Shipping Worldwide Over $49</span><span>30-Day Guarantee</span><span>Trusted by 100,000+ Women Worldwide</span>
+  </div>
+  <header class="header">
+    <div class="container header__inner">
+      <button class="header__menu" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <a href="#" class="logo">FORMA<span class="dot">.</span></a>
+      <nav class="nav"><a href="#">Best Seller</a><a href="#">New Arrivals</a><a href="#">Leggings</a><a href="#">Tops</a><a href="#">Bra</a><a href="#">Accessories</a><a href="#">Blog</a><a href="#">About US</a><a href="#">Order Tracking</a></nav>
+      <div class="header__actions">
+        <span class="cur">🇺🇸 USD $ ▾</span>
+        <button class="icon-btn" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+        <button class="icon-btn" data-cart-open aria-label="Cart"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9 8a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.6" fill="none"/></svg><span class="cart-count">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <div class="tp"><span style="display:inline-flex;gap:2px"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span><strong>4.9</strong><span class="muted">| 100,000+ women</span></div>
+        <h1 class="hero__title">Smoother skin.<br/>Lighter legs.</h1>
+        <p class="hero__lede">3D-Sculpt™ compression that works on your skin, your muscles, and your circulation — all day, without you noticing.</p>
+        <p class="hero__lede">Advanced compression that gently shapes your curves while delivering breathable, all-day support. Trusted by 100,000+ women worldwide.</p>
+        <div class="hero__cta"><a href="#featured" class="btn btn--dark">Experience the difference →</a></div>
+        <p class="hero__guar">30-Day Money-Back Guarantee · &lt;2% Return Rate</p>
+        <p class="hero__ordered">● 2,074+ ordered this week</p>
+        <ul class="hero__checks"><li>✓ Sculpt Technology</li><li>✓ Clinically Tested</li><li>✓ Results in 30 Days</li></ul>
+      </div>
+      <div class="hero__visual">
+        <span>Your hero photo</span>
+        <div class="hero__badge"><b>#1</b><div class="t">Anti-Cellulite Leggings</div><div class="s">Patented 3D-Sculpt™ Tech</div><div class="chk">✔ Trusted by 100,000+ women worldwide</div></div>
+        <div class="hero__callout">Confidence in every squat</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip">Real Women · Real Confidence</div>
+
+  <!-- Categories -->
+  <section class="sec">
+    <div class="container">
+      <div class="sec__head"><span class="eyebrow">Shop by category</span><h2>Find your fit</h2></div>
+      <div class="cats">
+        <a href="#" class="cat cat--1"><span>Leggings</span></a>
+        <a href="#" class="cat cat--2"><span>Tops</span></a>
+        <a href="#" class="cat cat--3"><span>Bra</span></a>
+        <a href="#" class="cat cat--4"><span>Accessories</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured -->
+  <section class="sec sec--tint" id="featured">
+    <div class="container">
+      <div class="sec__head"><span class="eyebrow">Loved by 100,000+ women</span><h2>Our bestsellers</h2><p>The 3D-Sculpt™ favorites our community reorders again and again.</p></div>
+      <div class="grid" data-grid></div>
+      <div class="sec__more"><a href="#" class="btn btn--out">Shop all products</a></div>
+    </div>
+  </section>
+
+  <!-- Before/After -->
+  <section class="sec">
+    <div class="container ba-wrap">
+      <div class="ba" data-ba>
+        <div class="ba__img ba__after"><span class="ba__lbl ba__lbl--r">After</span></div>
+        <div class="ba__img ba__before" data-ba-before><span class="ba__lbl ba__lbl--l">Before</span></div>
+        <div class="ba__handle" data-ba-handle><span class="ba__grip">‹ ›</span></div>
+      </div>
+      <div class="ba__copy">
+        <h2>You didn't fail. You were treating the wrong problem.</h2>
+        <p class="muted" style="margin-bottom:1rem;">The dimpled look isn't about weight — it's about circulation. FORMA's 3D-Sculpt™ knit gets to work with every step you take.</p>
+        <ul>
+          <li>3D-Sculpt™ compression technology</li>
+          <li>Micro-massage effect as you move</li>
+          <li>Visibly smooths the look of cellulite</li>
+          <li>Promotes firmer, more even-looking skin</li>
+        </ul>
+        <p class="muted" style="margin-top:1rem;font-size:.85rem;">Drag the slider. Illustrative — individual results vary.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews with images -->
+  <section class="sec sec--tint">
+    <div class="container">
+      <div class="sec__head"><span class="rev__stars" style="font-size:1.4rem;">★★★★★</span><h2>Proven in real life</h2><p>4.9 / 5 — from 100,000+ women</p></div>
+      <div class="rev-grid">
+        <div class="rev"><div class="rev__img rev__img--1"><span class="rev__verified">VERIFIED</span>Before / After</div><div class="rev__body"><div class="rev__stars">★★★★★</div><p class="rev__text">"I'm in my 40s and these are the first leggings that actually feel supportive and soft. I feel more confident every time I put them on."</p><p class="rev__who">Rachel</p><p class="rev__meta">Size XL · United States</p></div></div>
+        <div class="rev"><div class="rev__img rev__img--2"><span class="rev__verified">VERIFIED</span>Before / After</div><div class="rev__body"><div class="rev__stars">★★★★★</div><p class="rev__text">"The perfect balance of shaping and comfort. The compression holds me in without feeling restrictive, and the texture smooths everything."</p><p class="rev__who">Jessica M.</p><p class="rev__meta">Size S · Canada</p></div></div>
+        <div class="rev"><div class="rev__img rev__img--3"><span class="rev__verified">VERIFIED</span>Before / After</div><div class="rev__body"><div class="rev__stars">★★★★★</div><p class="rev__text">"I wear these for everything from yoga to grocery runs. They smooth my shape but still look natural — so comfy I forget I'm wearing them."</p><p class="rev__who">Amanda</p><p class="rev__meta">Size L · United Kingdom</p></div></div>
+        <div class="rev"><div class="rev__img rev__img--4"><span class="rev__verified">VERIFIED</span>Before / After</div><div class="rev__body"><div class="rev__stars">★★★★★</div><p class="rev__text">"Didn't expect a difference this fast. They smooth everything without feeling tight, and my legs feel supported all day."</p><p class="rev__who">Lauren</p><p class="rev__meta">Size L · Australia</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guarantee band -->
+  <section class="band">
+    <div class="container">
+      <h2>Feel the difference, or it's free</h2>
+      <p>Try FORMA risk-free for 30 days. If you don't love the way you look and feel, we'll refund every cent.</p>
+      <a href="#featured" class="btn btn--dark">Shop bestsellers →</a>
+    </div>
+  </section>
+
+  <!-- Cart -->
+  <div class="cart-ov" data-cart-ov></div>
+  <aside class="cart" data-cart aria-label="Cart">
+    <div class="cart__head"><h3>Your Cart</h3><button class="cart__close" data-cart-close>×</button></div>
+    <div class="cart__items" data-cart-items><p class="cart__empty">Your cart is empty.</p></div>
+    <div class="cart__foot"><div class="cart__sub"><span class="muted">Subtotal</span><span class="amt" data-cart-sub>$0.00</span></div><button class="btn-atc" data-checkout>Checkout</button></div>
+  </aside>
+  <div class="toast" data-toast>Added to cart ✓</div>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div><h4>Information</h4><a href="#">About Us</a><a href="#">Contact Us</a><a href="#">Refund Policy</a><a href="#">Privacy Policy</a><a href="#">Order Tracking</a><a href="#">Terms &amp; Conditions</a><a href="#">Shipping Policy</a></div>
+      <div class="footer__mid"><h4>Keep In Touch</h4><p>Second-skin performance wear engineered to sculpt, smooth, and elevate your everyday confidence.</p>
+        <form class="foot-form" data-foot-form><input type="email" placeholder="Enter your email" required/><button type="submit">JOIN</button></form>
+        <p data-foot-note hidden style="color:#f0d9a8;margin-top:.6rem;">Welcome to FORMA ✦ 10% off is on its way.</p>
+      </div>
+      <div><h4>Our Store</h4><a href="mailto:service@formawear.com">service@formawear.com</a></div>
+    </div>
+    <div class="container footer__bottom"><p>© <span data-year></span> FORMA. All Rights Reserved.</p><p>We accept · VISA · MC · AMEX · PayPal · Shop</p></div>
+  </footer>
+
+  <script>
+  (function(){
+    var root=document.currentScript?document.currentScript.closest('.fx'):document.querySelector('.fx-home');
+    if(!root)return;
+    var $=function(s){return root.querySelector(s);},$$=function(s){return [].slice.call(root.querySelectorAll(s));};
+    var money=function(n){return '$'+n.toFixed(2);};
+    var y=$('[data-year]');if(y)y.textContent=new Date().getFullYear();
+    var msgs=$$('[data-announce] span'),ai=0;
+    if(msgs.length>1)setInterval(function(){msgs[ai].classList.remove('is-on');ai=(ai+1)%msgs.length;msgs[ai].classList.add('is-on');},3000);
+
+    /* featured products */
+    var F=[
+      {n:"3D-Sculpt Anti-Cellulite Leggings",p:27,was:45,c:["#4a4a4a","#1f1f22","#1c2740","#5b4632"]},
+      {n:"Side-Pocket Sculpting Leggings",p:32,was:75,c:["#1f1f22","#9aa0a1","#1c2740","#3b5c9a"]},
+      {n:"3D Sculpt Tee",p:35,was:59,c:["#1f1f22","#5a6270","#1c2740","#8a7565"]},
+      {n:"Seamless Jelly-Support Bra",p:25.90,was:39.90,c:["#1f1f22","#a86a44","#e3cdb0"]},
+      {n:"High-Waist Seamless Leggings",p:32,was:59.90,c:["#8fb4d6","#1f1f22","#d8c7a9"]},
+      {n:"Contour Short-Sleeve Top",p:29,was:49,c:["#8a6f68","#1f1f22","#4a5140","#6a3fa0"]},
+      {n:"Everyday Compression Socks",p:12.90,was:25,c:["#1f1f22","#e3cdb0","#9aa0a1"]},
+      {n:"Trending Anti-Cellulite Set",p:59,was:108,c:["#e85aa0","#1c2740","#3a3a3e","#1f1f22"]}
+    ];
+    var GRADS=["linear-gradient(160deg,#e7e2d8,#cfc7b6)","linear-gradient(160deg,#dcd6cc,#bcb3a1)","linear-gradient(160deg,#e9ddc8,#d3c1a3)","linear-gradient(160deg,#d9dcd9,#c1c7c2)"];
+    $('[data-grid]').innerHTML=F.map(function(pr,i){
+      var sw=pr.c.slice(0,4).map(function(h){return '<i style="background:'+h+'"></i>';}).join('');
+      var pct=Math.round((1-pr.p/pr.was)*100);
+      return '<article class="card"><div class="card__media" style="background:'+GRADS[i%GRADS.length]+'"><span class="card__flag">Save '+pct+'%</span><span>Your photo</span><button class="card__add" data-add="'+i+'" aria-label="Add">🛍</button></div><div class="card__body"><h3 class="card__title">'+pr.n+'</h3><p class="card__price"><b>'+money(pr.p)+'</b><s>'+money(pr.was)+'</s></p><div class="card__sw">'+sw+'</div></div></article>';
+    }).join('');
+    $$('[data-add]').forEach(function(b){b.addEventListener('click',function(){addToCart(F[+b.getAttribute('data-add')]);});});
+
+    /* cart */
+    var cart=[],itemsEl=$('[data-cart-items]'),subEl=$('[data-cart-sub]'),countEls=$$('.cart-count');
+    function renderCart(){
+      var c=0,s=0;cart.forEach(function(i){c+=i.qty;s+=i.qty*i.price;});
+      countEls.forEach(function(e){e.textContent=c;});subEl.textContent=money(s);
+      if(!cart.length){itemsEl.innerHTML='<p class="cart__empty">Your cart is empty.</p>';return;}
+      itemsEl.innerHTML=cart.map(function(i){return '<div class="ci"><div class="ci__thumb" style="background:'+i.hex+'"></div><div style="flex:1"><div class="ci__name">'+i.name+'</div><div class="ci__row"><span class="ci__qty"><button data-cq="'+i.key+'" data-d="-1">−</button><span>'+i.qty+'</span><button data-cq="'+i.key+'" data-d="1">+</button></span><span>'+money(i.qty*i.price)+'</span></div><button class="ci__rm" data-cr="'+i.key+'">Remove</button></div></div>';}).join('');
+      itemsEl.querySelectorAll('[data-cq]').forEach(function(b){b.addEventListener('click',function(){var it=cart.filter(function(x){return x.key===b.getAttribute('data-cq');})[0];if(!it)return;it.qty+=+b.getAttribute('data-d');if(it.qty<1)cart=cart.filter(function(x){return x!==it;});renderCart();});});
+      itemsEl.querySelectorAll('[data-cr]').forEach(function(b){b.addEventListener('click',function(){cart=cart.filter(function(x){return x.key!==b.getAttribute('data-cr');});renderCart();});});
+    }
+    function addToCart(pr){var key=pr.n;var f=cart.filter(function(c){return c.key===key;})[0];if(f)f.qty++;else cart.push({key:key,name:pr.n,price:pr.p,qty:1,hex:pr.c[0]});renderCart();toast(pr.n+' added ✓');openCart();}
+    var ov=$('[data-cart-ov]'),drawer=$('[data-cart]');
+    function openCart(){ov.classList.add('is-open');drawer.classList.add('is-open');}
+    function closeCart(){ov.classList.remove('is-open');drawer.classList.remove('is-open');}
+    $('[data-cart-open]').addEventListener('click',openCart);
+    $('[data-cart-close]').addEventListener('click',closeCart);
+    ov.addEventListener('click',closeCart);
+    $('[data-checkout]').addEventListener('click',function(){if(!cart.length){toast('Your cart is empty');return;}toast('Proceeding to checkout…');});
+    var toastEl=$('[data-toast]'),tt;
+    function toast(m){toastEl.textContent=m;toastEl.classList.add('is-show');clearTimeout(tt);tt=setTimeout(function(){toastEl.classList.remove('is-show');},1600);}
+
+    /* before/after */
+    var ba=$('[data-ba]'),handle=$('[data-ba-handle]'),dragging=false;
+    function setPos(x){var r=ba.getBoundingClientRect();var pct=Math.max(0,Math.min(100,((x-r.left)/r.width)*100));ba.style.setProperty('--pos',pct+'%');}
+    handle.addEventListener('pointerdown',function(e){dragging=true;handle.setPointerCapture(e.pointerId);});
+    window.addEventListener('pointermove',function(e){if(dragging)setPos(e.clientX);});
+    window.addEventListener('pointerup',function(){dragging=false;});
+    ba.addEventListener('click',function(e){setPos(e.clientX);});
+
+    var f=$('[data-foot-form]'),n=$('[data-foot-note]');
+    if(f)f.addEventListener('submit',function(e){e.preventDefault();if(n)n.hidden=false;f.reset();});
+
+    renderCart();
+  })();
+  </script>
+</div>
