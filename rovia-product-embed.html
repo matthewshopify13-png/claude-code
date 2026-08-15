@@ -608,103 +608,258 @@
   <div class="toast" data-toast>Added to cart ✓</div>
 
   <script>
+  /* ROVIA interactions — hardened for page builders (GemPages/Shopify).
+     Uses document-level event delegation so it works no matter when or where
+     the builder injects this script. Safe to run multiple times. */
   (function(){
-    var root=document.currentScript?document.currentScript.closest('.rv'):document.querySelector('.rv-pdp');
-    if(!root)return;
-    var $=function(s){return root.querySelector(s);},$$=function(s){return [].slice.call(root.querySelectorAll(s));};
-    var money=function(n){return '$'+(Math.round(n*100)/100);};
-    var y=$('[data-year]');if(y)y.textContent=new Date().getFullYear();
+    if (window.__roviaInit) return; window.__roviaInit = true;
 
-    var msgs=$$('[data-announce] span'),ai=0;
-    if(msgs.length>1)setInterval(function(){msgs[ai].classList.remove('is-on');ai=(ai+1)%msgs.length;msgs[ai].classList.add('is-on');},3000);
+    var money = function(n){ return '$' + (Math.round(n*100)/100); };
+    function each(list, fn){ Array.prototype.forEach.call(list, fn); }
+    function rootOf(el){ return el && el.closest ? el.closest('.rv-pdp') : null; }
 
-    /* countdown */
-    var cd=$('[data-cd]'),secs=14*60+59;
-    setInterval(function(){secs--;if(secs<0)secs=14*60+59;var m=Math.floor(secs/60),s=secs%60;cd.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;},1000);
+    /* ---------- per-root state ---------- */
+    var STATE = new WeakMap ? new WeakMap() : null;
+    function st(root){
+      if (STATE) { var v = STATE.get(root); if(!v){ v={cart:[],sel:{total:99,compare:179,label:'1 Pad'}}; STATE.set(root,v);} return v; }
+      if(!root.__rv) root.__rv = {cart:[],sel:{total:99,compare:179,label:'1 Pad'}};
+      return root.__rv;
+    }
 
-    /* gallery */
-    var views=$$('[data-gallery] .gview'),thumbs=$$('[data-thumbs] .thumb');
-    thumbs.forEach(function(t){t.addEventListener('click',function(){var n=+t.getAttribute('data-g');views.forEach(function(v,k){v.classList.toggle('is-on',k===n);});thumbs.forEach(function(x,k){x.classList.toggle('is-active',k===n);});});});
-
-    /* bundle */
-    var sel={qtyn:1,total:99,compare:179,label:'1 Pad'};
-    function selectBundle(b){
-      $$('[data-bundle]').forEach(function(x){x.classList.remove('is-active');});
+    /* ---------- bundle selection ---------- */
+    function selectBundle(root, b){
+      var s = st(root);
+      each(root.querySelectorAll('[data-bundle]'), function(x){ x.classList.remove('is-active'); });
       b.classList.add('is-active');
-      sel={qtyn:+b.getAttribute('data-qtyn'),total:parseFloat(b.getAttribute('data-total')),compare:parseFloat(b.getAttribute('data-compare')),label:b.getAttribute('data-label')};
-      $('[data-atc-total]').textContent=money(sel.total);
-      $('[data-sticky-now]').textContent=money(sel.total);
-      $('[data-sticky-was]').textContent=money(sel.compare);
-      $('[data-now]').textContent=money(sel.total);
-      $('[data-was]').textContent=money(sel.compare);
-      $('[data-savepct]').textContent='SAVE '+Math.round((1-sel.total/sel.compare)*100)+'%';
+      s.sel = {
+        total: parseFloat(b.getAttribute('data-total')),
+        compare: parseFloat(b.getAttribute('data-compare')),
+        label: b.getAttribute('data-label')
+      };
+      var set = function(sel, val){ var el = root.querySelector(sel); if(el) el.textContent = val; };
+      set('[data-atc-total]', money(s.sel.total));
+      set('[data-sticky-now]', money(s.sel.total));
+      set('[data-sticky-was]', money(s.sel.compare));
+      set('[data-now]', money(s.sel.total));
+      set('[data-was]', money(s.sel.compare));
+      set('[data-savepct]', 'SAVE ' + Math.round((1 - s.sel.total / s.sel.compare) * 100) + '%');
     }
-    $$('[data-bundle]').forEach(function(b){b.addEventListener('click',function(){selectBundle(b);});});
 
-    /* cart */
-    var cart=[],itemsEl=$('[data-cart-items]'),subEl=$('[data-cart-sub]'),countEls=$$('.cart-count');
-    function renderCart(){
-      var c=0,s=0;cart.forEach(function(i){c+=i.qty;s+=i.qty*i.price;});
-      countEls.forEach(function(e){e.textContent=c;});subEl.textContent=money(s);
-      if(!cart.length){itemsEl.innerHTML='<p class="cart__empty">Your cart is empty.</p>';return;}
-      itemsEl.innerHTML=cart.map(function(i){return '<div class="ci"><div class="ci__t"></div><div style="flex:1"><div class="ci__n">'+i.name+'</div><div class="ci__r"><span class="ci__q"><button data-cq="'+i.key+'" data-d="-1">−</button><span>'+i.qty+'</span><button data-cq="'+i.key+'" data-d="1">+</button></span><span>'+money(i.qty*i.price)+'</span></div><button class="ci__rm" data-cr="'+i.key+'">Remove</button></div></div>';}).join('');
-      itemsEl.querySelectorAll('[data-cq]').forEach(function(b){b.addEventListener('click',function(){var it=cart.filter(function(x){return x.key===b.getAttribute('data-cq');})[0];if(!it)return;it.qty+=+b.getAttribute('data-d');if(it.qty<1)cart=cart.filter(function(x){return x!==it;});renderCart();});});
-      itemsEl.querySelectorAll('[data-cr]').forEach(function(b){b.addEventListener('click',function(){cart=cart.filter(function(x){return x.key!==b.getAttribute('data-cr');});renderCart();});});
+    /* ---------- cart ---------- */
+    function renderCart(root){
+      var s = st(root);
+      var itemsEl = root.querySelector('[data-cart-items]');
+      var subEl = root.querySelector('[data-cart-sub]');
+      var count = 0, sum = 0;
+      s.cart.forEach(function(i){ count += i.qty; sum += i.qty * i.price; });
+      each(root.querySelectorAll('.cart-count'), function(e){ e.textContent = count; });
+      if (subEl) subEl.textContent = money(sum);
+      if (!itemsEl) return;
+      if (!s.cart.length){ itemsEl.innerHTML = '<p class="cart__empty">Your cart is empty.</p>'; return; }
+      itemsEl.innerHTML = s.cart.map(function(i){
+        return '<div class="ci"><div class="ci__t"></div><div style="flex:1">'
+          + '<div class="ci__n">' + i.name + '</div>'
+          + '<div class="ci__r"><span class="ci__q">'
+          + '<button type="button" data-cq="' + i.key + '" data-d="-1">&minus;</button>'
+          + '<span>' + i.qty + '</span>'
+          + '<button type="button" data-cq="' + i.key + '" data-d="1">+</button>'
+          + '</span><span>' + money(i.qty * i.price) + '</span></div>'
+          + '<button type="button" class="ci__rm" data-cr="' + i.key + '">Remove</button>'
+          + '</div></div>';
+      }).join('');
     }
-    function addMain(){
-      var key='rovia|'+sel.label;var f=cart.filter(function(c){return c.key===key;})[0];
-      if(f)f.qty++;else cart.push({key:key,name:'ROVIA Red Light Pad ('+sel.label+')',price:sel.total,qty:1});
-      renderCart();toast(sel.label+' added ✓');openCart();
+    function openCart(root){
+      var ov = root.querySelector('[data-cart-ov]'), dr = root.querySelector('[data-cart]');
+      if(ov) ov.classList.add('is-open'); if(dr) dr.classList.add('is-open');
     }
-    $$('[data-add]').forEach(function(b){b.addEventListener('click',addMain);});
-    $('[data-buy]').addEventListener('click',function(){addMain();toast('Taking you to checkout…');});
-    var ov=$('[data-cart-ov]'),drawer=$('[data-cart]');
-    function openCart(){ov.classList.add('is-open');drawer.classList.add('is-open');}
-    function closeCart(){ov.classList.remove('is-open');drawer.classList.remove('is-open');}
-    $('[data-cart-open]').addEventListener('click',openCart);
-    $('[data-cart-close]').addEventListener('click',closeCart);
-    ov.addEventListener('click',closeCart);
-    $('[data-checkout]').addEventListener('click',function(){if(!cart.length){toast('Your cart is empty');return;}toast('Proceeding to checkout…');});
-    var reviewBtn=$('[data-review]');if(reviewBtn)reviewBtn.addEventListener('click',function(){toast('Review form opens here');});
+    function closeCart(root){
+      var ov = root.querySelector('[data-cart-ov]'), dr = root.querySelector('[data-cart]');
+      if(ov) ov.classList.remove('is-open'); if(dr) dr.classList.remove('is-open');
+    }
+    function addMain(root){
+      var s = st(root);
+      var key = 'rovia|' + s.sel.label;
+      var found = s.cart.filter(function(c){ return c.key === key; })[0];
+      if (found) found.qty++;
+      else s.cart.push({ key:key, name:'ROVIA Red Light Pad (' + s.sel.label + ')', price:s.sel.total, qty:1 });
+      renderCart(root); toast(root, s.sel.label + ' added ✓'); openCart(root);
+    }
 
-    var toastEl=$('[data-toast]'),tt;
-    function toast(m){toastEl.textContent=m;toastEl.classList.add('is-show');clearTimeout(tt);tt=setTimeout(function(){toastEl.classList.remove('is-show');},1700);}
+    /* ---------- toast ---------- */
+    function toast(root, msg){
+      var t = root.querySelector('[data-toast]'); if(!t) return;
+      t.textContent = msg; t.classList.add('is-show');
+      clearTimeout(root.__rvT);
+      root.__rvT = setTimeout(function(){ t.classList.remove('is-show'); }, 1700);
+    }
 
-    /* UGC lightbox */
-    var lb=$('[data-lb]'),lbBox=$('[data-lb-box]');
-    $$('[data-ugc] .vcard').forEach(function(card){card.addEventListener('click',function(){
-      var url=card.getAttribute('data-video');
-      if(url){lbBox.innerHTML='<video src="'+url+'" controls autoplay playsinline style="width:100%;height:100%;border-radius:16px;object-fit:cover"></video>';}
-      else{lbBox.innerHTML='Add your video URL to this card<br/>(data-video="https://...mp4")';}
-      lb.classList.add('is-open');
-    });});
-    $('[data-lb-close]').addEventListener('click',function(){lb.classList.remove('is-open');lbBox.innerHTML='';});
-    lb.addEventListener('click',function(e){if(e.target===lb){lb.classList.remove('is-open');lbBox.innerHTML='';}});
+    /* ---------- before/after slider ---------- */
+    function setBAPos(ba, clientX){
+      var r = ba.getBoundingClientRect();
+      var pct = Math.max(0, Math.min(100, ((clientX - r.left) / r.width) * 100));
+      ba.style.setProperty('--pos', pct + '%');
+    }
 
-    /* before/after */
-    var ba=$('[data-ba]'),handle=$('[data-ba-handle]'),dragging=false;
-    function setPos(x){var r=ba.getBoundingClientRect();var pct=Math.max(0,Math.min(100,((x-r.left)/r.width)*100));ba.style.setProperty('--pos',pct+'%');}
-    handle.addEventListener('pointerdown',function(e){dragging=true;handle.setPointerCapture(e.pointerId);});
-    window.addEventListener('pointermove',function(e){if(dragging)setPos(e.clientX);});
-    window.addEventListener('pointerup',function(){dragging=false;});
-    ba.addEventListener('click',function(e){setPos(e.clientX);});
-    $$('[data-breeds] .breed').forEach(function(b){b.addEventListener('click',function(){
-      $$('[data-breeds] .breed').forEach(function(x){x.classList.remove('is-active');});b.classList.add('is-active');
-      $('[data-ba-cap]').innerHTML=b.getAttribute('data-cap');ba.style.setProperty('--pos','50%');
-    });});
+    /* ---------- ONE delegated click handler for everything ---------- */
+    document.addEventListener('click', function(e){
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var root = rootOf(t);
+      if (!root) return;
 
-    /* accordions */
-    $$('[data-accs] .acc__btn').forEach(function(btn){btn.addEventListener('click',function(){
-      var acc=btn.closest('.acc'),body=acc.querySelector('.acc__body');
-      if(acc.classList.contains('is-open')){body.style.maxHeight=null;acc.classList.remove('is-open');}
-      else{acc.classList.add('is-open');body.style.maxHeight=body.scrollHeight+'px';}
-    });});
+      // bundle
+      var bundle = t.closest('[data-bundle]');
+      if (bundle){ selectBundle(root, bundle); return; }
 
-    /* sticky bar */
-    var bar=$('[data-sticky]'),cta=$('.cta');
-    if('IntersectionObserver' in window && cta){new IntersectionObserver(function(en){bar.classList.toggle('is-show',!en[0].isIntersecting && en[0].boundingClientRect.top<0);},{threshold:0}).observe(cta);}
+      // add to cart / buy now
+      if (t.closest('[data-add]')){ addMain(root); return; }
+      if (t.closest('[data-buy]')){ addMain(root); toast(root, 'Taking you to checkout…'); return; }
 
-    renderCart();selectBundle($('[data-bundle]'));
+      // cart open/close
+      if (t.closest('[data-cart-open]')){ openCart(root); return; }
+      if (t.closest('[data-cart-close]')){ closeCart(root); return; }
+      if (t.closest('[data-cart-ov]')){ closeCart(root); return; }
+      if (t.closest('[data-checkout]')){
+        var s = st(root);
+        toast(root, s.cart.length ? 'Proceeding to checkout…' : 'Your cart is empty');
+        return;
+      }
+
+      // cart qty +/- and remove
+      var q = t.closest('[data-cq]');
+      if (q){
+        var sq = st(root);
+        var it = sq.cart.filter(function(x){ return x.key === q.getAttribute('data-cq'); })[0];
+        if (it){
+          it.qty += parseInt(q.getAttribute('data-d'), 10);
+          if (it.qty < 1) sq.cart = sq.cart.filter(function(x){ return x !== it; });
+          renderCart(root);
+        }
+        return;
+      }
+      var rm = t.closest('[data-cr]');
+      if (rm){
+        var sr = st(root);
+        sr.cart = sr.cart.filter(function(x){ return x.key !== rm.getAttribute('data-cr'); });
+        renderCart(root); return;
+      }
+
+      // gallery thumbs
+      var thumb = t.closest('[data-thumbs] .thumb');
+      if (thumb){
+        var n = +thumb.getAttribute('data-g');
+        each(root.querySelectorAll('[data-gallery] .gview'), function(v,k){ v.classList.toggle('is-on', k===n); });
+        each(root.querySelectorAll('[data-thumbs] .thumb'), function(x,k){ x.classList.toggle('is-active', k===n); });
+        return;
+      }
+
+      // UGC video lightbox
+      var vcard = t.closest('[data-ugc] .vcard');
+      if (vcard){
+        var lb = root.querySelector('[data-lb]'), box = root.querySelector('[data-lb-box]');
+        if (lb && box){
+          var url = vcard.getAttribute('data-video');
+          box.innerHTML = url
+            ? '<video src="' + url + '" controls autoplay playsinline style="width:100%;height:100%;border-radius:16px;object-fit:cover"></video>'
+            : 'Add your video URL to this card<br/>(data-video="https://...mp4")';
+          lb.classList.add('is-open');
+        }
+        return;
+      }
+      if (t.closest('[data-lb-close]') || t.hasAttribute('data-lb')){
+        var lb2 = root.querySelector('[data-lb]'), box2 = root.querySelector('[data-lb-box]');
+        if (lb2){ lb2.classList.remove('is-open'); if(box2) box2.innerHTML = ''; }
+        return;
+      }
+
+      // breed switcher
+      var breed = t.closest('[data-breeds] .breed');
+      if (breed){
+        each(root.querySelectorAll('[data-breeds] .breed'), function(x){ x.classList.remove('is-active'); });
+        breed.classList.add('is-active');
+        var cap = root.querySelector('[data-ba-cap]');
+        if (cap) cap.innerHTML = breed.getAttribute('data-cap');
+        var ba = root.querySelector('[data-ba]');
+        if (ba) ba.style.setProperty('--pos', '50%');
+        return;
+      }
+
+      // accordions (FAQ)
+      var accBtn = t.closest('.acc__btn');
+      if (accBtn){
+        var acc = accBtn.closest('.acc'), body = acc.querySelector('.acc__body');
+        if (acc.classList.contains('is-open')){ body.style.maxHeight = null; acc.classList.remove('is-open'); }
+        else { acc.classList.add('is-open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+        return;
+      }
+
+      // review button
+      if (t.closest('[data-review]')){ toast(root, 'Review form opens here'); return; }
+
+      // clicking the before/after image jumps the slider
+      var baClick = t.closest('[data-ba]');
+      if (baClick){ setBAPos(baClick, e.clientX); return; }
+    }, false);
+
+    /* ---------- before/after drag ---------- */
+    var dragBA = null;
+    document.addEventListener('pointerdown', function(e){
+      var h = e.target.closest && e.target.closest('[data-ba-handle]');
+      if (h){ dragBA = h.closest('[data-ba]'); e.preventDefault(); }
+    });
+    document.addEventListener('pointermove', function(e){ if (dragBA) setBAPos(dragBA, e.clientX); });
+    document.addEventListener('pointerup', function(){ dragBA = null; });
+
+    /* ---------- per-root setup (announcement, countdown, sticky bar) ---------- */
+    function setup(){
+      each(document.querySelectorAll('.rv-pdp'), function(root){
+        if (root.getAttribute('data-rv-ready')) return;
+        root.setAttribute('data-rv-ready', '1');
+
+        var y = root.querySelector('[data-year]');
+        if (y) y.textContent = new Date().getFullYear();
+
+        // rotating announcement
+        var msgs = root.querySelectorAll('[data-announce] span');
+        if (msgs.length > 1){
+          var ai = 0;
+          setInterval(function(){
+            msgs[ai].classList.remove('is-on');
+            ai = (ai + 1) % msgs.length;
+            msgs[ai].classList.add('is-on');
+          }, 3000);
+        }
+
+        // countdown
+        var cd = root.querySelector('[data-cd]');
+        if (cd){
+          var secs = 14 * 60 + 59;
+          setInterval(function(){
+            secs--; if (secs < 0) secs = 14 * 60 + 59;
+            var m = Math.floor(secs / 60), s2 = secs % 60;
+            cd.textContent = (m < 10 ? '0' : '') + m + ':' + (s2 < 10 ? '0' : '') + s2;
+          }, 1000);
+        }
+
+        // sticky bar
+        var bar = root.querySelector('[data-sticky]'), cta = root.querySelector('.cta');
+        if (bar && cta && 'IntersectionObserver' in window){
+          new IntersectionObserver(function(en){
+            bar.classList.toggle('is-show', !en[0].isIntersecting && en[0].boundingClientRect.top < 0);
+          }, { threshold: 0 }).observe(cta);
+        }
+
+        // initial state
+        var first = root.querySelector('[data-bundle]');
+        if (first) selectBundle(root, first);
+        renderCart(root);
+      });
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup);
+    else setup();
+    // builders can inject content late — retry a few times
+    setTimeout(setup, 400); setTimeout(setup, 1200); setTimeout(setup, 3000);
   })();
   </script>
 </div>
